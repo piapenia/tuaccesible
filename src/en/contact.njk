@@ -1,0 +1,50 @@
+---
+layout: base.njk
+lang: en
+title: Contact
+description: Write to us by email or fill in the form.
+altUrl: /contacto/
+---
+
+<h1>Contact</h1>
+<p class="lede">Whichever you prefer: a direct email or the form below.</p>
+
+<p>Write to us at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
+
+<div class="placeholder">
+  <strong>Technical pending item:</strong> this form uses Web3Forms and needs a real access key (free at web3forms.com, using contacto@tuaccesible.com) before it goes live. Once the key is set, submissions go straight to that inbox.
+</div>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="REPLACE_WITH_REAL_WEB3FORMS_KEY">
+  <input type="hidden" name="subject" value="New inquiry from tuaccesible.com">
+  <p style="position:absolute; left:-9999px;">
+    <label for="botcheck">Leave this field empty</label>
+    <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
+  </p>
+
+  <p>
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="name" required>
+  </p>
+  <p>
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email" required>
+  </p>
+  <p>
+    <label for="service">Service you're interested in</label><br>
+    <select id="service" name="service">
+      <option value="">Prefer not to say</option>
+      <option value="Express audit">Express audit</option>
+      <option value="Site audit">Site audit</option>
+      <option value="Corporate workshop">Corporate workshop</option>
+      <option value="Full package">Full package</option>
+      <option value="Other">Other</option>
+    </select>
+  </p>
+  <p>
+    <label for="message">Message</label><br>
+    <textarea id="message" name="message" rows="6" required></textarea>
+  </p>
+  <button type="submit">Send</button>
+</form>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · tuaccesible.com</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido-principal">{% if lang == 'en' %}Skip to main content{% else %}Saltar al contenido principal{% endif %}</a>
+
+  {% if lang == 'en' %}
+    {% set navItems = [
+      {url: "/en/", label: "Home"},
+      {url: "/en/services/", label: "Services"},
+      {url: "/en/about/", label: "About"},
+      {url: "/en/accessibility-statement/", label: "Accessibility statement"},
+      {url: "/en/testimonials/", label: "Testimonials"},
+      {url: "/en/contact/", label: "Contact"}
+    ] %}
+  {% else %}
+    {% set navItems = [
+      {url: "/", label: "Inicio"},
+      {url: "/servicios/", label: "Servicios"},
+      {url: "/sobre-tuaccesible/", label: "Sobre tuaccesible"},
+      {url: "/declaracion-accesibilidad/", label: "Declaración de accesibilidad"},
+      {url: "/testimonios/", label: "Testimonios"},
+      {url: "/contacto/", label: "Contacto"}
+    ] %}
+  {% endif %}
+
+  <div class="lang-banner" id="lang-banner">
+    <div class="wrap">
+      <span id="lang-banner-text"></span>
+      <span>
+        <button type="button" id="lang-banner-switch">{% if lang == 'en' %}Switch language{% else %}Cambiar de idioma{% endif %}</button>
+        <button type="button" id="lang-banner-dismiss">{% if lang == 'en' %}Stay in English{% else %}Quedarme en español{% endif %}</button>
+      </span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="{% if lang == 'en' %}/en/{% else %}/{% endif %}">tu<span class="mark">accesible</span></a>
+      <nav class="main-nav" aria-label="{% if lang == 'en' %}Main{% else %}Principal{% endif %}">
+        <ul>
+          {% for item in navItems %}
+          <li><a href="{{ item.url }}" {% if item.url == page.url %}aria-current="page"{% endif %}>{{ item.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <a class="lang-switch" id="lang-switch-link" href="{{ altUrl }}" lang="{% if lang == 'en' %}es{% else %}en{% endif %}">
+        {% if lang == 'en' %}Español{% else %}English{% endif %}
+      </a>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <div class="wrap">
+      {{ content | safe }}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>tuaccesible.com — {% if lang == 'en' %}© 2026. Accessibility consulting.{% else %}© 2026. Consultoría en accesibilidad digital.{% endif %}</p>
+      <p>
+        <a href="{% if lang == 'en' %}/en/privacy/{% else %}/privacidad/{% endif %}">{% if lang == 'en' %}Privacy policy{% else %}Política de privacidad{% endif %}</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = "tuaccesible-lang-choice";
+      var currentLang = document.documentElement.lang;
+      var altUrl = document.getElementById("lang-switch-link").getAttribute("href");
+
+      document.getElementById("lang-switch-link").addEventListener("click", function () {
+        var target = currentLang === "en" ? "es" : "en";
+        try { localStorage.setItem(STORAGE_KEY, target); } catch (e) {}
+      });
+
+      var saved;
+      try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { saved = null; }
+      if (saved) { return; }
+
+      var browserLang = (navigator.language || "").toLowerCase();
+      var suggestEnglish = browserLang.indexOf("en") === 0 && currentLang === "es";
+      var suggestSpanish = browserLang.indexOf("es") === 0 && currentLang === "en";
+      if (!suggestEnglish && !suggestSpanish) { return; }
+
+      var banner = document.getElementById("lang-banner");
+      var text = document.getElementById("lang-banner-text");
+      var switchBtn = document.getElementById("lang-banner-switch");
+      var dismissBtn = document.getElementById("lang-banner-dismiss");
+
+      if (suggestEnglish) {
+        text.textContent = "It looks like your browser is set to English.";
+        switchBtn.textContent = "View in English";
+      } else {
+        text.textContent = "Tu navegador parece estar configurado en español.";
+        switchBtn.textContent = "Ver en español";
+      }
+
+      switchBtn.addEventListener("click", function () {
+        var target = suggestEnglish ? "en" : "es";
+        try { localStorage.setItem(STORAGE_KEY, target); } catch (e) {}
+        window.location.href = altUrl;
+      });
+
+      dismissBtn.addEventListener("click", function () {
+        try { localStorage.setItem(STORAGE_KEY, currentLang); } catch (e) {}
+        banner.classList.remove("is-visible");
+      });
+
+      banner.classList.add("is-visible");
+    })();
+  </script>
+</body>
+</html>

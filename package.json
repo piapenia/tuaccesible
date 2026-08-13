@@ -1,0 +1,16 @@
+{
+  "name": "tuaccesible",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Sitio de tuaccesible.com, generado con Eleventy",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "http-server": "^14.1.1",
+    "pa11y-ci": "^3.1.0",
+    "wait-on": "^7.2.0"
+  }
+}

@@ -1,0 +1,59 @@
+---
+layout: base.njk
+lang: es
+title: Dejar una reseña
+description: Formulario de reseña para clientes de tuaccesible.
+altUrl: /en/leave-a-review/
+---
+
+<h1>Dejar una reseña</h1>
+<p class="lede">Para clientes que ya trabajaron con nosotras. Las respuestas se revisan antes de publicarse — nada se publica de forma automática.</p>
+
+<div class="placeholder">
+  <strong>Pendiente técnico:</strong> igual que el formulario de contacto, necesita una clave real de Web3Forms antes de publicarse.
+</div>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="REEMPLAZAR_CON_CLAVE_REAL_DE_WEB3FORMS">
+  <input type="hidden" name="subject" value="Nueva reseña desde tuaccesible.com">
+  <p style="position:absolute; left:-9999px;">
+    <label for="botcheck">No completar este campo</label>
+    <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
+  </p>
+
+  <p>
+    <label for="display-name">Nombre o iniciales para publicar</label><br>
+    <input type="text" id="display-name" name="display_name" required>
+  </p>
+  <p>
+    <label for="service">Servicio contratado</label><br>
+    <select id="service" name="service" required>
+      <option value="Auditoría exprés">Auditoría exprés</option>
+      <option value="Auditoría de sitio">Auditoría de sitio</option>
+      <option value="Taller corporativo">Taller corporativo</option>
+      <option value="Paquete integral">Paquete integral</option>
+    </select>
+  </p>
+  <p>
+    <label for="clarity">¿Cómo calificarías la claridad del informe o la capacitación?</label><br>
+    <select id="clarity" name="clarity_rating">
+      <option value="Excelente">Excelente</option>
+      <option value="Buena">Buena</option>
+      <option value="Regular">Regular</option>
+      <option value="Mala">Mala</option>
+    </select>
+  </p>
+  <p>
+    <label for="recommend">¿Nos recomendarías?</label><br>
+    <select id="recommend" name="would_recommend">
+      <option value="Sí, sin dudarlo">Sí, sin dudarlo</option>
+      <option value="Sí, con algo para mejorar">Sí, con algo para mejorar</option>
+      <option value="No">No</option>
+    </select>
+  </p>
+  <p>
+    <label for="comment">¿Algo más que quieras contar? (opcional)</label><br>
+    <textarea id="comment" name="comment" rows="5"></textarea>
+  </p>
+  <button type="submit">Enviar reseña</button>
+</form>

@@ -1,0 +1,59 @@
+---
+layout: base.njk
+lang: en
+title: Leave a review
+description: Review form for tuaccesible clients.
+altUrl: /dejar-una-resena/
+---
+
+<h1>Leave a review</h1>
+<p class="lede">For clients who've already worked with us. Responses are checked before publishing — nothing goes live automatically.</p>
+
+<div class="placeholder">
+  <strong>Technical pending item:</strong> same as the contact form, this needs a real Web3Forms access key before it goes live.
+</div>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="REPLACE_WITH_REAL_WEB3FORMS_KEY">
+  <input type="hidden" name="subject" value="New review from tuaccesible.com">
+  <p style="position:absolute; left:-9999px;">
+    <label for="botcheck">Leave this field empty</label>
+    <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
+  </p>
+
+  <p>
+    <label for="display-name">Name or initials to publish</label><br>
+    <input type="text" id="display-name" name="display_name" required>
+  </p>
+  <p>
+    <label for="service">Service you hired</label><br>
+    <select id="service" name="service" required>
+      <option value="Express audit">Express audit</option>
+      <option value="Site audit">Site audit</option>
+      <option value="Corporate workshop">Corporate workshop</option>
+      <option value="Full package">Full package</option>
+    </select>
+  </p>
+  <p>
+    <label for="clarity">How would you rate the clarity of the report or training?</label><br>
+    <select id="clarity" name="clarity_rating">
+      <option value="Excellent">Excellent</option>
+      <option value="Good">Good</option>
+      <option value="Fair">Fair</option>
+      <option value="Poor">Poor</option>
+    </select>
+  </p>
+  <p>
+    <label for="recommend">Would you recommend us?</label><br>
+    <select id="recommend" name="would_recommend">
+      <option value="Yes, without hesitation">Yes, without hesitation</option>
+      <option value="Yes, with something to improve">Yes, with something to improve</option>
+      <option value="No">No</option>
+    </select>
+  </p>
+  <p>
+    <label for="comment">Anything else you'd like to share? (optional)</label><br>
+    <textarea id="comment" name="comment" rows="5"></textarea>
+  </p>
+  <button type="submit">Submit review</button>
+</form>
