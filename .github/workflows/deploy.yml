@@ -2,7 +2,7 @@ name: Build, check accessibility, and deploy
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
