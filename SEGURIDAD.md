@@ -20,9 +20,12 @@ el sitio**, y **el dominio**.
 - **Política de seguridad de contenido** declarada en cada página. Bloquea
   script que no venga de este propio dominio, prohíbe conectarse a servidores
   ajenos y fija el único destino al que un formulario puede enviarse.
-- **Cero recursos de terceros.** Ni fuentes web, ni analítica, ni redes
-  sociales incrustadas, ni CDN. Nada que cargue desde fuera es nada que pueda
-  ser manipulado desde fuera.
+- **Ningún script de terceros.** Ni fuentes web, ni redes sociales
+  incrustadas, ni CDN. La analítica es GoatCounter, pero su archivo se aloja
+  en este mismo dominio en lugar de cargarse desde el servidor del proveedor,
+  de modo que la política sigue admitiendo solo script propio. Lo único que
+  sale hacia fuera es el aviso de la visita, y la política lo limita a ese
+  destino y a ningún otro.
 - **Cero cookies.** Lo único que se guarda en el navegador es la preferencia
   de idioma, en almacenamiento local, y está declarado en la política de
   privacidad.

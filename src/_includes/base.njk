@@ -14,7 +14,7 @@
      analítica externa (GoatCounter, por ejemplo), hay que sumar su dominio
      aquí o no va a cargar. frame-ancestors no se pone: el navegador lo
      ignora cuando viene por <meta>, así que sería una falsa tranquilidad. #}
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; connect-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action https://api.web3forms.com; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; connect-src https://tuaccesible.goatcounter.com; script-src 'self'; style-src 'self'; img-src 'self' data: https://tuaccesible.goatcounter.com; font-src 'self'; form-action https://api.web3forms.com; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <title>{{ title }} · tuaccesible.com</title>
@@ -112,5 +112,12 @@
   </footer>
 
   <script src="/js/lang.js" defer></script>
+
+  {# Analitica sin cookies. El archivo se sirve desde este dominio y no desde
+     un servidor ajeno, para no abrir script-src a terceros. El pixel de
+     respaldo solo se dibuja cuando no hay JavaScript, asi que nunca cuenta
+     dos veces la misma visita. #}
+  <script data-goatcounter="https://tuaccesible.goatcounter.com/count" async src="/js/count.js"></script>
+  <noscript><img src="https://tuaccesible.goatcounter.com/count?p={{ page.url }}" alt="" width="1" height="1"></noscript>
 </body>
 </html>
