@@ -280,3 +280,30 @@ button[type="submit"]:hover {
   main { padding: 2rem 0 3rem; }
   footer.site-footer .wrap { flex-direction: column; gap: 0.4rem; }
 }
+
+/* Detalles desplegables de la pagina de servicios. Se usa <details> nativo:
+   el contenido esta en el marcado aunque no corra JavaScript, y el estado
+   expandido lo anuncia el propio navegador. Sin contenido generado por CSS,
+   que algunos lectores de pantalla leen en voz alta. */
+details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0.6rem 0 2rem;
+}
+
+details > summary {
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+details > summary:hover { text-decoration: underline; }
+details[open] > summary { border-bottom: 1px solid var(--border); }
+
+details > div { padding: 1rem; }
+details > div > :first-child { margin-top: 0; }
+details > div > :last-child { margin-bottom: 0; }
+details ul { margin: 0 0 1rem; padding-left: 1.3rem; }
+details li { margin-bottom: 0.4rem; }
