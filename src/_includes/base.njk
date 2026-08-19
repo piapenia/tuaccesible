@@ -17,7 +17,6 @@
       {url: "/en/regulations/", label: "Regulations"},
       {url: "/en/about/", label: "About"},
       {url: "/en/team/", label: "Team"},
-      {url: "/en/accessibility-statement/", label: "Accessibility statement"},
       {url: "/en/testimonials/", label: "Testimonials"},
       {url: "/en/contact/", label: "Contact"}
     ] %}
@@ -28,7 +27,6 @@
       {url: "/normativa/", label: "Normativa"},
       {url: "/sobre-tuaccesible/", label: "Sobre tuaccesible"},
       {url: "/equipo/", label: "Equipo"},
-      {url: "/declaracion-accesibilidad/", label: "Declaración de accesibilidad"},
       {url: "/testimonios/", label: "Testimonios"},
       {url: "/contacto/", label: "Contacto"}
     ] %}
@@ -69,8 +67,9 @@
   <footer class="site-footer">
     <div class="wrap">
       <p>tuaccesible.com — {% if lang == 'en' %}© 2026. Accessibility consulting.{% else %}© 2026. Consultoría en accesibilidad digital.{% endif %}</p>
-      <p>
+      <p class="footer-links">
         <a href="{% if lang == 'en' %}/en/privacy/{% else %}/privacidad/{% endif %}">{% if lang == 'en' %}Privacy policy{% else %}Política de privacidad{% endif %}</a>
+        <a href="{% if lang == 'en' %}/en/accessibility-statement/{% else %}/declaracion-accesibilidad/{% endif %}">{% if lang == 'en' %}Accessibility statement{% else %}Declaración de accesibilidad{% endif %}</a>
       </p>
     </div>
   </footer>

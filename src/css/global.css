@@ -220,6 +220,20 @@ footer.site-footer .wrap {
 }
 footer.site-footer a { color: var(--text-muted); }
 
+/* Enlaces legales del pie. Objetivo tactil de 44px como el resto del sitio,
+   y sin caracter separador entre ellos: se separan con hueco real. */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.4rem;
+  margin: 0;
+}
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
