@@ -9,6 +9,7 @@
   "urls": [
     "http://localhost:8080/",
     "http://localhost:8080/servicios/",
+    "http://localhost:8080/normativa/",
     "http://localhost:8080/sobre-tuaccesible/",
     "http://localhost:8080/equipo/",
     "http://localhost:8080/declaracion-accesibilidad/",
@@ -18,6 +19,7 @@
     "http://localhost:8080/privacidad/",
     "http://localhost:8080/en/",
     "http://localhost:8080/en/services/",
+    "http://localhost:8080/en/regulations/",
     "http://localhost:8080/en/about/",
     "http://localhost:8080/en/team/",
     "http://localhost:8080/en/accessibility-statement/",
