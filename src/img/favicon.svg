@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>tuaccesible</title>
+  <style>
+    .letra { fill: none; stroke: #0B4A57; stroke-width: 7; }
+    .regla { fill: #A2450A; }
+    @media (prefers-color-scheme: dark) {
+      .letra { stroke: #8AD4E4; }
+      .regla { fill: #F0A868; }
+    }
+  </style>
+  <g class="letra">
+    <circle cx="32" cy="25.5" r="14"/>
+    <path d="M46 8 V43"/>
+  </g>
+  <rect class="regla" x="8" y="49" width="48" height="7" rx="3.5"/>
+</svg>

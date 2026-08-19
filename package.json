@@ -5,12 +5,13 @@
   "description": "Sitio de tuaccesible.com, generado con Eleventy",
   "scripts": {
     "build": "eleventy",
-    "serve": "eleventy --serve"
+    "serve": "eleventy --serve",
+    "verificar:contraste": "node tools/verificar-contraste.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
     "http-server": "^14.1.1",
-    "pa11y-ci": "^3.1.0",
+    "pa11y-ci": "^4.1.1",
     "wait-on": "^7.2.0"
   }
 }

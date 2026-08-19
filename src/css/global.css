@@ -1,14 +1,29 @@
+/* =========================================================================
+   tuaccesible.com — hoja de estilos global
+
+   SISTEMA DE COLOR
+   Paleta de dos familias sobre neutros frios:
+     - Marca (azul petroleo): jerarquia, enlaces, botones.
+     - Acento (terracota): subrayados y marcas decorativas. NUNCA texto:
+       en modo claro llega a 6.19:1, que cumple AA pero no el AAA del sitio.
+   Cada par color/fondo que se usa aqui esta verificado contra WCAG 2.x.
+   El verificador vive en tools/verificar-contraste.js y lee ESTE archivo,
+   asi que si alguien cambia un hex, el chequeo se entera.
+   ========================================================================= */
+
 :root {
   color-scheme: light dark;
 
   --bg: #FFFFFF;
-  --surface: #F5F5F4;
-  --text: #111111;
-  --text-muted: #4D4D4D;
-  --border: #E3E2E0;
-  --ink: #000000;
-  --accent: #9CA3A8;
-  --focus: #000000;
+  --surface: #F1F5F6;
+  --text: #10181B;
+  --text-muted: #455055;
+  --border: #D4DDE0;
+  --ink: #0A1013;
+  --brand: #0B4A57;
+  --brand-strong: #08333D;
+  --accent: #A2450A;
+  --focus: #0A1013;
 
   --font-display: "Century Gothic", "Avenir Next", Futura, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -16,14 +31,37 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0B0B0B;
-    --surface: #161616;
-    --text: #F0F0EF;
-    --text-muted: #ACACAA;
-    --border: #2A2A2A;
+    --bg: #0B0F11;
+    --surface: #151C1F;
+    --text: #E9EFF1;
+    --text-muted: #AEBBC0;
+    --border: #2A3438;
     --ink: #FFFFFF;
-    --accent: #C7CCCF;
+    --brand: #8AD4E4;
+    --brand-strong: #8AD4E4;
+    --accent: #F0A868;
     --focus: #FFFFFF;
+  }
+}
+
+/* Quien pide mas contraste en el sistema operativo recibe la version
+   maxima de la marca, no la paleta media. */
+@media (prefers-contrast: more) {
+  :root {
+    --brand: #05333D;
+    --brand-strong: #05252C;
+    --accent: #7A3407;
+    --text-muted: #2B3236;
+    --border: #6B7A80;
+  }
+}
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root {
+    --brand: #BEE9F3;
+    --brand-strong: #BEE9F3;
+    --accent: #FFC894;
+    --text-muted: #D8E1E4;
+    --border: #8A989E;
   }
 }
 
@@ -41,12 +79,20 @@ body {
   margin: 0;
 }
 
+::selection {
+  background: var(--brand-strong);
+  color: var(--bg);
+}
+@media (prefers-color-scheme: dark) {
+  ::selection { color: #0B0F11; }
+}
+
 .skip-link {
   position: absolute;
   left: 1rem;
   max-width: calc(100% - 2rem);
   top: -3rem;
-  background: var(--ink);
+  background: var(--brand-strong);
   color: var(--bg);
   padding: 0.6rem 1rem;
   border-radius: 4px;
@@ -56,9 +102,15 @@ body {
   z-index: 20;
 }
 .skip-link:focus { top: 1rem; }
+@media (prefers-color-scheme: dark) {
+  .skip-link { color: #0B0F11; }
+}
 
+/* El color nunca es el unico indicador: los enlaces de contenido van
+   subrayados siempre (WCAG 1.4.1). El azul petroleo agrega jerarquia,
+   no la reemplaza. */
 a {
-  color: var(--text);
+  color: var(--brand);
   text-underline-offset: 0.15em;
 }
 a:hover { text-decoration-thickness: 2px; }
@@ -78,8 +130,9 @@ h1, h2, h3, h4 {
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
 
-/* Header and brand */
+/* Cabecera y marca */
 .site-header {
+  border-top: 4px solid var(--brand);
   border-bottom: 1px solid var(--border);
   padding: 1.2rem 0;
 }
@@ -90,7 +143,14 @@ h1, h2, h3, h4 {
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+
+/* La marca es texto real, no una imagen: escala con el zoom de texto,
+   se lee tal cual con lector de pantalla y no depende de que cargue
+   ningun archivo. El simbolo va al lado, decorativo. */
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--font-display);
   overflow-wrap: anywhere;
   font-size: 1.4rem;
@@ -105,6 +165,15 @@ h1, h2, h3, h4 {
   text-decoration-color: var(--accent);
 }
 .wordmark:hover { text-decoration: none; }
+.wordmark:hover .mark { text-decoration-thickness: 3px; }
+
+.logo-symbol {
+  flex: none;
+  width: 1.75em;
+  height: 1.75em;
+}
+.logo-symbol .logo-letter { stroke: var(--brand); }
+.logo-symbol .logo-rule { fill: var(--accent); }
 
 .main-nav ul {
   list-style: none;
@@ -124,10 +193,13 @@ h1, h2, h3, h4 {
 }
 .main-nav a:hover,
 .main-nav a[aria-current="page"] {
+  color: var(--brand);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
+/* La pagina actual no se senala solo con color: queda subrayada y en negrita. */
+.main-nav a[aria-current="page"] { font-weight: 600; }
 
 .lang-switch {
   display: inline-block;
@@ -138,9 +210,9 @@ h1, h2, h3, h4 {
   text-decoration: none;
   color: var(--text);
 }
-.lang-switch:hover { border-color: var(--text); text-decoration: none; }
+.lang-switch:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
 
-/* First-visit language suggestion banner, shown only via script */
+/* Aviso de idioma de la primera visita, que solo muestra el script */
 .lang-banner {
   display: none;
   background: var(--surface);
@@ -165,9 +237,9 @@ h1, h2, h3, h4 {
   padding: 0.3rem 0.7rem;
   cursor: pointer;
 }
-.lang-banner button:hover { border-color: var(--text); }
+.lang-banner button:hover { border-color: var(--brand); color: var(--brand); }
 
-/* Main content */
+/* Contenido principal */
 main { padding: 3rem 0 4rem; }
 main .lede { color: var(--text-muted); font-size: 1.1rem; max-width: 42rem; }
 main .prose { max-width: 42rem; }
@@ -178,6 +250,10 @@ main .prose p { margin: 0 0 1.1rem; }
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.4rem 1.6rem;
+}
+.card h2, .card h3 {
+  color: var(--brand);
+  margin-top: 0;
 }
 
 .card-grid {
@@ -219,6 +295,7 @@ footer.site-footer .wrap {
   flex-wrap: wrap;
 }
 footer.site-footer a { color: var(--text-muted); }
+footer.site-footer a:hover { color: var(--brand); }
 
 /* Enlaces legales del pie. Objetivo tactil de 44px como el resto del sitio,
    y sin caracter separador entre ellos: se separan con hueco real. */
@@ -238,8 +315,8 @@ footer.site-footer a { color: var(--text-muted); }
   html { scroll-behavior: smooth; }
 }
 
-/* Form controls: the browser defaults were 13px, fixed-width and stayed
-   white in dark mode, so they are styled explicitly here. */
+/* Formularios: los controles por defecto venian en 13px, de ancho fijo y
+   se quedaban en blanco en modo oscuro, asi que se estilan explicitamente. */
 form p { margin: 0 0 1.2rem; }
 
 label {
@@ -266,23 +343,67 @@ textarea {
   min-height: 9rem;
   resize: vertical;
 }
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus { border-color: var(--brand); }
+
+/* Casilla de autorizacion: control nativo, coloreado con accent-color
+   para que siga siendo el checkbox del sistema y no un dibujo propio. */
+input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--brand);
+}
+input[type="checkbox"] + label {
+  font-weight: 400;
+  margin-left: 0.4rem;
+  max-width: 30rem;
+  vertical-align: top;
+}
+
+/* Trampa antispam de Web3Forms. Va con display:none y no con un
+   desplazamiento fuera de pantalla: asi queda tambien fuera del arbol de
+   accesibilidad y NVDA no lo anuncia. Es una clase y no un estilo en linea
+   para que la politica de seguridad de contenido pueda prohibir el
+   style="" del marcado entero. */
+.hp { display: none; }
+
+/* Informacion basica de proteccion de datos, junto al boton de envio */
+.form-legal {
+  max-width: 32rem;
+  margin: 0 0 1.4rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.form-legal p { margin: 0 0 0.5rem; }
+.form-legal p:last-child { margin-bottom: 0; }
 
 button[type="submit"] {
   font: inherit;
+  font-weight: 600;
   min-height: 2.75rem;
   padding: 0.7rem 1.5rem;
   color: var(--bg);
-  background: var(--ink);
-  border: 1px solid var(--ink);
+  background: var(--brand-strong);
+  border: 1px solid var(--brand-strong);
   border-radius: 6px;
   cursor: pointer;
 }
 button[type="submit"]:hover {
-  background: var(--text-muted);
-  border-color: var(--text-muted);
+  background: var(--brand);
+  border-color: var(--brand);
+}
+@media (prefers-color-scheme: dark) {
+  button[type="submit"] { color: #0B0F11; }
 }
 
-/* Narrow screens: stack the header instead of squeezing it into one row. */
+/* Pantallas angostas: la cabecera se apila en vez de exprimirse en una fila. */
 @media (max-width: 40rem) {
   .wrap { padding: 0 1rem; }
   .site-header .wrap {
@@ -310,7 +431,7 @@ details > summary {
   min-height: 2.75rem;
   padding: 0.75rem 1rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--brand);
   cursor: pointer;
 }
 details > summary:hover { text-decoration: underline; }
@@ -321,3 +442,15 @@ details > div > :first-child { margin-top: 0; }
 details > div > :last-child { margin-bottom: 0; }
 details ul { margin: 0 0 1rem; padding-left: 1.3rem; }
 details li { margin-bottom: 0.4rem; }
+
+/* Modo de contraste forzado de Windows, el que usa bastante gente junto con
+   NVDA. Ahi el sistema reemplaza la paleta entera: lo unico que hay que
+   garantizar es que nada quede sin borde ni sin indicador de foco. */
+@media (forced-colors: active) {
+  .site-header { border-top-color: CanvasText; }
+  .logo-symbol .logo-letter { stroke: CanvasText; }
+  .logo-symbol .logo-rule { fill: CanvasText; }
+  :focus-visible { outline-color: Highlight; }
+  button[type="submit"] { border: 2px solid ButtonText; }
+  .notice, .form-legal, .card { border: 1px solid CanvasText; }
+}

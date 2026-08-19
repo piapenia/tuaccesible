@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="256" height="256" role="img" aria-labelledby="titulo">
+  <title id="titulo">Simbolo de tuaccesible</title>
+  <g fill="none" stroke="#0B4A57" stroke-width="7">
+    <circle cx="32" cy="25.5" r="14"/>
+    <path d="M46 8 V43"/>
+  </g>
+  <rect fill="#A2450A" x="8" y="49" width="48" height="7" rx="3.5"/>
+</svg>
