@@ -1,0 +1,12 @@
+---
+permalink: /robots.txt
+eleventyExcludeFromCollections: true
+---
+# tuaccesible.com
+# Todo el sitio es publico y se puede indexar. Las dos paginas de
+# confirmacion de formulario llevan noindex en su propio marcado y por eso
+# no aparecen en el sitemap.
+User-agent: *
+Allow: /
+
+Sitemap: {{ site.url }}/sitemap.xml
