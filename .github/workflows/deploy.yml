@@ -24,7 +24,7 @@ jobs:
       # Las acciones van fijadas al hash del commit y no a la etiqueta: una
       # etiqueta como v4 se puede mover a otro codigo sin que nos enteremos,
       # un hash no. Dependabot los actualiza solo (.github/dependabot.yml).
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # No dejar el token de Actions escrito en .git/config del runner.
           persist-credentials: false
