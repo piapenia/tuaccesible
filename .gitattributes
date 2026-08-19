@@ -1,1 +1,7 @@
 * text=auto eol=lf
+
+# Imagenes: binarias, sin conversion de finales de linea
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary

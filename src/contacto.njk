@@ -11,14 +11,10 @@ altUrl: /en/contact/
 
 <p>Escribinos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
 
-<div class="placeholder">
-  <strong>Pendiente técnico:</strong> este formulario usa Web3Forms y necesita una clave de acceso real (se consigue gratis en web3forms.com con el correo contacto@tuaccesible.com) antes de publicarse. Con la clave puesta, los envíos llegan directo a ese correo.
-</div>
-
 <form action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="REEMPLAZAR_CON_CLAVE_REAL_DE_WEB3FORMS">
+  <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
   <input type="hidden" name="subject" value="Nueva consulta desde tuaccesible.com">
-  <p style="position:absolute; left:-9999px;">
+  <p style="display:none;">
     <label for="botcheck">No completar este campo</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
   </p>
@@ -34,12 +30,11 @@ altUrl: /en/contact/
   <p>
     <label for="service">Servicio de interés</label><br>
     <select id="service" name="service">
-      <option value="">Preferís no especificar</option>
+      <option value="Otra consulta">Otra consulta</option>
       <option value="Auditoría exprés">Auditoría exprés</option>
       <option value="Auditoría de sitio">Auditoría de sitio</option>
       <option value="Taller corporativo">Taller corporativo</option>
       <option value="Paquete integral">Paquete integral</option>
-      <option value="Otra consulta">Otra consulta</option>
     </select>
   </p>
   <p>

@@ -11,14 +11,10 @@ altUrl: /contacto/
 
 <p>Write to us at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
 
-<div class="placeholder">
-  <strong>Technical pending item:</strong> this form uses Web3Forms and needs a real access key (free at web3forms.com, using contacto@tuaccesible.com) before it goes live. Once the key is set, submissions go straight to that inbox.
-</div>
-
 <form action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="REPLACE_WITH_REAL_WEB3FORMS_KEY">
+  <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
   <input type="hidden" name="subject" value="New inquiry from tuaccesible.com">
-  <p style="position:absolute; left:-9999px;">
+  <p style="display:none;">
     <label for="botcheck">Leave this field empty</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
   </p>
@@ -34,12 +30,11 @@ altUrl: /contacto/
   <p>
     <label for="service">Service you're interested in</label><br>
     <select id="service" name="service">
-      <option value="">Prefer not to say</option>
+      <option value="Other">Other</option>
       <option value="Express audit">Express audit</option>
       <option value="Site audit">Site audit</option>
       <option value="Corporate workshop">Corporate workshop</option>
       <option value="Full package">Full package</option>
-      <option value="Other">Other</option>
     </select>
   </p>
   <p>
