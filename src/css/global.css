@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light dark;
+
   --bg: #FFFFFF;
   --surface: #F5F5F4;
   --text: #111111;
@@ -27,18 +29,22 @@
 
 * { box-sizing: border-box; }
 
+img { max-width: 100%; height: auto; }
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
+  overflow-wrap: anywhere;
   margin: 0;
 }
 
 .skip-link {
   position: absolute;
   left: 1rem;
+  max-width: calc(100% - 2rem);
   top: -3rem;
   background: var(--ink);
   color: var(--bg);
@@ -86,6 +92,7 @@ h1, h2, h3, h4 {
 }
 .wordmark {
   font-family: var(--font-display);
+  overflow-wrap: anywhere;
   font-size: 1.4rem;
   font-weight: 500;
   color: var(--ink);
@@ -108,6 +115,9 @@ h1, h2, h3, h4 {
   padding: 0;
 }
 .main-nav a {
+  display: inline-block;
+  padding: 0.7rem 0;
+  overflow-wrap: anywhere;
   text-decoration: none;
   font-size: 0.95rem;
   color: var(--text);
@@ -120,10 +130,11 @@ h1, h2, h3, h4 {
 }
 
 .lang-switch {
+  display: inline-block;
   font-size: 0.85rem;
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.35rem 0.7rem;
+  padding: 0.7rem;
   text-decoration: none;
   color: var(--text);
 }
@@ -171,7 +182,7 @@ main .prose p { margin: 0 0 1.1rem; }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 1.2rem;
   margin: 2rem 0;
 }
@@ -211,4 +222,61 @@ footer.site-footer a { color: var(--text-muted); }
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+}
+
+/* Form controls: the browser defaults were 13px, fixed-width and stayed
+   white in dark mode, so they are styled explicitly here. */
+form p { margin: 0 0 1.2rem; }
+
+label {
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  font: inherit;
+  width: 100%;
+  max-width: 32rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.7rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+}
+textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  font: inherit;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.5rem;
+  color: var(--bg);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  cursor: pointer;
+}
+button[type="submit"]:hover {
+  background: var(--text-muted);
+  border-color: var(--text-muted);
+}
+
+/* Narrow screens: stack the header instead of squeezing it into one row. */
+@media (max-width: 40rem) {
+  .wrap { padding: 0 1rem; }
+  .site-header .wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .main-nav ul { gap: 0 1.2rem; }
+  main { padding: 2rem 0 3rem; }
+  footer.site-footer .wrap { flex-direction: column; gap: 0.4rem; }
 }
