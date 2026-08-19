@@ -12,17 +12,19 @@ altUrl: /dejar-una-resena/
 <form action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
   <input type="hidden" name="subject" value="New review from tuaccesible.com">
-  <p style="display:none;">
+  <input type="hidden" name="from_name" value="tuaccesible.com form">
+  <input type="hidden" name="redirect" value="https://tuaccesible.com/en/thank-you/">
+  <p class="hp">
     <label for="botcheck">Leave this field empty</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
   </p>
 
   <p>
-    <label for="display-name">Name or initials to publish</label><br>
+    <label for="display-name">Name or initials to publish (required)</label><br>
     <input type="text" id="display-name" name="display_name" required>
   </p>
   <p>
-    <label for="service">Service you hired</label><br>
+    <label for="service">Service you hired (required)</label><br>
     <select id="service" name="service" required>
       <option value="Express audit">Express audit</option>
       <option value="Site audit">Site audit</option>
@@ -51,5 +53,16 @@ altUrl: /dejar-una-resena/
     <label for="comment">Anything else you'd like to share? (optional)</label><br>
     <textarea id="comment" name="comment" rows="5"></textarea>
   </p>
+
+  <p>
+    <input type="checkbox" id="consent" name="consent_publicacion" value="Yes" required>
+    <label for="consent">I agree to publish this review and the name I wrote above on tuaccesible.com (required)</label>
+  </p>
+
+  <div class="form-legal">
+    <p>Data protection, in short: tuaccesible uses what you write here to publish your review, always with your permission and after checking it.</p>
+    <p>The form is processed by Web3Forms, a provider with servers in the United States. You can withdraw your permission or ask us to delete the review at any time by writing to <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. Full detail is in the <a href="/en/privacy/">privacy policy</a>.</p>
+  </div>
+
   <button type="submit">Submit review</button>
 </form>

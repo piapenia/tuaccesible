@@ -3,7 +3,9 @@
     "standard": "WCAG2AAA",
     "timeout": 30000,
     "chromeLaunchConfig": {
-      "args": ["--no-sandbox"]
+      "args": [
+        "--no-sandbox"
+      ]
     }
   },
   "urls": [
@@ -26,6 +28,9 @@
     "http://localhost:8080/en/contact/",
     "http://localhost:8080/en/testimonials/",
     "http://localhost:8080/en/leave-a-review/",
-    "http://localhost:8080/en/privacy/"
+    "http://localhost:8080/en/privacy/",
+    "http://localhost:8080/gracias/",
+    "http://localhost:8080/en/thank-you/",
+    "http://localhost:8080/404.html"
   ]
 }

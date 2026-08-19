@@ -14,18 +14,20 @@ altUrl: /en/contact/
 <form action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
   <input type="hidden" name="subject" value="Nueva consulta desde tuaccesible.com">
-  <p style="display:none;">
+  <input type="hidden" name="from_name" value="Formulario de tuaccesible.com">
+  <input type="hidden" name="redirect" value="https://tuaccesible.com/gracias/">
+  <p class="hp">
     <label for="botcheck">No completar este campo</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
   </p>
 
   <p>
-    <label for="name">Nombre</label><br>
-    <input type="text" id="name" name="name" required>
+    <label for="name">Nombre (obligatorio)</label><br>
+    <input type="text" id="name" name="name" autocomplete="name" required>
   </p>
   <p>
-    <label for="email">Correo</label><br>
-    <input type="email" id="email" name="email" required>
+    <label for="email">Correo (obligatorio)</label><br>
+    <input type="email" id="email" name="email" autocomplete="email" required>
   </p>
   <p>
     <label for="service">Servicio de interés</label><br>
@@ -38,8 +40,14 @@ altUrl: /en/contact/
     </select>
   </p>
   <p>
-    <label for="message">Mensaje</label><br>
+    <label for="message">Mensaje (obligatorio)</label><br>
     <textarea id="message" name="message" rows="6" required></textarea>
   </p>
+
+  <div class="form-legal">
+    <p>Protección de datos, en corto: tuaccesible usa tu nombre, tu correo y tu mensaje solo para responderte, y los conserva mientras dure la conversación.</p>
+    <p>El formulario lo procesa Web3Forms, un proveedor con servidores en Estados Unidos, y el mensaje llega a nuestro buzón. Puedes pedir acceso, rectificación o supresión escribiendo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. El detalle completo está en la <a href="/privacidad/">política de privacidad</a>.</p>
+  </div>
+
   <button type="submit">Enviar</button>
 </form>

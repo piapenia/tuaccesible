@@ -14,18 +14,20 @@ altUrl: /contacto/
 <form action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
   <input type="hidden" name="subject" value="New inquiry from tuaccesible.com">
-  <p style="display:none;">
+  <input type="hidden" name="from_name" value="tuaccesible.com form">
+  <input type="hidden" name="redirect" value="https://tuaccesible.com/en/thank-you/">
+  <p class="hp">
     <label for="botcheck">Leave this field empty</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
   </p>
 
   <p>
-    <label for="name">Name</label><br>
-    <input type="text" id="name" name="name" required>
+    <label for="name">Name (required)</label><br>
+    <input type="text" id="name" name="name" autocomplete="name" required>
   </p>
   <p>
-    <label for="email">Email</label><br>
-    <input type="email" id="email" name="email" required>
+    <label for="email">Email (required)</label><br>
+    <input type="email" id="email" name="email" autocomplete="email" required>
   </p>
   <p>
     <label for="service">Service you're interested in</label><br>
@@ -38,8 +40,14 @@ altUrl: /contacto/
     </select>
   </p>
   <p>
-    <label for="message">Message</label><br>
+    <label for="message">Message (required)</label><br>
     <textarea id="message" name="message" rows="6" required></textarea>
   </p>
+
+  <div class="form-legal">
+    <p>Data protection, in short: tuaccesible uses your name, email and message only to reply to you, and keeps them for as long as the conversation lasts.</p>
+    <p>The form is processed by Web3Forms, a provider with servers in the United States, and the message lands in our inbox. You can request access, correction or deletion by writing to <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. Full detail is in the <a href="/en/privacy/">privacy policy</a>.</p>
+  </div>
+
   <button type="submit">Send</button>
 </form>

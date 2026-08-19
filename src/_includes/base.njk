@@ -3,8 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {# Política de seguridad de contenido. Va en <meta> porque GitHub Pages no
+     deja configurar cabeceras HTTP propias. Efecto real: si alguien lograra
+     inyectar marcado en este sitio, el navegador no ejecutaría el script que
+     traiga, no dejaría que la página se conecte a ningún servidor ajeno y no
+     permitiría reapuntar el formulario a otro destino.
+     Nota para el futuro: 'script-src self' significa que cualquier script
+     nuevo tiene que vivir en /js/ del propio sitio. Si algún día se agrega
+     analítica externa (GoatCounter, por ejemplo), hay que sumar su dominio
+     aquí o no va a cargar. frame-ancestors no se pone: el navegador lo
+     ignora cuando viene por <meta>, así que sería una falsa tranquilidad. #}
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; connect-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action https://api.web3forms.com; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
   <title>{{ title }} · tuaccesible.com</title>
   <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+  {% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
+
+  <link rel="alternate" hreflang="{{ lang }}" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="{% if lang == 'en' %}es{% else %}en{% endif %}" href="{{ site.url }}{{ altUrl }}">
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}/">
+
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/icono-180.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="tuaccesible">
+  <meta property="og:title" content="{{ title }} · tuaccesible.com">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:locale" content="{% if lang == 'en' %}en_US{% else %}es_ES{% endif %}">
+  <meta property="og:image" content="{{ site.url }}/img/og-tuaccesible.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{% if lang == 'en' %}tuaccesible. Digital accessibility consulting.{% else %}tuaccesible. Consultoría en accesibilidad digital.{% endif %}">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
@@ -44,7 +81,7 @@
 
   <header class="site-header">
     <div class="wrap">
-      <a class="wordmark" href="{% if lang == 'en' %}/en/{% else %}/{% endif %}">tu<span class="mark">accesible</span></a>
+      <a class="wordmark" href="{% if lang == 'en' %}/en/{% else %}/{% endif %}">{% include "logo.njk" %}<span>tu<span class="mark">accesible</span></span></a>
       <nav class="main-nav" aria-label="{% if lang == 'en' %}Main{% else %}Principal{% endif %}">
         <ul>
           {% for item in navItems %}
@@ -74,52 +111,6 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      var STORAGE_KEY = "tuaccesible-lang-choice";
-      var currentLang = document.documentElement.lang;
-      var altUrl = document.getElementById("lang-switch-link").getAttribute("href");
-
-      document.getElementById("lang-switch-link").addEventListener("click", function () {
-        var target = currentLang === "en" ? "es" : "en";
-        try { localStorage.setItem(STORAGE_KEY, target); } catch (e) {}
-      });
-
-      var saved;
-      try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { saved = null; }
-      if (saved) { return; }
-
-      var browserLang = (navigator.language || "").toLowerCase();
-      var suggestEnglish = browserLang.indexOf("en") === 0 && currentLang === "es";
-      var suggestSpanish = browserLang.indexOf("es") === 0 && currentLang === "en";
-      if (!suggestEnglish && !suggestSpanish) { return; }
-
-      var banner = document.getElementById("lang-banner");
-      var text = document.getElementById("lang-banner-text");
-      var switchBtn = document.getElementById("lang-banner-switch");
-      var dismissBtn = document.getElementById("lang-banner-dismiss");
-
-      if (suggestEnglish) {
-        text.textContent = "It looks like your browser is set to English.";
-        switchBtn.textContent = "View in English";
-      } else {
-        text.textContent = "Tu navegador parece estar configurado en español.";
-        switchBtn.textContent = "Ver en español";
-      }
-
-      switchBtn.addEventListener("click", function () {
-        var target = suggestEnglish ? "en" : "es";
-        try { localStorage.setItem(STORAGE_KEY, target); } catch (e) {}
-        window.location.href = altUrl;
-      });
-
-      dismissBtn.addEventListener("click", function () {
-        try { localStorage.setItem(STORAGE_KEY, currentLang); } catch (e) {}
-        banner.classList.remove("is-visible");
-      });
-
-      banner.classList.add("is-visible");
-    })();
-  </script>
+  <script src="/js/lang.js" defer></script>
 </body>
 </html>

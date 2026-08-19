@@ -12,17 +12,19 @@ altUrl: /en/leave-a-review/
 <form action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
   <input type="hidden" name="subject" value="Nueva reseña desde tuaccesible.com">
-  <p style="display:none;">
+  <input type="hidden" name="from_name" value="Formulario de tuaccesible.com">
+  <input type="hidden" name="redirect" value="https://tuaccesible.com/gracias/">
+  <p class="hp">
     <label for="botcheck">No completar este campo</label>
     <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
   </p>
 
   <p>
-    <label for="display-name">Nombre o iniciales para publicar</label><br>
+    <label for="display-name">Nombre o iniciales para publicar (obligatorio)</label><br>
     <input type="text" id="display-name" name="display_name" required>
   </p>
   <p>
-    <label for="service">Servicio contratado</label><br>
+    <label for="service">Servicio contratado (obligatorio)</label><br>
     <select id="service" name="service" required>
       <option value="Auditoría exprés">Auditoría exprés</option>
       <option value="Auditoría de sitio">Auditoría de sitio</option>
@@ -51,5 +53,16 @@ altUrl: /en/leave-a-review/
     <label for="comment">¿Algo más que quieras contar? (opcional)</label><br>
     <textarea id="comment" name="comment" rows="5"></textarea>
   </p>
+
+  <p>
+    <input type="checkbox" id="consent" name="consent_publicacion" value="Sí" required>
+    <label for="consent">Autorizo a publicar esta reseña y el nombre que escribí arriba en tuaccesible.com (obligatorio)</label>
+  </p>
+
+  <div class="form-legal">
+    <p>Protección de datos, en corto: tuaccesible usa lo que escribes aquí para publicar tu reseña, siempre con tu autorización y después de revisarla.</p>
+    <p>El formulario lo procesa Web3Forms, un proveedor con servidores en Estados Unidos. Puedes retirar la autorización o pedir que borremos la reseña cuando quieras escribiendo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. El detalle completo está en la <a href="/privacidad/">política de privacidad</a>.</p>
+  </div>
+
   <button type="submit">Enviar reseña</button>
 </form>
