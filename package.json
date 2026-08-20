@@ -6,7 +6,8 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "verificar:contraste": "node tools/verificar-contraste.js"
+    "verificar:contraste": "node tools/verificar-contraste.js",
+    "generar:og": "node tools/generar-og.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
