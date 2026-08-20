@@ -33,12 +33,26 @@
   var dismissBtn = document.getElementById("lang-banner-dismiss");
   if (!banner || !text || !switchBtn || !dismissBtn) { return; }
 
+  /* Todo el aviso se escribe en el idioma de la persona a la que se le habla,
+     no en el de la pagina. Dos consecuencias:
+     1. Hay que declararlo con lang o el lector de pantalla lee espanol con voz
+        inglesa y al reves. Es el criterio WCAG 3.1.2, nivel AA.
+     2. El boton de descartar tambien, porque lo pinta la plantilla en el idioma
+        de la pagina y quedaba al reves que el resto del banner. */
   if (suggestEnglish) {
     text.textContent = "It looks like your browser is set to English.";
+    text.setAttribute("lang", "en");
     switchBtn.textContent = "View in English";
+    switchBtn.setAttribute("lang", "en");
+    dismissBtn.textContent = "Stay in Spanish";
+    dismissBtn.setAttribute("lang", "en");
   } else {
     text.textContent = "Tu navegador parece estar configurado en español.";
+    text.setAttribute("lang", "es");
     switchBtn.textContent = "Ver en español";
+    switchBtn.setAttribute("lang", "es");
+    dismissBtn.textContent = "Seguir en inglés";
+    dismissBtn.setAttribute("lang", "es");
   }
 
   switchBtn.addEventListener("click", function () {
