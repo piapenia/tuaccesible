@@ -1,15 +1,15 @@
 ---
 layout: base.njk
 lang: en
-title: Contact
-description: Write to us by email or fill in the form.
+title: Get an accessibility audit quote
+description: Tell us what needs auditing and by when. Scope, price and timeline in writing within a week, at no cost and with nothing to sign.
 altUrl: /contacto/
 ---
 
-<h1>Contact</h1>
-<p class="lede">Whichever you prefer: a direct email or the form below.</p>
+<h1>Tell us what needs auditing</h1>
+<p class="lede">A free consultation, no strings attached. Tell us what needs auditing and by when, and you'll have scope, price and timeline in writing within a week.</p>
 
-<p>Write to us at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
+<p>Prefer email? Write to us directly at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. Either way, you'll hear back within two business days. We're on UTC-3, one to two hours ahead of US Eastern.</p>
 
 <form action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051">
@@ -30,24 +30,29 @@ altUrl: /contacto/
     <input type="email" id="email" name="email" autocomplete="email" required>
   </p>
   <p>
-    <label for="service">Service you're interested in</label><br>
-    <select id="service" name="service">
-      <option value="Other">Other</option>
+    <label for="service">What are you interested in?</label><br>
+    <select id="service" name="service" aria-describedby="service-help">
+      <option value="Not sure yet">Not sure yet, help me pick</option>
       <option value="Express audit">Express audit</option>
       <option value="Site audit">Site audit</option>
-      <option value="Corporate workshop">Corporate workshop</option>
       <option value="Full package">Full package</option>
-    </select>
+      <option value="Corporate workshop">Corporate workshop</option>
+      <option value="Something else">Something else</option>
+    </select><br>
+    <span id="service-help">Workshops are run in Spanish. Not sure which service fits? Leave the default and we'll tell you.</span>
   </p>
   <p>
-    <label for="message">Message (required)</label><br>
-    <textarea id="message" name="message" rows="6" required></textarea>
+    <label for="message">Tell us about your project (required)</label><br>
+    <span id="message-help">The address of the site or app, roughly how many distinct page templates it has, which user journeys matter most, and whether there's a logged-in area. If you don't know yet, say so and we'll ask.</span><br>
+    <textarea id="message" name="message" rows="6" required aria-describedby="message-help"></textarea>
   </p>
 
   <div class="form-legal">
-    <p>Data protection, in short: tuaccesible uses your name, email and message only to reply to you, and keeps them for as long as the conversation lasts.</p>
-    <p>The form is processed by Web3Forms, a provider with servers in the United States, and the message lands in our inbox. You can request access, correction or deletion by writing to <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. Full detail is in the <a href="/en/privacy/">privacy policy</a>.</p>
+    <p><strong>The short version.</strong> We use your name, email and message only to reply to you and put your quote together, and we keep them for as long as the conversation runs.</p>
+    <p>The form is handled by Web3Forms, our data processor, whose servers are in the United States; your message lands in our inbox and nowhere else. You can ask us to show you, correct or delete your data at any time at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. The full details are in our <a href="/en/privacy/">privacy policy</a>.</p>
   </div>
 
-  <button type="submit">Send</button>
+  <p>Free consultation. We reply within two business days. Nothing is charged and nothing is signed at this stage.</p>
+
+  <button type="submit">Send message</button>
 </form>

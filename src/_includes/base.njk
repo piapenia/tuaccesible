@@ -39,10 +39,37 @@
   <meta property="og:image" content="{{ site.url }}/img/og-tuaccesible.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{% if lang == 'en' %}tuaccesible. Digital accessibility consulting.{% else %}tuaccesible. Consultoría en accesibilidad digital.{% endif %}">
+  {# El alt describe lo que la imagen dice de verdad, y la imagen esta en
+     espanol para los dos idiomas. Pendiente: una tarjeta og en ingles, porque
+     hoy quien comparte una pagina inglesa en LinkedIn muestra texto espanol. #}
+  <meta property="og:image:alt" content="{% if lang == 'en' %}The tuaccesible logo, with the tagline in Spanish: Consultoría en accesibilidad digital. Auditorías WCAG, EN 301 549 y EAA.{% else %}El logotipo de tuaccesible con el lema: Consultoría en accesibilidad digital. Auditorías WCAG, EN 301 549 y EAA.{% endif %}">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="stylesheet" href="/css/global.css">
+
+  {# Datos estructurados. Un bloque application/ld+json es un data block, no un
+     script ejecutable: el navegador lo descarta en el paso 13 de "prepare the
+     script element", antes de llegar a la comprobacion de CSP del paso 21, asi
+     que la politica script-src 'self' no lo bloquea. Verificado en el navegador,
+     no solo en la especificacion.
+     Deliberadamente Organization y no ProfessionalService ni LocalBusiness:
+     esos dos esperan direccion postal y horarios, y aqui no hay oficina que
+     declarar. Inventarla seria justo el humo que critica la pagina de
+     certificados. #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "tuaccesible",
+    "url": "{{ site.url }}/",
+    "logo": "{{ site.url }}/img/logo-tuaccesible.svg",
+    "image": "{{ site.url }}/img/og-tuaccesible.png",
+    "email": "contacto@tuaccesible.com",
+    "description": {% if lang == 'en' %}"Digital accessibility consulting. Web accessibility audits against WCAG 2.2, EN 301 549, the ADA and Section 508."{% else %}"Consultoría en accesibilidad digital. Auditorías de accesibilidad web contra WCAG 2.2, EN 301 549, ADA y Section 508."{% endif %},
+    "knowsLanguage": ["es", "en"],
+    "areaServed": ["US", "ES", "AR"]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#contenido-principal">{% if lang == 'en' %}Skip to main content{% else %}Saltar al contenido principal{% endif %}</a>
@@ -54,7 +81,7 @@
       {url: "/en/regulations/", label: "Regulations"},
       {url: "/en/about/", label: "About"},
       {url: "/en/team/", label: "Team"},
-      {url: "/en/testimonials/", label: "Case work"},
+      {url: "/en/testimonials/", label: "Our work"},
       {url: "/en/contact/", label: "Contact"}
     ] %}
   {% else %}
@@ -103,7 +130,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <p>tuaccesible.com — {% if lang == 'en' %}© 2026. Accessibility consulting.{% else %}© 2026. Consultoría en accesibilidad digital.{% endif %}</p>
+      <p>tuaccesible.com — © 2026. {% if lang == 'en' %}Digital accessibility consulting. <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>{% else %}Consultoría en accesibilidad digital. <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>{% endif %}</p>
       <p class="footer-links">
         <a href="{% if lang == 'en' %}/en/privacy/{% else %}/privacidad/{% endif %}">{% if lang == 'en' %}Privacy policy{% else %}Política de privacidad{% endif %}</a>
         <a href="{% if lang == 'en' %}/en/accessibility-statement/{% else %}/declaracion-accesibilidad/{% endif %}">{% if lang == 'en' %}Accessibility statement{% else %}Declaración de accesibilidad{% endif %}</a>
