@@ -1,77 +1,129 @@
 ---
 layout: base.njk
 lang: en
-title: Which accessibility law applies to you
-description: The European Accessibility Act, ADA and Section 508, and Argentina's Ley 26.653. Who each one binds, from what date, and the technical standard they all point to.
+title: Does the ADA or the EAA apply to you?
+description: "ADA, Section 508, Section 504 and California's Unruh Act. The UK public sector regulations. The European Accessibility Act. Who each one binds, from what date, and the one standard they all point to."
 altUrl: /normativa/
 ---
 
 <h1>Which accessibility law applies to you, and since when</h1>
-<p class="lede">The short answer: it depends on where you sell, not where you are. A US company selling to European consumers has to meet the European standard.</p>
+<p class="lede">The short answer: it depends on where you sell, not where you are. The blocks below are sorted by who your customer is. Find yours and read that one.</p>
 
 <div class="prose">
-  <h2>If you sell to consumers in the European Union</h2>
-  <p>The <strong>European Accessibility Act</strong> applies, Directive (EU) 2019/882. It has been <strong>enforceable since 28 June 2025</strong>: it isn't an upcoming deadline, it's a date that has already passed.</p>
-  <p>It binds you regardless of where your company is headquartered. What counts is that you offer the product or service to consumers inside the European Union.</p>
+  <h2>If you sell in the United States</h2>
+  <p>The law is the <strong>ADA</strong>, the Americans with Disabilities Act. It's a federal civil rights law from 1990. It has no section about websites, because the web barely existed when it was written.</p>
+  <p>Two parts of it matter. <strong>Title II</strong> covers state and local government. <strong>Title III</strong> covers businesses open to the public: stores, restaurants, hotels, banks, clinics, gyms, schools. If you sell to US consumers, Title III is your part.</p>
+  <p>The Department of Justice, the federal agency that enforces the ADA, says the requirements reach what a business offers on the web. It also says there's no regulation setting out detailed technical standards for Title III. So you have room in <em>how</em> you comply. You have none in <em>whether</em> you comply.</p>
+  <p>Here's the part most buyers get wrong. Under federal law, a private plaintiff suing you under Title III doesn't win money from you. What a court gives them is an order to fix the site, plus their attorney's fees. The fees are what make these cases worth filing. In some states a second claim rides along with the federal one, and that one does pay money. California is the clearest case.</p>
+  <p><strong>What this means for you.</strong> There's no deadline to miss here and no certificate to buy. What ends a claim is a site that works, and a dated report that shows the work was done. That report is the <a href="/en/services/">Site audit</a>.</p>
   <details>
-    <summary>Which sectors and companies it covers</summary>
+    <summary>What a Title III case looks like in practice</summary>
     <div>
-      <p>It doesn't bind every company. The sectors covered are:</p>
       <ul>
-        <li>E-commerce.</li>
-        <li>Banking and payment services.</li>
-        <li>Telecommunications and electronic communications.</li>
-        <li>Audiovisual media services.</li>
-        <li>Passenger transport: ticket sales, information, and terminals.</li>
-        <li>E-books and e-readers.</li>
-        <li>Computing equipment, phones, tablets, and self-service terminals such as ATMs and kiosks.</li>
+        <li>The person who brings it is a private individual, not a regulator.</li>
+        <li>A federal court can order you to fix the site and to pay the plaintiff's attorney's fees. It can't order you to pay the plaintiff damages. Civil penalties exist, but only the US Attorney General can ask for them, and that's rare.</li>
+        <li>Many claims arrive first as a demand letter from a law firm, and settle before anyone files anything in court. We can't tell you how many, because no public register counts letters that were never filed.</li>
+        <li>Counts of filed cases are published by law firms and by vendors who watch court dockets. They aren't official statistics, and the yearly totals move up and down. Be careful with anyone who quotes you one number as a trend.</li>
       </ul>
-      <p><strong>Microenterprise exemption:</strong> it covers service providers only. A microenterprise employs fewer than 10 people and meets one of two further conditions: annual turnover of no more than 2 million euros, or an annual balance sheet total of no more than 2 million. Either one is enough. Companies that manufacture or distribute covered products are not exempt, even as microenterprises.</p>
-      <p>In Spain the transposition is <strong>Ley 11/2023</strong>. Penalties come from Royal Legislative Decree 1/2013, Spain's general disability rights law, with three tiers of infraction and fines ranging from €301 to €1,000,000.</p>
-      <p>A second Spanish rule gets confused with this one and is not the same thing: <strong>Real Decreto 193/2023</strong>. Its own preamble says it will be complemented by whatever law transposes the EAA, so it does not transpose it. It develops Royal Legislative Decree 1/2013 and reaches anyone offering goods or services to the public, not just the seven sectors above. Its private-sector dates are 1 January 2029 for new offerings and 1 January 2030 for existing ones; if you contract with a public administration, it applies from 1 January 2025.</p>
     </div>
   </details>
 
-  <h2>If you sell in the United States</h2>
-  <p>The <strong>ADA</strong> sets no technical standard in its text, but courts decide these cases using <strong>WCAG 2.1 Level AA</strong> as the de facto reference. In practice, that's the bar.</p>
-  <p>There the risk arrives through the courts: the claimant is a private individual, and the case almost always starts with a demand letter that never reaches any court docket.</p>
+  <h2>California: where the law puts a number on it</h2>
+  <p>California has its own civil rights law, the <strong>Unruh Civil Rights Act</strong>. Two things in it change the arithmetic.</p>
+  <p>First, a violation of the ADA is automatically a violation of Unruh. The plaintiff doesn't have to show you meant to discriminate.</p>
+  <p>Second, Unruh puts a floor under the money. The California Civil Code sets damages at <strong>no less than $4,000 for each and every offense</strong>, plus attorney's fees, and up to three times actual damages. That figure is in the code itself, not in someone's marketing page.</p>
+  <p>What counts as a single offense is decided case by case, and courts haven't all gone the same way. We're not going to put a number on your exposure, and neither should anyone selling you an audit. That question belongs to a lawyer.</p>
+  <p><strong>What this means for you.</strong> If you have California customers, an inaccessible checkout stops being a theoretical risk. Fix the blockers first: keyboard access, form labels, error messages, and anything standing between a visitor and a purchase. The <a href="/en/services/">Express audit</a> tells you within days whether you have that kind of problem.</p>
+
+  <h2>If your customer is a state or local government</h2>
+  <p>This is the block with real dates in it. In April 2024 the Department of Justice published a rule under <strong>ADA Title II</strong>. It tells state and local government what accessible means, and by when.</p>
+  <p>The standard is <strong>WCAG 2.1, Level AA</strong>. WCAG stands for Web Content Accessibility Guidelines, the international guidelines published by the W3C, the body that sets web standards.</p>
+  <p>The dates moved once. In April 2026 the Department pushed them back by a year:</p>
+  <ul>
+    <li><strong>April 26, 2027</strong> for a public entity serving a total population of 50,000 or more, unless it's a special district government.</li>
+    <li><strong>April 26, 2028</strong> for a public entity serving fewer than 50,000 people, and for any special district government whatever its size. A special district government is a body set up for a single purpose, such as a water, fire, or transit district.</li>
+  </ul>
+  <p>Now the part that reaches private companies. The rule covers web content and mobile apps the government body provides <strong>directly or through contractual, licensing, or other arrangements</strong>. If your software runs your client's permit portal, their deadline is your deadline, and it will show up in your next contract.</p>
+  <p><strong>What this means for you.</strong> If you sell to US public bodies, you want a dated conformance report before their deadline, not after it. That's the <a href="/en/services/">Site audit</a>, and we can deliver it together with an ACR.</p>
   <details>
-    <summary>Deadlines and the rules that do set a standard</summary>
+    <summary>The exceptions, one state that goes further, and a caveat on the dates</summary>
     <div>
-      <ul>
-        <li><strong>Section 508:</strong> binds federal agencies and those who sell to them.</li>
-        <li><strong>ADA Title II:</strong> covers state and local public entities, with WCAG 2.1 AA as the required standard. The Department of Justice extended the deadlines by a year in April 2026: <strong>26 April 2027</strong> for populations of 50,000 or more, and <strong>26 April 2028</strong> for smaller ones.</li>
-        <li><strong>ADA Title III:</strong> covers businesses open to the public. It has no published deadline or standard, and it's where the lawsuits concentrate.</li>
-      </ul>
+      <p>The rule lists five exceptions: archived content, certain conventional documents published before the compliance date, content posted by members of the public, individualized password-protected documents, and social media posts made before the compliance date.</p>
+      <p>A public entity can also argue that compliance would fundamentally alter a program, or would be an undue financial and administrative burden. That argument has to be made and documented. It isn't something you get by default.</p>
+      <p><strong>Colorado goes further than the federal rule.</strong> State agencies and local government bodies there have to meet accessibility standards set by the state's Office of Information Technology, and failing to do so is treated as a civil rights violation with a statutory fine payable to each plaintiff. The grace period ended on July 1, 2025.</p>
+      <p><strong>One caveat.</strong> The one-year extension was issued as an interim final rule. It took effect the day it was published and it's the rule in force today. The comment period closed on June 22, 2026, and no final rule had replaced it when we last checked this page.</p>
     </div>
   </details>
+
+  <h2>If you sell to a federal agency</h2>
+  <p><strong>Section 508</strong> of the Rehabilitation Act binds federal agencies. It doesn't bind you directly. It reaches you through what agencies are allowed to buy.</p>
+  <p>The technical standard agencies have to meet is set by the US Access Board, and for electronic content it's <strong>WCAG 2.0, Level A and Level AA</strong>. Yes, 2.0. It's older than the standard in the Title II rule, and it hasn't been updated.</p>
+  <p>Federal purchasing rules then close the loop: when an agency buys information and communication technology, what it buys has to meet those standards, unless a listed exception applies.</p>
+  <p>So the document a federal buyer asks you for is an <strong>ACR</strong>, short for Accessibility Conformance Report. It's the <strong>VPAT</strong> template filled in for your product, criterion by criterion: supports, partially supports, does not support, or not applicable, with remarks. You report it under your own responsibility. Nobody issues it to you, and it isn't a certificate.</p>
+  <p><strong>What this means for you.</strong> If a US agency or a prime contractor asked you for a VPAT, what they want is an ACR. We write them, on their own or with a <a href="/en/services/">Site audit</a> behind them. The difference between a report and a seal is explained in <a href="/en/web-accessibility-certificate/">which web accessibility certificates actually exist</a>.</p>
+
+  <h2>If you take federal health or human services funding</h2>
+  <p><strong>Section 504</strong> of the Rehabilitation Act applies to anyone who receives federal financial assistance. In 2024 the Department of Health and Human Services wrote web and app accessibility into its Section 504 rule.</p>
+  <p>The standard is <strong>WCAG 2.1, Level AA</strong> again, and it covers web content and mobile apps the recipient provides directly or through contracts and licenses.</p>
+  <p>These dates also moved back by a year, in May 2026:</p>
+  <ul>
+    <li><strong>May 11, 2027</strong> for a recipient with fifteen or more employees.</li>
+    <li><strong>May 10, 2028</strong> for a recipient with fewer than fifteen employees.</li>
+  </ul>
+  <p>This one catches organizations that don't think of themselves as government at all: hospitals, clinics, community health centers, universities and social service providers that take money from the Department. Whether a specific funding stream makes you a recipient is a legal question about your organization, and a lawyer is the one who answers it.</p>
+  <p><strong>What this means for you.</strong> Unlike a Title III defendant, you have a named standard and a fixed date. Work backwards from it. An audit that lands six months before the deadline leaves time to fix what it finds; one that lands the week before only documents the problem.</p>
+
+  <h2>If you sell in the United Kingdom</h2>
+  <p>Two sets of rules, and they cover different people.</p>
+  <p>The <strong>Equality Act 2010</strong> covers private businesses that provide services to the public. It puts a duty on service providers to make reasonable adjustments, so that disabled people aren't put at a substantial disadvantage. It names no technical standard and sets no deadline. It works much like the ADA: the duty runs continuously, and it gets tested when somebody complains.</p>
+  <p>The <strong>Public Sector Bodies (Websites and Mobile Applications) Accessibility Regulations 2018</strong> cover the public sector, and their deadlines have all passed: September 23, 2019 for websites published from September 2018 onwards, September 23, 2020 for older websites, and June 23, 2021 for mobile apps.</p>
+  <p>Two things about those regulations are worth knowing even if you're not a public body yourself:</p>
+  <ul>
+    <li>They require an <strong>accessibility statement</strong>, published on the site in an accessible format. It has to explain which parts are not accessible and why, describe any alternatives offered, give people a way to report a problem, and link to the enforcement procedure.</li>
+    <li>Government guidance puts the standard at <strong>WCAG 2.2, Level AA</strong>. The regulations themselves point at WCAG Levels A and AA as amended over time, so the version moves as the guidelines move.</li>
+  </ul>
+  <p>Monitoring is done by the Government Digital Service. Enforcement sits with the Equality and Human Rights Commission in England, Scotland and Wales, and with the Equality Commission for Northern Ireland.</p>
+  <p><strong>What this means for you.</strong> If you supply sites, apps or content to a UK public body, the statement is part of the delivery, not an extra. We draft it. If you're a private UK business, the Equality Act gives you no deadline and no safe harbor, so the practical answer is the same as in the United States: remove the barriers, and keep a dated record that you did.</p>
+  <p>And if your UK company offers covered services to consumers in the European Union, the European Accessibility Act reaches you. Leaving the EU didn't change that. What counts is where the customer is.</p>
+
+  <h2>If you sell to consumers in the European Union</h2>
+  <p>The rule is the <strong>European Accessibility Act</strong>, Directive (EU) 2019/882. Member States have had to apply it <strong>since June 28, 2025</strong>. It isn't a deadline coming up. It's one that has passed.</p>
+  <p>Where your company is based doesn't matter. What matters is that you offer a covered product or service to <strong>consumers</strong> in the European Union. Note that word. The Act is about selling to the public. If you sell only to other businesses, it doesn't reach you by this route. It can still reach you by another: a public sector contract, or a clause your customer writes into yours.</p>
+  <details>
+    <summary>Which products and services it covers, and who is exempt</summary>
+    <div>
+      <p>Services covered:</p>
+      <ul>
+        <li>E-commerce services.</li>
+        <li>Consumer banking services.</li>
+        <li>Electronic communications services.</li>
+        <li>Services providing access to audiovisual media.</li>
+        <li>Parts of air, bus, rail and waterborne passenger transport: websites, mobile apps, electronic tickets, travel information, and self-service terminals located in the EU.</li>
+        <li>E-books and the software made for them.</li>
+      </ul>
+      <p>Products covered include consumer computers and their operating systems, e-readers, consumer terminal equipment such as phones and TV equipment, and self-service terminals such as ATMs, ticketing machines and check-in machines.</p>
+      <p><strong>The microenterprise exemption</strong> applies to service providers only. A microenterprise employs fewer than 10 people and, on top of that, meets one of two conditions: annual revenue of no more than 2 million euros, or an annual balance sheet total of no more than 2 million. Either one is enough. Companies that make or distribute covered products don't get this exemption, even at that size.</p>
+      <p><strong>What the Act does give you.</strong> Services can keep using products that were already lawfully in use before June 28, 2025, until June 28, 2030. Service contracts agreed before June 28, 2025 can run unchanged until they expire, up to five years from that date. There's also a disproportionate burden exception, which has to be assessed, documented and renewed. It isn't an open door, but it is a door.</p>
+      <p>Penalties are written by each Member State. In Spain, for example, fines under the general disability rights law run from €301 to €1,000,000.</p>
+    </div>
+  </details>
+  <p>The Act also asks service providers to prepare public information explaining how the service meets the accessibility requirements, and to keep it available for as long as the service runs. That's the European equivalent of an accessibility statement.</p>
+  <p><strong>What this means for you.</strong> If you're in one of those sectors and you sell to EU consumers, you're already past the date. What closes it is an evaluation against EN 301 549, the European standard that carries WCAG into EU law, and the statement that rests on it. Both are part of the <a href="/en/services/">Site audit</a>.</p>
 
   <h2>If you work with the Argentine State</h2>
-  <p><strong>Ley 26.653</strong>, on the accessibility of information on web pages, applies. It has been in force since 2010, and the technical standards are set by the National Office of Information Technologies (ONTI).</p>
-  <p><strong>It does not bind Argentine private companies in general.</strong> We'd rather say so before you check with your lawyer.</p>
-  <details>
-    <summary>Exactly who it binds</summary>
-    <div>
-      <ul>
-        <li>The national State and its decentralized and autonomous bodies.</li>
-        <li>State-owned companies and non-state public entities.</li>
-        <li>Private companies holding public service concessions.</li>
-        <li>Companies supplying goods and services to the State, or contracting with it.</li>
-        <li>Civil society organizations receiving State subsidies or donations, or contracting with it.</li>
-      </ul>
-      <p>If your company is private and falls into none of those categories, Ley 26.653 doesn't bind you. That said, if you sell to European consumers, the EAA does.</p>
-    </div>
-  </details>
+  <p><strong>Ley 26.653</strong> has been in force since 2010. It binds the national State and its agencies, State-owned companies, holders of public service concessions, suppliers and contractors of the State, and civil society organizations that receive State money.</p>
+  <p>It doesn't bind Argentine private companies in general. We'd rather tell you that than sell you something you don't need. The Spanish version of this page goes into the detail: <a href="/normativa/" hreflang="es" lang="es">qué ley de accesibilidad te obliga</a>.</p>
 
-  <h2>The technical standard is the same in all three cases</h2>
-  <p>All three frameworks point at the same guidelines. Europe through EN 301 549, which incorporates WCAG. US courts and the Department of Justice use WCAG 2.1 AA. ONTI takes them as its reference too.</p>
-  <p>That means something concrete and in your favor: <strong>one audit against WCAG 2.2 serves all three frameworks</strong>. There's no need to audit three times or hire someone different in each country.</p>
+  <h2>One audit covers all of them</h2>
+  <p>Every framework on this page points at the same guidelines: WCAG. Europe reaches them through EN 301 549. The Title II rule and the Section 504 rule name WCAG 2.1 Level AA. Section 508 still names WCAG 2.0. The UK regulations point at WCAG and follow the current version, which guidance puts at 2.2.</p>
+  <p>Different version numbers sound like a problem. They aren't. The W3C is explicit about it: <q>Content that conforms to WCAG 2.2 also conforms to WCAG 2.0 and WCAG 2.1.</q></p>
+  <p>So one audit against <strong>WCAG 2.2, Level AA</strong> answers all of them at once. There's no need to audit three times, or to hire someone different in each country.</p>
 </div>
 
 <div class="prose">
   <h2>Which one applies to you</h2>
-  <p>Tell us what you sell and in which markets. We'll tell you which framework covers you and from when, at no cost and with nothing to sign.</p>
-  <p><a href="/en/contact/">Ask which regulation applies to me</a> or see the <a href="/en/services/">full list of services</a>.</p>
-  <p>And if what you are being asked for is a certificate, start with <a href="/en/web-accessibility-certificate/">which web accessibility certificates actually exist</a>.</p>
-  <p><small>This page is general orientation on the state of the regulations, not legal advice. For a binding interpretation of your case, consult a legal professional.</small></p>
+  <p>Tell us what you sell and where you sell it. We'll tell you which framework covers you and from when, at no cost and with nothing to sign.</p>
+  <p><a href="/en/contact/">Ask which law applies to your company</a> or see the <a href="/en/services/">full service details</a>.</p>
+  <p>And if what you're being asked for is a certificate, start with <a href="/en/web-accessibility-certificate/">which web accessibility certificates actually exist</a>. The short version: real voluntary programs do exist, none of them is required by law, and what the law asks for is conformance plus a document that shows it.</p>
+  <p><small>This page is general guidance on the state of the regulations, not legal advice. For an interpretation you can rely on, talk to a lawyer. Last checked: August 20, 2026.</small></p>
 </div>
