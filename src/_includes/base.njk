@@ -36,13 +36,13 @@
   <meta property="og:description" content="{{ description }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:locale" content="{% if lang == 'en' %}en_US{% else %}es_ES{% endif %}">
-  <meta property="og:image" content="{{ site.url }}/img/og-tuaccesible.png">
+  {# Una tarjeta por idioma: quien comparte una pagina inglesa en LinkedIn tiene
+     que ver el lema en ingles. Las dos son 1200x630 y comparten geometria; el
+     alt transcribe el texto que cada una lleva grabado. #}
+  <meta property="og:image" content="{{ site.url }}/img/og-tuaccesible{% if lang == 'en' %}-en{% endif %}.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  {# El alt describe lo que la imagen dice de verdad, y la imagen esta en
-     espanol para los dos idiomas. Pendiente: una tarjeta og en ingles, porque
-     hoy quien comparte una pagina inglesa en LinkedIn muestra texto espanol. #}
-  <meta property="og:image:alt" content="{% if lang == 'en' %}The tuaccesible logo, with the tagline in Spanish: Consultoría en accesibilidad digital. Auditorías WCAG, EN 301 549 y EAA.{% else %}El logotipo de tuaccesible con el lema: Consultoría en accesibilidad digital. Auditorías WCAG, EN 301 549 y EAA.{% endif %}">
+  <meta property="og:image:alt" content="{% if lang == 'en' %}The tuaccesible logo, with the tagline: Digital accessibility consulting. WCAG, ADA and EN 301 549 audits.{% else %}El logotipo de tuaccesible con el lema: Consultoría en accesibilidad digital. Auditorías WCAG, EN 301 549 y EAA.{% endif %}">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="stylesheet" href="/css/global.css">

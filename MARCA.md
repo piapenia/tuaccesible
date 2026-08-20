@@ -99,7 +99,14 @@ subrayado: un rectángulo de esquinas redondeadas, en terracota.
 | `src/img/logo-marca-mono.svg` | Solo el símbolo, en `currentColor`: hereda el color de donde se ponga. Para sellos, grabados, o cualquier soporte de una tinta. |
 | `src/img/favicon.svg` | Icono de pestaña. Trae su propia versión oscura. |
 | `src/img/icono-180.png` | Icono de pantalla de inicio en iOS. Mosaico petróleo con la letra en blanco. |
-| `src/img/og-tuaccesible.png` | Tarjeta de 1200 × 630 que se ve cuando alguien comparte el sitio en LinkedIn, WhatsApp o Slack. |
+| `src/img/og-tuaccesible.png` | Tarjeta de 1200 × 630 que se ve cuando alguien comparte una página **en español** en LinkedIn, WhatsApp o Slack. |
+| `src/img/og-tuaccesible-en.png` | La misma tarjeta para las páginas **en inglés**, con el lema traducido y ADA delante de EN 301 549, que es lo que reconoce un comprador estadounidense. `base.njk` elige una u otra según el idioma de la página. |
+
+Las dos tarjetas comparten geometría exacta: franja petróleo de 16 px arriba,
+logotipo a 100 px del borde izquierdo con 760,7 px de ancho, lema en Century
+Gothic de 44 px con interlineado de 57 px, y la dirección del sitio en 30 px
+sobre `#455055`. Si hay que rehacer una, hay que rehacer la otra igual, o
+dejan de parecer el mismo sitio.
 
 En el sitio, el nombre **no** es una imagen: es texto real al lado del símbolo.
 Así crece con el zoom de texto, se lee tal cual con lector de pantalla y no
