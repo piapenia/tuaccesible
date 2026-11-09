@@ -1,3 +1,6 @@
+import { FormularioWeb3Forms } from "../../componentes/formularios/FormularioWeb3Forms.jsx";
+import { ProteccionDeDatos } from "../../componentes/formularios/ProteccionDeDatos.jsx";
+
 export const pagina = {
   idioma: "en",
   titulo: "Get an accessibility audit quote",
@@ -11,15 +14,7 @@ export default function Contact() {
       <h1>Tell us what needs auditing</h1>
       <p className="lede">A free consultation, no strings attached. Tell us what needs auditing and by when, and you'll have scope, price and timeline in writing within a week.</p>
       <p>Prefer email? Write to us directly at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. Either way, you'll hear back within two business days. We're on UTC-3, one to two hours ahead of US Eastern.</p>
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051" />
-        <input type="hidden" name="subject" value="New inquiry from tuaccesible.com" />
-        <input type="hidden" name="from_name" value="tuaccesible.com form" />
-        <input type="hidden" name="redirect" value="https://tuaccesible.com/en/thank-you/" />
-        <p className="hp">
-          <label htmlFor="botcheck">Leave this field empty</label>{" "}
-          <input type="checkbox" id="botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
-        </p>
+      <FormularioWeb3Forms idioma="en" asunto="New inquiry from tuaccesible.com">
         <p>
           <label htmlFor="name">Name (required)</label>
           <br />
@@ -51,13 +46,13 @@ export default function Contact() {
           <br />
           <textarea id="message" name="message" rows={6} required aria-describedby="message-help"></textarea>
         </p>
-        <div className="form-legal">
+        <ProteccionDeDatos>
           <p><strong>The short version.</strong> We use your name, email and message only to reply to you and put your quote together, and we keep them for as long as the conversation runs.</p>
           <p>The form is handled by Web3Forms, our data processor, whose servers are in the United States; your message lands in our inbox and nowhere else. You can ask us to show you, correct or delete your data at any time at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. The full details are in our <a href="/en/privacy/">privacy policy</a>.</p>
-        </div>
+        </ProteccionDeDatos>
         <p>Free consultation. We reply within two business days. Nothing is charged and nothing is signed at this stage.</p>
         <button type="submit">Send message</button>
-      </form>
+      </FormularioWeb3Forms>
     </>
   );
 }

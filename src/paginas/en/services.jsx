@@ -1,3 +1,5 @@
+import { Desplegable } from "../../componentes/Desplegable.jsx";
+
 export const pagina = {
   idioma: "en",
   titulo: "Web accessibility audit services",
@@ -26,68 +28,56 @@ export default function Services() {
       <div className="prose">
         <h2>Express audit</h2>
         <p>A fast read on the state of your site, before you commit budget to a bigger project. We review the home page at minimum, plus the key pages that matter most on your site. It's a first pass: it tells you where you stand, and it doesn't replace the page-by-page report. Delivered in 2 to 3 business days, paid in full up front.</p>
-        <details>
-          <summary>What the express audit includes</summary>
-          <div>
-            <ul>
-              <li>A manual review of the home page and a selection of key links.</li>
-              <li>Direct observations, ordered by what has the most impact.</li>
-              <li>A concrete recommendation on where to go next.</li>
-            </ul>
-            <p><strong>What it doesn't include:</strong> the page-by-page report or the full criteria table. That's what the Site audit adds.</p>
-          </div>
-        </details>
+        <Desplegable resumen="What the express audit includes">
+          <ul>
+            <li>A manual review of the home page and a selection of key links.</li>
+            <li>Direct observations, ordered by what has the most impact.</li>
+            <li>A concrete recommendation on where to go next.</li>
+          </ul>
+          <p><strong>What it doesn't include:</strong> the page-by-page report or the full criteria table. That's what the Site audit adds.</p>
+        </Desplegable>
         <p><a href="/en/contact/">Get a quote for an express audit</a></p>
         <h2>Site audit</h2>
         <p>The foundation for any accessibility statement that will hold up. <strong>We review the site page by page and link by link. We don't sample.</strong> The usual practice in this industry is a representative sample, around 8 to 15 pages. The W3C evaluation methodology treats sampling as the fallback and recommends evaluating the entire product wherever that's feasible. We make it feasible, against Level AA at minimum.</p>
-        <details>
-          <summary>What the site audit includes</summary>
-          <div>
-            <ul>
-              <li>Evaluation page by page and link by link, not a sample.</li>
-              <li>Level AA as the minimum, with AAA suggested wherever it's achievable.</li>
-              <li>A full report with criteria table, screenshots, and examples.</li>
-              <li>Both halves of the audit: the functional side, with keyboard and screen reader, and the visual side.</li>
-              <li>A wrap-up call to walk through the findings. Bring whoever on your team needs to hear it.</li>
-            </ul>
-            <p><strong>How it differs from the Express audit:</strong> the Express audit tells you whether you have a problem. This one tells you which problems, where they are, and what to fix first, in a document that stands up as the basis for an accessibility statement.</p>
-          </div>
-        </details>
+        <Desplegable resumen="What the site audit includes">
+          <ul>
+            <li>Evaluation page by page and link by link, not a sample.</li>
+            <li>Level AA as the minimum, with AAA suggested wherever it's achievable.</li>
+            <li>A full report with criteria table, screenshots, and examples.</li>
+            <li>Both halves of the audit: the functional side, with keyboard and screen reader, and the visual side.</li>
+            <li>A wrap-up call to walk through the findings. Bring whoever on your team needs to hear it.</li>
+          </ul>
+          <p><strong>How it differs from the Express audit:</strong> the Express audit tells you whether you have a problem. This one tells you which problems, where they are, and what to fix first, in a document that stands up as the basis for an accessibility statement.</p>
+        </Desplegable>
         <p><a href="/en/contact/">Get a quote for a site audit</a></p>
         <h2>Full package</h2>
         <p>Everything in the Site audit, plus the help it takes to get the fixes shipped. It's the only option with support after delivery.</p>
-        <details>
-          <summary>What the full package includes</summary>
-          <div>
-            <ul>
-              <li>Everything in the Site audit.</li>
-              <li>Follow-up after delivery, for as long as your team needs it and asks for it.</li>
-              <li>The accessibility statement already drafted.</li>
-              <li>20% off the retest, the second review once your changes are in. It costs less because we still have everything from the first audit and start from there.</li>
-              <li>A live testing session, 30 to 90 minutes, where you watch your own product being used with a screen reader. Across this industry that session is sold as a paid add-on. Here it isn't an add-on, it's who does the audit.</li>
-            </ul>
-            <p>You get the full report either way. The live session adds to it; it never replaces it. We hand you the recording as a file, with the captions in a separate file, so you can watch it in whatever player you already use and keep it wherever you want. We don't publish it and we don't host it anywhere.</p>
-            <p><strong>How it differs from the Site audit:</strong> the audit ends when you receive the report. The Full package ends when the changes are done.</p>
-            <p>If you'd rather not handle it in-house, we scope and quote the remediation too. We make the changes in the code, not just flag them.</p>
-          </div>
-        </details>
+        <Desplegable resumen="What the full package includes">
+          <ul>
+            <li>Everything in the Site audit.</li>
+            <li>Follow-up after delivery, for as long as your team needs it and asks for it.</li>
+            <li>The accessibility statement already drafted.</li>
+            <li>20% off the retest, the second review once your changes are in. It costs less because we still have everything from the first audit and start from there.</li>
+            <li>A live testing session, 30 to 90 minutes, where you watch your own product being used with a screen reader. Across this industry that session is sold as a paid add-on. Here it isn't an add-on, it's who does the audit.</li>
+          </ul>
+          <p>You get the full report either way. The live session adds to it; it never replaces it. We hand you the recording as a file, with the captions in a separate file, so you can watch it in whatever player you already use and keep it wherever you want. We don't publish it and we don't host it anywhere.</p>
+          <p><strong>How it differs from the Site audit:</strong> the audit ends when you receive the report. The Full package ends when the changes are done.</p>
+          <p>If you'd rather not handle it in-house, we scope and quote the remediation too. We make the changes in the code, not just flag them.</p>
+        </Desplegable>
         <p><a href="/en/contact/">Ask about the full package</a></p>
         <h2>Corporate workshop</h2>
         <p><strong>Delivered in Spanish.</strong> This is training for teams that work in Spanish, and that's a deliberate scope, not a gap we're working on: the centerpiece of the session is a live screen reader demonstration, run and narrated by the person who uses it, and that only works in the language she works in. If your product team is in Latin America or Spain, or you have Spanish-speaking engineers and content owners, this is built for them.</p>
         <p>Accessibility training so your team stops repeating the same mistakes on the next project. One hour, extendable as needed. Remote anywhere in the world, or in person in Argentina.</p>
-        <details>
-          <summary>What the corporate workshop includes</summary>
-          <div>
-            <ul>
-              <li>A presentation built around your team's specific questions.</li>
-              <li>A live demonstration navigating with a screen reader, as the centerpiece of the session.</li>
-              <li>A mixed room: design, development and content together, so everyone leaves with the same vocabulary.</li>
-              <li>No cap on attendees. We'd rather have your whole team in the room than charge per seat.</li>
-            </ul>
-            <p>The demonstration works far better on your own site than on a generic example.</p>
-            <p><strong>How it differs from the rest:</strong> the other three services evaluate a product. This one trains the people who build it, so the next one is right from the start.</p>
-          </div>
-        </details>
+        <Desplegable resumen="What the corporate workshop includes">
+          <ul>
+            <li>A presentation built around your team's specific questions.</li>
+            <li>A live demonstration navigating with a screen reader, as the centerpiece of the session.</li>
+            <li>A mixed room: design, development and content together, so everyone leaves with the same vocabulary.</li>
+            <li>No cap on attendees. We'd rather have your whole team in the room than charge per seat.</li>
+          </ul>
+          <p>The demonstration works far better on your own site than on a generic example.</p>
+          <p><strong>How it differs from the rest:</strong> the other three services evaluate a product. This one trains the people who build it, so the next one is right from the start.</p>
+        </Desplegable>
         <p><a href="/en/contact/">Ask about a workshop</a></p>
       </div>
       <div className="prose">

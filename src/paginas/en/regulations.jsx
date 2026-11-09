@@ -1,3 +1,5 @@
+import { Desplegable } from "../../componentes/Desplegable.jsx";
+
 export const pagina = {
   idioma: "en",
   titulo: "Does the ADA or the EAA apply to you?",
@@ -17,17 +19,14 @@ export default function Regulations() {
         <p>The Department of Justice, the federal agency that enforces the ADA, says the requirements reach what a business offers on the web. It also says there's no regulation setting out detailed technical standards for Title III. So you have room in <em>how</em> you comply. You have none in <em>whether</em> you comply.</p>
         <p>Here's the part most buyers get wrong. Under federal law, a private plaintiff suing you under Title III doesn't win money from you. What a court gives them is an order to fix the site, plus their attorney's fees. The fees are what make these cases worth filing. In some states a second claim rides along with the federal one, and that one does pay money. California is the clearest case.</p>
         <p><strong>What this means for you.</strong> There's no deadline to miss here and no certificate to buy. What ends a claim is a site that works, and a dated report that shows the work was done. That report is the <a href="/en/services/">Site audit</a>.</p>
-        <details>
-          <summary>What a Title III case looks like in practice</summary>
-          <div>
-            <ul>
-              <li>The person who brings it is a private individual, not a regulator.</li>
-              <li>A federal court can order you to fix the site and to pay the plaintiff's attorney's fees. It can't order you to pay the plaintiff damages. Civil penalties exist, but only the US Attorney General can ask for them, and that's rare.</li>
-              <li>Many claims arrive first as a demand letter from a law firm, and settle before anyone files anything in court. We can't tell you how many, because no public register counts letters that were never filed.</li>
-              <li>Counts of filed cases are published by law firms and by vendors who watch court dockets. They aren't official statistics, and the yearly totals move up and down. Be careful with anyone who quotes you one number as a trend.</li>
-            </ul>
-          </div>
-        </details>
+        <Desplegable resumen="What a Title III case looks like in practice">
+          <ul>
+            <li>The person who brings it is a private individual, not a regulator.</li>
+            <li>A federal court can order you to fix the site and to pay the plaintiff's attorney's fees. It can't order you to pay the plaintiff damages. Civil penalties exist, but only the US Attorney General can ask for them, and that's rare.</li>
+            <li>Many claims arrive first as a demand letter from a law firm, and settle before anyone files anything in court. We can't tell you how many, because no public register counts letters that were never filed.</li>
+            <li>Counts of filed cases are published by law firms and by vendors who watch court dockets. They aren't official statistics, and the yearly totals move up and down. Be careful with anyone who quotes you one number as a trend.</li>
+          </ul>
+        </Desplegable>
         <h2>California: where the law puts a number on it</h2>
         <p>California has its own civil rights law, the <strong>Unruh Civil Rights Act</strong>. Two things in it change the arithmetic.</p>
         <p>First, a violation of the ADA is automatically a violation of Unruh. The plaintiff doesn't have to show you meant to discriminate.</p>
@@ -44,15 +43,12 @@ export default function Regulations() {
         </ul>
         <p>Now the part that reaches private companies. The rule covers web content and mobile apps the government body provides <strong>directly or through contractual, licensing, or other arrangements</strong>. If your software runs your client's permit portal, their deadline is your deadline, and it will show up in your next contract.</p>
         <p><strong>What this means for you.</strong> If you sell to US public bodies, you want a dated conformance report before their deadline, not after it. That's the <a href="/en/services/">Site audit</a>, and we can deliver it together with an ACR.</p>
-        <details>
-          <summary>The exceptions, one state that goes further, and a caveat on the dates</summary>
-          <div>
-            <p>The rule lists five exceptions: archived content, certain conventional documents published before the compliance date, content posted by members of the public, individualized password-protected documents, and social media posts made before the compliance date.</p>
-            <p>A public entity can also argue that compliance would fundamentally alter a program, or would be an undue financial and administrative burden. That argument has to be made and documented. It isn't something you get by default.</p>
-            <p><strong>Colorado goes further than the federal rule.</strong> State agencies and local government bodies there have to meet accessibility standards set by the state's Office of Information Technology, and failing to do so is treated as a civil rights violation with a statutory fine payable to each plaintiff. The grace period ended on July 1, 2025.</p>
-            <p><strong>One caveat.</strong> The one-year extension was issued as an interim final rule. It took effect the day it was published and it's the rule in force today. The comment period closed on June 22, 2026, and no final rule had replaced it when we last checked this page.</p>
-          </div>
-        </details>
+        <Desplegable resumen="The exceptions, one state that goes further, and a caveat on the dates">
+          <p>The rule lists five exceptions: archived content, certain conventional documents published before the compliance date, content posted by members of the public, individualized password-protected documents, and social media posts made before the compliance date.</p>
+          <p>A public entity can also argue that compliance would fundamentally alter a program, or would be an undue financial and administrative burden. That argument has to be made and documented. It isn't something you get by default.</p>
+          <p><strong>Colorado goes further than the federal rule.</strong> State agencies and local government bodies there have to meet accessibility standards set by the state's Office of Information Technology, and failing to do so is treated as a civil rights violation with a statutory fine payable to each plaintiff. The grace period ended on July 1, 2025.</p>
+          <p><strong>One caveat.</strong> The one-year extension was issued as an interim final rule. It took effect the day it was published and it's the rule in force today. The comment period closed on June 22, 2026, and no final rule had replaced it when we last checked this page.</p>
+        </Desplegable>
         <h2>If you sell to a federal agency</h2>
         <p><strong>Section 508</strong> of the Rehabilitation Act binds federal agencies. It doesn't bind you directly. It reaches you through what agencies are allowed to buy.</p>
         <p>The technical standard agencies have to meet is set by the US Access Board, and for electronic content it's <strong>WCAG 2.0, Level A and Level AA</strong>. Yes, 2.0. It's older than the standard in the Title II rule, and it hasn't been updated.</p>
@@ -84,24 +80,21 @@ export default function Regulations() {
         <h2>If you sell to consumers in the European Union</h2>
         <p>The rule is the <strong>European Accessibility Act</strong>, Directive (EU) 2019/882. Member States have had to apply it <strong>since June 28, 2025</strong>. It isn't a deadline coming up. It's one that has passed.</p>
         <p>Where your company is based doesn't matter. What matters is that you offer a covered product or service to <strong>consumers</strong> in the European Union. Note that word. The Act is about selling to the public. If you sell only to other businesses, it doesn't reach you by this route. It can still reach you by another: a public sector contract, or a clause your customer writes into yours.</p>
-        <details>
-          <summary>Which products and services it covers, and who is exempt</summary>
-          <div>
-            <p>Services covered:</p>
-            <ul>
-              <li>E-commerce services.</li>
-              <li>Consumer banking services.</li>
-              <li>Electronic communications services.</li>
-              <li>Services providing access to audiovisual media.</li>
-              <li>Parts of air, bus, rail and waterborne passenger transport: websites, mobile apps, electronic tickets, travel information, and self-service terminals located in the EU.</li>
-              <li>E-books and the software made for them.</li>
-            </ul>
-            <p>Products covered include consumer computers and their operating systems, e-readers, consumer terminal equipment such as phones and TV equipment, and self-service terminals such as ATMs, ticketing machines and check-in machines.</p>
-            <p><strong>The microenterprise exemption</strong> applies to service providers only. A microenterprise employs fewer than 10 people and, on top of that, meets one of two conditions: annual revenue of no more than 2 million euros, or an annual balance sheet total of no more than 2 million. Either one is enough. Companies that make or distribute covered products don't get this exemption, even at that size.</p>
-            <p><strong>What the Act does give you.</strong> Services can keep using products that were already lawfully in use before June 28, 2025, until June 28, 2030. Service contracts agreed before June 28, 2025 can run unchanged until they expire, up to five years from that date. There's also a disproportionate burden exception, which has to be assessed, documented and renewed. It isn't an open door, but it is a door.</p>
-            <p>Penalties are written by each Member State. In Spain, for example, fines under the general disability rights law run from €301 to €1,000,000.</p>
-          </div>
-        </details>
+        <Desplegable resumen="Which products and services it covers, and who is exempt">
+          <p>Services covered:</p>
+          <ul>
+            <li>E-commerce services.</li>
+            <li>Consumer banking services.</li>
+            <li>Electronic communications services.</li>
+            <li>Services providing access to audiovisual media.</li>
+            <li>Parts of air, bus, rail and waterborne passenger transport: websites, mobile apps, electronic tickets, travel information, and self-service terminals located in the EU.</li>
+            <li>E-books and the software made for them.</li>
+          </ul>
+          <p>Products covered include consumer computers and their operating systems, e-readers, consumer terminal equipment such as phones and TV equipment, and self-service terminals such as ATMs, ticketing machines and check-in machines.</p>
+          <p><strong>The microenterprise exemption</strong> applies to service providers only. A microenterprise employs fewer than 10 people and, on top of that, meets one of two conditions: annual revenue of no more than 2 million euros, or an annual balance sheet total of no more than 2 million. Either one is enough. Companies that make or distribute covered products don't get this exemption, even at that size.</p>
+          <p><strong>What the Act does give you.</strong> Services can keep using products that were already lawfully in use before June 28, 2025, until June 28, 2030. Service contracts agreed before June 28, 2025 can run unchanged until they expire, up to five years from that date. There's also a disproportionate burden exception, which has to be assessed, documented and renewed. It isn't an open door, but it is a door.</p>
+          <p>Penalties are written by each Member State. In Spain, for example, fines under the general disability rights law run from €301 to €1,000,000.</p>
+        </Desplegable>
         <p>The Act also asks service providers to prepare public information explaining how the service meets the accessibility requirements, and to keep it available for as long as the service runs. That's the European equivalent of an accessibility statement.</p>
         <p><strong>What this means for you.</strong> If you're in one of those sectors and you sell to EU consumers, you're already past the date. What closes it is an evaluation against EN 301 549, the European standard that carries WCAG into EU law, and the statement that rests on it. Both are part of the <a href="/en/services/">Site audit</a>.</p>
         <h2>If you work with the Argentine State</h2>

@@ -1,3 +1,6 @@
+import { FormularioWeb3Forms } from "../../componentes/formularios/FormularioWeb3Forms.jsx";
+import { ProteccionDeDatos } from "../../componentes/formularios/ProteccionDeDatos.jsx";
+
 export const pagina = {
   idioma: "en",
   titulo: "Leave a review",
@@ -10,15 +13,7 @@ export default function LeaveAReview() {
     <>
       <h1>Leave a review</h1>
       <p className="lede">If we've worked together, a few lines from you do more for the next client than anything we can say about ourselves. We read every review and check it before we publish it, and nothing goes up without your permission.</p>
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051" />
-        <input type="hidden" name="subject" value="New review from tuaccesible.com" />
-        <input type="hidden" name="from_name" value="tuaccesible.com form" />
-        <input type="hidden" name="redirect" value="https://tuaccesible.com/en/thank-you/" />
-        <p className="hp">
-          <label htmlFor="botcheck">Leave this field empty</label>{" "}
-          <input type="checkbox" id="botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
-        </p>
+      <FormularioWeb3Forms idioma="en" asunto="New review from tuaccesible.com">
         <p>
           <label htmlFor="display-name">The name or initials you want shown (required)</label>
           <br />
@@ -61,16 +56,17 @@ export default function LeaveAReview() {
           <br />
           <textarea id="comment" name="comment" rows={5}></textarea>
         </p>
+        {/* El {" "} es el espacio entre la casilla y su texto: JSX no lo pone solo entre dos elementos en renglones distintos. */}
         <p>
           <input type="checkbox" id="consent" name="consent_publicacion" value="Yes" required />{" "}
           <label htmlFor="consent">I give tuaccesible permission to publish this review, and the name I entered above, on tuaccesible.com (required)</label>
         </p>
-        <div className="form-legal">
+        <ProteccionDeDatos>
           <p><strong>The short version.</strong> We use what you write here to publish your review, only with your permission and only after we've read it.</p>
           <p>The form is handled by Web3Forms, our data processor, whose servers are in the United States. You can withdraw your permission or ask us to take the review down at any time at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. The full details are in our <a href="/en/privacy/">privacy policy</a>.</p>
-        </div>
+        </ProteccionDeDatos>
         <button type="submit">Submit review</button>
-      </form>
+      </FormularioWeb3Forms>
     </>
   );
 }

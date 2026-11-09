@@ -1,3 +1,5 @@
+import { Desplegable } from "../componentes/Desplegable.jsx";
+
 export const pagina = {
   idioma: "es",
   titulo: "Qué ley de accesibilidad te obliga",
@@ -15,23 +17,20 @@ export default function Normativa() {
         <p>Te aplica la <strong>Ley Europea de Accesibilidad</strong>, la Directiva (UE) 2019/882. Es <strong>exigible desde el 28 de junio de 2025</strong>: no es un plazo que viene, es una fecha que ya pasó.</p>
         <p>Obliga sin importar dónde esté la sede de tu empresa. Lo que cuenta es que ofrezcas el producto o el servicio a consumidores dentro de la Unión Europea.</p>
         <p>Fíjate en esa palabra, <strong>consumidores</strong>, porque descarta a mucha gente: la Ley Europea de Accesibilidad habla de quien vende al público. Si tu producto se vende solo a otras empresas, el EAA no te alcanza por esta vía. Puede alcanzarte por otra, si contratas con administraciones públicas o si tu cliente te traslada el requisito por contrato.</p>
-        <details>
-          <summary>A qué sectores y empresas alcanza</summary>
-          <div>
-            <p>No obliga a todas las empresas. Los sectores cubiertos son:</p>
-            <ul>
-              <li>Comercio electrónico.</li>
-              <li>Banca y servicios de pago.</li>
-              <li>Telecomunicaciones y comunicaciones electrónicas.</li>
-              <li>Servicios de medios audiovisuales.</li>
-              <li>Transporte de pasajeros: venta de pasajes, información y terminales.</li>
-              <li>Libros electrónicos y sus lectores.</li>
-              <li>Equipos informáticos, teléfonos, tabletas y terminales de autoservicio como cajeros y quioscos.</li>
-            </ul>
-            <p><strong>Exención de microempresas:</strong> alcanza solo a las que prestan servicios. Se considera microempresa la que emplea a menos de 10 personas y, además, cumple una de estas dos condiciones: que su facturación anual no supere los 2 millones de euros, o que su balance anual total no supere los 2 millones. Basta con una de las dos. Quien fabrica o distribuye productos cubiertos no está exento, aunque sea microempresa.</p>
-            <p><strong>Lo que la ley sí te concede.</strong> Puedes seguir usando hasta el 28 de junio de 2030 los productos que ya utilizabas legalmente antes del 28 de junio de 2025. Los contratos firmados antes de esa fecha siguen hasta expirar, con un máximo de cinco años. Y existe la excepción de carga desproporcionada, que hay que documentar y revisar cada cinco años. No es una puerta abierta, pero es una puerta.</p>
-          </div>
-        </details>
+        <Desplegable resumen="A qué sectores y empresas alcanza">
+          <p>No obliga a todas las empresas. Los sectores cubiertos son:</p>
+          <ul>
+            <li>Comercio electrónico.</li>
+            <li>Banca y servicios de pago.</li>
+            <li>Telecomunicaciones y comunicaciones electrónicas.</li>
+            <li>Servicios de medios audiovisuales.</li>
+            <li>Transporte de pasajeros: venta de pasajes, información y terminales.</li>
+            <li>Libros electrónicos y sus lectores.</li>
+            <li>Equipos informáticos, teléfonos, tabletas y terminales de autoservicio como cajeros y quioscos.</li>
+          </ul>
+          <p><strong>Exención de microempresas:</strong> alcanza solo a las que prestan servicios. Se considera microempresa la que emplea a menos de 10 personas y, además, cumple una de estas dos condiciones: que su facturación anual no supere los 2 millones de euros, o que su balance anual total no supere los 2 millones. Basta con una de las dos. Quien fabrica o distribuye productos cubiertos no está exento, aunque sea microempresa.</p>
+          <p><strong>Lo que la ley sí te concede.</strong> Puedes seguir usando hasta el 28 de junio de 2030 los productos que ya utilizabas legalmente antes del 28 de junio de 2025. Los contratos firmados antes de esa fecha siguen hasta expirar, con un máximo de cinco años. Y existe la excepción de carga desproporcionada, que hay que documentar y revisar cada cinco años. No es una puerta abierta, pero es una puerta.</p>
+        </Desplegable>
         <p>¿Te están pidiendo un certificado para demostrarlo? El EAA obliga a marcado CE y declaración de conformidad para los <strong>productos</strong> cubiertos. Para los <strong>servicios</strong> no existe ningún certificado oficial. Lo explicamos en <a href="/certificado-accesibilidad-web/">qué certificados de accesibilidad web existen de verdad</a>.</p>
         <h2>Si tu empresa está en España</h2>
         <p>La ley española que traslada el EAA al derecho interno, su transposición, es la <strong>Ley 11/2023</strong>. El régimen sancionador es el del Real Decreto Legislativo 1/2013, la ley general de derechos de las personas con discapacidad, con tres niveles de infracción y multas que van de 301 € a 1.000.000 €.</p>
@@ -39,33 +38,27 @@ export default function Normativa() {
         <h2>Si vendes en Estados Unidos</h2>
         <p>El <strong>ADA</strong> no fija un estándar técnico en su texto, pero los tribunales resuelven usando <strong>WCAG 2.1 nivel AA</strong> como referencia de hecho. En la práctica, ese es el listón.</p>
         <p>Allí el riesgo llega por vía judicial: quien reclama es un particular ante un tribunal, y casi siempre empieza con una carta de reclamación previa que nunca llega a ningún registro judicial.</p>
-        <details>
-          <summary>Plazos y normas que sí fijan estándar</summary>
-          <div>
-            <ul>
-              <li><strong>Section 508:</strong> obliga a las agencias federales y a quienes les venden.</li>
-              <li><strong>ADA Title II:</strong> alcanza a entidades públicas estatales y locales, con WCAG 2.1 AA como estándar exigido. El Departamento de Justicia prorrogó los plazos un año en abril de 2026: <strong>26 de abril de 2027</strong> para poblaciones de 50.000 habitantes o más, y <strong>26 de abril de 2028</strong> para las menores.</li>
-              <li><strong>ADA Title III:</strong> alcanza a los negocios abiertos al público. No tiene plazo ni estándar publicado, y es donde se concentran las demandas.</li>
-            </ul>
-          </div>
-        </details>
+        <Desplegable resumen="Plazos y normas que sí fijan estándar">
+          <ul>
+            <li><strong>Section 508:</strong> obliga a las agencias federales y a quienes les venden.</li>
+            <li><strong>ADA Title II:</strong> alcanza a entidades públicas estatales y locales, con WCAG 2.1 AA como estándar exigido. El Departamento de Justicia prorrogó los plazos un año en abril de 2026: <strong>26 de abril de 2027</strong> para poblaciones de 50.000 habitantes o más, y <strong>26 de abril de 2028</strong> para las menores.</li>
+            <li><strong>ADA Title III:</strong> alcanza a los negocios abiertos al público. No tiene plazo ni estándar publicado, y es donde se concentran las demandas.</li>
+          </ul>
+        </Desplegable>
         <p>Lo que te va a pedir tu abogado es un informe de auditoría con fecha y con la tabla de criterios. <a href="/servicios/">Así lo hacemos</a>.</p>
         <h2>Si trabajas con el Estado argentino</h2>
         <p>Te aplica la <strong>Ley 26.653</strong>, de accesibilidad de la información en las páginas web, vigente desde 2010. Los estándares técnicos los fija la Oficina Nacional de Tecnologías de la Información (ONTI).</p>
         <p><strong>No alcanza a la empresa privada argentina en general.</strong> Preferimos decirlo antes de que lo consultes con tu abogado.</p>
-        <details>
-          <summary>A quién obliga exactamente</summary>
-          <div>
-            <ul>
-              <li>El Estado nacional, sus organismos descentralizados y autárquicos.</li>
-              <li>Las empresas del Estado y los entes públicos no estatales.</li>
-              <li>Las empresas privadas concesionarias de servicios públicos.</li>
-              <li>Las empresas prestadoras o contratistas de bienes y servicios del Estado.</li>
-              <li>Las organizaciones de la sociedad civil que reciban subsidios o donaciones del Estado, o contraten con él.</li>
-            </ul>
-            <p>Si tu empresa es privada y no entra en ninguna de esas categorías, la Ley 26.653 no te obliga. Ahora bien, si le vendes a consumidores europeos, el EAA sí.</p>
-          </div>
-        </details>
+        <Desplegable resumen="A quién obliga exactamente">
+          <ul>
+            <li>El Estado nacional, sus organismos descentralizados y autárquicos.</li>
+            <li>Las empresas del Estado y los entes públicos no estatales.</li>
+            <li>Las empresas privadas concesionarias de servicios públicos.</li>
+            <li>Las empresas prestadoras o contratistas de bienes y servicios del Estado.</li>
+            <li>Las organizaciones de la sociedad civil que reciban subsidios o donaciones del Estado, o contraten con él.</li>
+          </ul>
+          <p>Si tu empresa es privada y no entra en ninguna de esas categorías, la Ley 26.653 no te obliga. Ahora bien, si le vendes a consumidores europeos, el EAA sí.</p>
+        </Desplegable>
         <h2>El estándar técnico es el mismo en los tres casos</h2>
         <p>Los tres marcos apuntan a las mismas pautas. Europa a través de la norma EN 301 549, que incorpora las WCAG. Los tribunales y el Departamento de Justicia estadounidenses usan WCAG 2.1 AA. La ONTI también las toma como referencia.</p>
         <p>Eso significa algo concreto y a tu favor: <strong>una auditoría contra WCAG 2.2 te sirve para los tres marcos</strong>. No hay que auditar tres veces ni contratar a alguien distinto en cada país.</p>

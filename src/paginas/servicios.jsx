@@ -1,3 +1,5 @@
+import { Desplegable } from "../componentes/Desplegable.jsx";
+
 export const pagina = {
   idioma: "es",
   titulo: "Auditoría de accesibilidad web y formación",
@@ -16,67 +18,55 @@ export default function Servicios() {
       <div className="prose">
         <h2>Auditoría exprés</h2>
         <p>El diagnóstico rápido de accesibilidad web, para saber en qué situación estás antes de comprometer un proyecto grande. Revisamos como mínimo la página de inicio, y sumamos los enlaces clave según el sitio. Es una observación de primer nivel: te dice en qué estado estás, no sustituye al informe página por página. Entrega en 2 a 3 días hábiles, y se abona entera al contratarla.</p>
-        <details>
-          <summary>Qué incluye la auditoría exprés</summary>
-          <div>
-            <ul>
-              <li>Revisión manual de la página de inicio y de una selección de enlaces clave.</li>
-              <li>Observaciones directas, ordenadas por lo que más impacta.</li>
-              <li>Una recomendación concreta de por dónde seguir.</li>
-            </ul>
-            <p><strong>Lo que no incluye:</strong> el informe página por página ni la tabla de criterios completa. Eso es lo que agrega la auditoría de sitio.</p>
-          </div>
-        </details>
+        <Desplegable resumen="Qué incluye la auditoría exprés">
+          <ul>
+            <li>Revisión manual de la página de inicio y de una selección de enlaces clave.</li>
+            <li>Observaciones directas, ordenadas por lo que más impacta.</li>
+            <li>Una recomendación concreta de por dónde seguir.</li>
+          </ul>
+          <p><strong>Lo que no incluye:</strong> el informe página por página ni la tabla de criterios completa. Eso es lo que agrega la auditoría de sitio.</p>
+        </Desplegable>
         <p><a href="/contacto/">Pedir presupuesto de auditoría exprés</a></p>
         <h2>Auditoría de sitio</h2>
         <p>La base para cualquier declaración de accesibilidad real. <strong>Evaluamos el sitio página por página y enlace por enlace, no una muestra.</strong> Lo habitual en el sector es auditar una muestra representativa de entre 8 y 15 páginas; aquí se revisa todo, contra el nivel AA como mínimo.</p>
-        <details>
-          <summary>Qué incluye la auditoría de sitio</summary>
-          <div>
-            <ul>
-              <li>Evaluación página por página y enlace por enlace, no una muestra.</li>
-              <li>Nivel AA como mínimo, con AAA sugerido donde sea alcanzable.</li>
-              <li>Informe completo con tabla de criterios, capturas y ejemplos.</li>
-              <li>Las dos caras de la auditoría: la funcional, con teclado y lector de pantalla, y también la visual.</li>
-              <li>Una llamada de cierre para repasar los hallazgos con quien quieras sumar de tu equipo.</li>
-            </ul>
-            <p><strong>La diferencia con la exprés:</strong> la exprés te dice si tienes un problema. Esta te dice exactamente cuál, dónde y con qué prioridad, en un documento que sirve como base de una declaración de accesibilidad.</p>
-          </div>
-        </details>
+        <Desplegable resumen="Qué incluye la auditoría de sitio">
+          <ul>
+            <li>Evaluación página por página y enlace por enlace, no una muestra.</li>
+            <li>Nivel AA como mínimo, con AAA sugerido donde sea alcanzable.</li>
+            <li>Informe completo con tabla de criterios, capturas y ejemplos.</li>
+            <li>Las dos caras de la auditoría: la funcional, con teclado y lector de pantalla, y también la visual.</li>
+            <li>Una llamada de cierre para repasar los hallazgos con quien quieras sumar de tu equipo.</li>
+          </ul>
+          <p><strong>La diferencia con la exprés:</strong> la exprés te dice si tienes un problema. Esta te dice exactamente cuál, dónde y con qué prioridad, en un documento que sirve como base de una declaración de accesibilidad.</p>
+        </Desplegable>
         <p><a href="/contacto/">Pedir presupuesto de auditoría de sitio</a></p>
         <h2>Servicio integral</h2>
         <p>Todo lo de la auditoría de sitio, más lo que hace falta para que las correcciones lleguen a implementarse. Es la única modalidad con acompañamiento posterior a la entrega.</p>
-        <details>
-          <summary>Qué incluye el servicio integral</summary>
-          <div>
-            <ul>
-              <li>Todo lo de la auditoría de sitio.</li>
-              <li>Seguimiento después de la entrega, durante el tiempo que tu equipo lo necesite y nos lo pida.</li>
-              <li>La declaración de accesibilidad ya redactada.</li>
-              <li>Un 20 % de descuento sobre el retesteo, que es la segunda revisión que se hace una vez implementados los cambios. Cuesta menos porque partimos del material del primer trabajo, que guardamos.</li>
-              <li>Una sesión de auditoría en vivo, de 30 minutos a hora y media, según lo que haya para mostrar y conversar.</li>
-            </ul>
-            <p>El informe completo está garantizado sea cual sea el resultado de esa sesión en vivo. La grabación te la entregamos a ti como archivo, con los subtítulos aparte, para que puedas verla en el reproductor que uses habitualmente y guardarla donde quieras. No queda publicada en ningún sitio ni alojada en ningún canal nuestro.</p>
-            <p><strong>La diferencia con la auditoría de sitio:</strong> la auditoría termina cuando recibes el informe. El servicio integral termina cuando los cambios están hechos.</p>
-            <p>Si prefieres no resolverlo puertas adentro, también evaluamos y presupuestamos la corrección: aplicamos los cambios en el código, no solo los señalamos.</p>
-          </div>
-        </details>
+        <Desplegable resumen="Qué incluye el servicio integral">
+          <ul>
+            <li>Todo lo de la auditoría de sitio.</li>
+            <li>Seguimiento después de la entrega, durante el tiempo que tu equipo lo necesite y nos lo pida.</li>
+            <li>La declaración de accesibilidad ya redactada.</li>
+            <li>Un 20 % de descuento sobre el retesteo, que es la segunda revisión que se hace una vez implementados los cambios. Cuesta menos porque partimos del material del primer trabajo, que guardamos.</li>
+            <li>Una sesión de auditoría en vivo, de 30 minutos a hora y media, según lo que haya para mostrar y conversar.</li>
+          </ul>
+          <p>El informe completo está garantizado sea cual sea el resultado de esa sesión en vivo. La grabación te la entregamos a ti como archivo, con los subtítulos aparte, para que puedas verla en el reproductor que uses habitualmente y guardarla donde quieras. No queda publicada en ningún sitio ni alojada en ningún canal nuestro.</p>
+          <p><strong>La diferencia con la auditoría de sitio:</strong> la auditoría termina cuando recibes el informe. El servicio integral termina cuando los cambios están hechos.</p>
+          <p>Si prefieres no resolverlo puertas adentro, también evaluamos y presupuestamos la corrección: aplicamos los cambios en el código, no solo los señalamos.</p>
+        </Desplegable>
         <p><a href="/contacto/">Consultar por el servicio integral</a></p>
         <h2>Taller corporativo</h2>
         <p>Formación en accesibilidad web para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo. Un encuentro de una hora, extendible según necesidad. Remoto a cualquier país, o presencial en Argentina. Por ahora damos los talleres solo en español.</p>
-        <details>
-          <summary>Qué incluye el taller corporativo</summary>
-          <div>
-            <ul>
-              <li>Una presentación armada a medida de las dudas concretas de tu equipo.</li>
-              <li>Una demostración en vivo navegando con lector de pantalla, como eje de la sesión.</li>
-              <li>Audiencia mixta: diseño, desarrollo y contenido en la misma sala, construyendo vocabulario compartido entre roles.</li>
-              <li>Sin límite de asistentes. La prioridad es que aprenda cuanta más gente mejor, no cobrar por cabeza.</li>
-            </ul>
-            <p>La demostración funciona mucho mejor sobre tu propio sitio que sobre un ejemplo genérico.</p>
-            <p><strong>En qué se diferencia del resto:</strong> los otros tres servicios evalúan un producto. Este forma a las personas que lo construyen, para que el próximo salga bien desde el principio.</p>
-          </div>
-        </details>
+        <Desplegable resumen="Qué incluye el taller corporativo">
+          <ul>
+            <li>Una presentación armada a medida de las dudas concretas de tu equipo.</li>
+            <li>Una demostración en vivo navegando con lector de pantalla, como eje de la sesión.</li>
+            <li>Audiencia mixta: diseño, desarrollo y contenido en la misma sala, construyendo vocabulario compartido entre roles.</li>
+            <li>Sin límite de asistentes. La prioridad es que aprenda cuanta más gente mejor, no cobrar por cabeza.</li>
+          </ul>
+          <p>La demostración funciona mucho mejor sobre tu propio sitio que sobre un ejemplo genérico.</p>
+          <p><strong>En qué se diferencia del resto:</strong> los otros tres servicios evalúan un producto. Este forma a las personas que lo construyen, para que el próximo salga bien desde el principio.</p>
+        </Desplegable>
         <p><a href="/contacto/">Consultar por un taller</a></p>
       </div>
       <div className="prose">

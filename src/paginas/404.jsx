@@ -6,13 +6,13 @@ export const pagina = {
   noindex: true,
 };
 
+/* GitHub Pages sirve este mismo archivo para cualquier ruta rota del dominio,
+   incluidas las de /en/: no hay forma de servir un 404 distinto por carpeta.
+   Por eso la pagina lleva los dos idiomas, cada uno con su atributo lang, en
+   vez de mandar al visitante ingles a la version espanola del sitio. */
 export default function PaginaNoEncontrada() {
   return (
     <>
-      {/* GitHub Pages sirve este mismo archivo para cualquier ruta rota del dominio,
-         incluidas las de /en/: no hay forma de servir un 404 distinto por carpeta.
-         Por eso la pagina lleva los dos idiomas, cada uno con su atributo lang, en
-         vez de mandar al visitante ingles a la version espanola del sitio. */}
       <h1>No encontramos esta página</h1>
       <p className="lede">El enlace puede estar roto o la página puede haberse movido.</p>
       <p><a href="/">Volver al inicio</a> o ir directo a <a href="/servicios/">Servicios</a> o <a href="/contacto/">Contacto</a>.</p>

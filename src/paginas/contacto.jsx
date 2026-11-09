@@ -1,3 +1,6 @@
+import { FormularioWeb3Forms } from "../componentes/formularios/FormularioWeb3Forms.jsx";
+import { ProteccionDeDatos } from "../componentes/formularios/ProteccionDeDatos.jsx";
+
 export const pagina = {
   idioma: "es",
   titulo: "Contacto",
@@ -11,15 +14,7 @@ export default function Contacto() {
       <h1>Contacto</h1>
       <p className="lede">Como prefieras: un correo directo o el formulario de aquí abajo.</p>
       <p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051" />
-        <input type="hidden" name="subject" value="Nueva consulta desde tuaccesible.com" />
-        <input type="hidden" name="from_name" value="Formulario de tuaccesible.com" />
-        <input type="hidden" name="redirect" value="https://tuaccesible.com/gracias/" />
-        <p className="hp">
-          <label htmlFor="botcheck">No completar este campo</label>{" "}
-          <input type="checkbox" id="botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
-        </p>
+      <FormularioWeb3Forms idioma="es" asunto="Nueva consulta desde tuaccesible.com">
         <p>
           <label htmlFor="name">Nombre (obligatorio)</label>
           <br />
@@ -47,12 +42,12 @@ export default function Contacto() {
           <br />
           <textarea id="message" name="message" rows={6} required></textarea>
         </p>
-        <div className="form-legal">
+        <ProteccionDeDatos>
           <p>Protección de datos, en corto: tuaccesible usa tu nombre, tu correo y tu mensaje solo para responderte, y los conserva mientras dure la conversación.</p>
           <p>El formulario lo procesa Web3Forms, un proveedor con servidores en Estados Unidos, y el mensaje llega a nuestro buzón. Puedes pedir acceso, rectificación o supresión escribiendo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. El detalle completo está en la <a href="/privacidad/">política de privacidad</a>.</p>
-        </div>
+        </ProteccionDeDatos>
         <button type="submit">Enviar</button>
-      </form>
+      </FormularioWeb3Forms>
     </>
   );
 }

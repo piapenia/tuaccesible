@@ -9,6 +9,21 @@ export const pagina = {
 };
 
 export default function Team({ ruta }) {
+  /* Datos estructurados (schema.org) de la persona que audita, para los
+     buscadores. sameAs lleva el unico perfil externo verificable que existe
+     hoy; si algun dia hay LinkedIn propio, va en esta misma lista.
+     El bloque puede ir en cualquier lugar de la pagina sin que cambie nada
+     para los buscadores: esta entre el titulo "Your report goes through two
+     readings" y su parrafo solo porque ahi estaba en el sitio anterior. */
+  const persona = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "María Pía Peña Foissac",
+    jobTitle: "Accessibility auditor",
+    worksFor: { "@type": "Organization", name: "tuaccesible" },
+    url: `${sitio.url}${ruta}`,
+    sameAs: ["https://www.credly.com/badges/b1386a4d-61cc-4c64-a4c4-a399475a6e42"],
+  };
   return (
     <>
       <h1>Who audits your site</h1>
@@ -30,24 +45,7 @@ export default function Team({ ruta }) {
           <li>Digital Accessibility — <span lang="es">Universidad Tecnológica Nacional</span>, 2020.</li>
         </ul>
         <h2>Your report goes through two readings</h2>
-        {/* El unico perfil externo verificable que existe hoy. Si algun dia hay
-           LinkedIn propio, va en este mismo sameAs. */}
-        <DatosEstructurados
-          datos={{
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "María Pía Peña Foissac",
-            "jobTitle": "Accessibility auditor",
-            "worksFor": {
-              "@type": "Organization",
-              "name": "tuaccesible"
-            },
-            "url": `${sitio.url}${ruta}`,
-            "sameAs": [
-              "https://www.credly.com/badges/b1386a4d-61cc-4c64-a4c4-a399475a6e42"
-            ]
-          }}
-        />
+        <DatosEstructurados datos={persona} />
         <p>I do the auditing. I don't get the last word on the report. Before it goes out, another person at tuaccesible reads it, checks the prioritization and pushes back on the criteria I applied. The pushback is real: sometimes I drop a finding from critical to high because I can't defend it. That's the point. What reaches your team has already survived an argument.</p>
       </div>
       <div className="prose">
