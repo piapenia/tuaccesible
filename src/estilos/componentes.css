@@ -332,10 +332,11 @@
   border-radius: 8px;
 }
 /* El foco rodea la tarjeta entera, no solo el titulo. */
-.tarjeta__titulo a:focus-visible { outline: none; }
+.tarjeta__titulo a:focus-visible { outline: none; box-shadow: none; }
 .tarjeta__titulo a:focus-visible::after {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--bg);
 }
 
 .tarjeta__flecha {
@@ -354,6 +355,149 @@
   .tarjeta:focus-within { transform: translateY(-2px); }
   .tarjeta__flecha { transition: transform 0.2s ease; }
   .tarjeta:hover .tarjeta__flecha { transform: translateX(3px); }
+}
+
+
+/* ---- Seccion.jsx ------------------------------------------------------- */
+
+/* Filete fino arriba y, encima de su comienzo, una barra corta terracota.
+   La barra es decorativa: en contraste forzado desaparece y queda el
+   filete, que es el que separa. */
+.seccion {
+  position: relative;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.seccion::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 3rem;
+  height: 3px;
+  background: var(--accent);
+}
+
+.seccion__cabeza { margin-bottom: 1.5rem; }
+
+/* El numero no se lee (aria-hidden); a la vista, marca el ritmo. */
+.seccion__numero {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--brand);
+  font-variant-numeric: tabular-nums;
+}
+
+.seccion__titulo { margin: 0; }
+
+/* Lo de adentro no suma margen propio arriba ni abajo: el aire entre
+   secciones lo pone .seccion. */
+.seccion__cuerpo > :first-child { margin-top: 0; }
+.seccion__cuerpo > :last-child { margin-bottom: 0; }
+.seccion__cuerpo > .prose > :last-child { margin-bottom: 0; }
+
+/* Desde 64rem (1024 px con la letra por defecto): el titulo en las
+   columnas 1 a 4 y el contenido en las 5 a 12. Con zoom alto el ancho en
+   rem baja de 64 y la seccion vuelve sola a una columna. */
+@media (min-width: 64rem) {
+  .seccion {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+    margin-top: 6rem;
+    padding-top: 3rem;
+  }
+  .seccion__cabeza {
+    grid-column: 1 / span 4;
+    margin-bottom: 0;
+  }
+  .seccion__cuerpo { grid-column: 5 / -1; }
+}
+
+
+/* ---- Banda.jsx --------------------------------------------------------- */
+
+.banda {
+  margin-top: 4rem;
+  padding: 2rem 1.5rem;
+  color: var(--sobre-banda);
+  background: var(--banda);
+  border: 1px solid var(--banda);
+  border-radius: 8px;
+}
+/* Adentro de la banda, el contorno de foco toma el color del texto, que
+   ya contrasta con el fondo (minimo 7:1), y no lleva el anillo interior:
+   el contorno oscuro de siempre se perderia sobre el petroleo. */
+.banda :focus-visible {
+  outline-color: var(--sobre-banda);
+  box-shadow: none;
+}
+.banda p {
+  margin: 0;
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+.banda p + p { margin-top: 1rem; }
+.banda a { color: inherit; }
+
+@media (min-width: 64rem) {
+  .banda {
+    margin-top: 6rem;
+    padding: 3rem;
+  }
+}
+
+
+/* ---- Portada: src/paginas/index.jsx y en/index.jsx ---------------------- */
+
+/* La primera franja de la portada. En el celular, todo en una columna y en
+   el orden del codigo: titulo, entradilla, boton y la nota de quien hace
+   la revision. Desde 64rem, una grilla de doce columnas: el titulo a lo
+   ancho, la entradilla y el boton a la izquierda, la nota a la derecha.
+   El orden de lectura y el visual siguen siendo el mismo, de izquierda a
+   derecha y de arriba abajo. */
+.portada__titulo { margin: 0 0 1.5rem; }
+
+.portada__accion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 2rem 0 0;
+}
+.portada__accion p { margin: 0; }
+
+/* La nota va con un filete terracota a la izquierda, como una cita
+   destacada de un informe. Sin fondo: no es un aviso. */
+.portada__nota {
+  margin: 2.5rem 0 0;
+  padding-inline-start: 1.5rem;
+  border-inline-start: 3px solid var(--accent);
+}
+
+@media (min-width: 64rem) {
+  .portada {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+    align-items: end;
+  }
+  .portada__titulo {
+    grid-column: 1 / span 10;
+    font-size: var(--step-5);
+  }
+  .portada .lede { grid-column: 1 / span 7; margin: 0; }
+  .portada__accion { grid-column: 1 / span 7; }
+  .portada__nota {
+    grid-column: 9 / -1;
+    grid-row: 2 / span 2;
+    margin: 0;
+  }
 }
 
 
@@ -507,6 +651,7 @@
   .logo-symbol .logo-letter { stroke: CanvasText; }
   .logo-symbol .logo-rule { fill: CanvasText; }
   .boton { border-color: ButtonText; }
-  .tarjeta, .aviso, .form-legal, .desplegable { border-color: CanvasText; }
+  .tarjeta, .aviso, .form-legal, .desplegable, .banda { border-color: CanvasText; }
+  .portada__nota { border-inline-start-color: CanvasText; }
   .tarjeta__titulo a:focus-visible::after { outline-color: Highlight; }
 }

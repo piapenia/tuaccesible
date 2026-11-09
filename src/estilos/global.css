@@ -24,6 +24,11 @@
   --brand-strong: #08333D;
   --accent: #A2450A;
   --focus: #0A1013;
+  /* Banda de cierre (Banda.jsx): petroleo en los dos modos. En oscuro no
+     usa --brand-strong, que ahi es celeste: un bloque claro de ese tamano
+     encandila sobre la pagina oscura. */
+  --banda: #08333D;
+  --sobre-banda: #FFFFFF;
 
   /* Las dos fuentes se alojan en el sitio (ver sitio.css). Detras van las
      del sistema, que se ven mientras baja el archivo o si no llega. */
@@ -43,6 +48,8 @@
   --step-2: 1.5625rem;
   --step-3: 1.953rem;
   --step-4: 2.441rem;
+  /* Solo para el titulo de la portada en pantalla ancha. */
+  --step-5: 3.052rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -57,6 +64,7 @@
     --brand-strong: #8AD4E4;
     --accent: #F0A868;
     --focus: #FFFFFF;
+    --sobre-banda: #E9EFF1;
   }
 }
 
@@ -69,6 +77,7 @@
     --accent: #7A3407;
     --text-muted: #2B3236;
     --border: #6B7A80;
+    --banda: #05252C;
   }
 }
 @media (prefers-contrast: more) and (prefers-color-scheme: dark) {
@@ -130,9 +139,17 @@ a {
 }
 a:hover { text-decoration-thickness: 2px; }
 
+/* Foco en dos tonos: el contorno de 3px en el color de foco y, en el hueco
+   de 3px entre el contorno y el elemento, un anillo del color del fondo.
+   Sobre el fondo de la pagina el anillo no se ve y queda el contorno solo.
+   Sobre la banda petroleo, donde el contorno oscuro se perderia, el anillo
+   claro lo separa: uno de los dos tonos contrasta siempre con lo que tenga
+   alrededor. En contraste forzado el navegador quita la sombra y el
+   contorno pasa a Highlight (al final de este archivo). */
 :focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--bg);
   border-radius: 2px;
 }
 

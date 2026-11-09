@@ -32,6 +32,7 @@ estilos y corta el despliegue si alguno baja del mínimo.
 | Texto atenuado | `#455055` | 8.29:1 |
 | Titulares | `#0A1013` | 19.15:1 |
 | Superficie de tarjeta | `#F1F5F6` | — |
+| Banda de cierre (`--banda`) | `#08333D` | 13.54:1 (con texto blanco) |
 
 ### Modo oscuro
 
@@ -42,9 +43,19 @@ estilos y corta el despliegue si alguno baja del mínimo.
 | Texto | `#E9EFF1` | 16.58:1 |
 | Texto atenuado | `#AEBBC0` | 9.78:1 |
 | Superficie de tarjeta | `#151C1F` | — |
+| Banda de cierre (`--banda`), la misma petróleo | `#08333D` | 11.66:1 (con texto `#E9EFF1`) |
 
 Hay además una tercera y una cuarta paleta, para quien pide más contraste en el
 sistema operativo (`prefers-contrast: more`). Se generan solas desde el CSS.
+
+**La banda de cierre** es el único bloque grande de color lleno del sitio y
+va en petróleo en los dos modos: en oscuro, el azul claro de la marca en ese
+tamaño encandila. Una por página, como mucho, y al final.
+
+**El foco** va en dos tonos: un contorno de 3 px en `--focus` y, en el hueco
+de 3 px entre el contorno y el elemento, un anillo del color del fondo. Sobre
+la página el anillo no se ve; sobre un fondo oscuro, separa el contorno.
+Dentro de la banda, el contorno toma el color del texto de la banda.
 
 ### La única regla dura del color
 
@@ -89,7 +100,7 @@ cursiva suma 37 KB más.
 **Escala.** Razón 1,25 a partir de 1rem, siempre en `rem` y nunca en unidades
 de pantalla (`vw`), para que la ampliación de texto del navegador agrande
 todo por igual (criterio 1.4.4). Desde 48rem de ancho, h1 y h2 suben un
-escalón. Los tamaños son variables de `src/estilos/global.css`; no se escribe
+escalón, y desde 64rem el título de la portada sube uno más. Los tamaños son variables de `src/estilos/global.css`; no se escribe
 un tamaño suelto fuera de ellas.
 
 | Variable | Tamaño | Dónde |
@@ -100,6 +111,7 @@ un tamaño suelto fuera de ellas.
 | `--step-2` | 1,5625rem (25 px) | h2 en pantalla chica. |
 | `--step-3` | 1,953rem (31 px) | h1 en pantalla chica, h2 desde 48rem. |
 | `--step-4` | 2,441rem (39 px) | h1 desde 48rem. |
+| `--step-5` | 3,052rem (49 px) | Solo el h1 de la portada, desde 64rem. |
 
 **Medida.** El texto del contenido no pasa de 34em de ancho (`--medida`):
 unos 67 caracteres por línea de promedio, y ningún párrafo pasa de 80, que es

@@ -118,7 +118,7 @@ npx pa11y-ci --config .pa11yci-axe.cjs
   - `componentes/`: lo que comparten las páginas.
     - `Sitio.jsx`: el esqueleto visible de todas las páginas: enlace para saltar al contenido, cabecera (con el aviso de idioma dentro, para que el lector de pantalla lo encuentre en una región), contenido y pie.
     - `Encabezado.jsx`, `PieDePagina.jsx`, `AvisoIdioma.jsx` y `Logo.jsx`: las partes de ese esqueleto.
-    - `Boton.jsx`, `Tarjetas.jsx`, `Campo.jsx`, `Aviso.jsx`, `Desplegable.jsx`, `Icono.jsx` y `DatosEstructurados.jsx`: piezas para usar dentro de las páginas (ver "Piezas que ya existen").
+    - `Boton.jsx`, `Tarjetas.jsx`, `Seccion.jsx`, `Banda.jsx`, `Campo.jsx`, `Aviso.jsx`, `Desplegable.jsx`, `Icono.jsx` y `DatosEstructurados.jsx`: piezas para usar dentro de las páginas (ver "Piezas que ya existen").
     - `formularios/`: `FormularioWeb3Forms.jsx` y `ProteccionDeDatos.jsx`, para los formularios de contacto y de reseñas.
     - `Isla.jsx`: marca una parte interactiva (ver "Partes interactivas: las islas").
   - `islas/`: los componentes interactivos y su lista, `registro.js`. Hoy está vacía.
@@ -207,6 +207,8 @@ El contenido es JSX, que se parece mucho a HTML. Las diferencias que aparecen en
 
 - `<Boton href="/contacto/">Pedir presupuesto</Boton>`: un enlace con forma de botón. Sin `href` es un `<button>` de verdad, y con `tipo="submit"`, el de enviar un formulario. `variante="secundario"` lo dibuja con borde y sin relleno, `chico` lo achica y `icono={ArrowRight}` le suma un ícono después del texto. La regla para elegir: si lleva a otra página, enlace (`href`); si hace algo en esta, botón.
 - `<Tarjetas>` con `<Tarjeta titulo="Auditoría exprés" href="/servicios/#auditoria-expres" icono={Zap}>Un diagnóstico rápido.</Tarjeta>` adentro: una lista de tarjetas. Cada tarjeta tiene un solo enlace, en su título, y toda la tarjeta responde al clic; el lector de pantalla la anuncia como un elemento de lista con un título y un enlace. El título es un `<h3>`; con `nivel={2}` pasa a `<h2>`, para cuando la lista no está debajo de otro título.
+- `<Seccion numero="01" titulo="Cuatro formas de empezar">...</Seccion>`: una sección de página con su `<h2>`. En pantalla ancha el título va a un costado y el contenido al lado, como en un informe impreso; arriba lleva un filete con una barra corta terracota. El número es decorativo y el lector de pantalla no lo lee, así que no puede decir nada que no diga el título. `numero` e `id` son opcionales; `titulo`, no.
+- `<Banda><p><a href="/contacto/">Escribir a tuaccesible</a> o ...</p></Banda>`: el recuadro petróleo del final de una página, con la invitación a escribir. Una por página, como mucho, y al final. El lector de pantalla lo lee como un párrafo más.
 - `<Campo etiqueta="Correo (obligatorio)" ayuda="Te respondemos ahí."><input type="email" id="email" ... /></Campo>`: la etiqueta, el texto de ayuda y el mensaje de error de un campo, ya unidos al control con `htmlFor` y `aria-describedby`. El control tiene que llevar `id`. Con `error="..."` marca el campo como inválido, y con `casilla` pone la casilla antes de su texto.
 - `<Aviso>...</Aviso>`: un recuadro para una nota que tiene que destacarse, como la de que todavía no hay reseñas. No interrumpe al lector de pantalla: se lee en su lugar, como un párrafo.
 - `<Desplegable resumen="Qué incluye la auditoría exprés">...</Desplegable>`: un bloque que se abre y se cierra, hecho con el `<details>` nativo del navegador.

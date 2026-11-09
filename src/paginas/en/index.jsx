@@ -1,4 +1,7 @@
 import { GraduationCap, ListChecks, Wrench, Zap } from "lucide-react";
+import { Banda } from "../../componentes/Banda.jsx";
+import { Boton } from "../../componentes/Boton.jsx";
+import { Seccion } from "../../componentes/Seccion.jsx";
 import { Tarjeta, Tarjetas } from "../../componentes/Tarjetas.jsx";
 
 export const pagina = {
@@ -11,12 +14,16 @@ export const pagina = {
 export default function Home() {
   return (
     <>
-      <h1>Your product, your brand, your site: <br />accessible.</h1>
-      <p className="lede">Accessibility audits against WCAG 2.2, ADA and Section 508, EN 301 549 and the European Accessibility Act. Team training, and support through remediation so accessibility stops being a last-minute fix. We work with companies in the United States, Spain and Latin America.</p>
-      <p>María Pía runs the manual testing. She has used a screen reader as her primary interface for 13 years, the way another auditor holds a certification. It changes what gets tested, and what gets caught.</p>
-      <p><a href="/en/contact/">Ask for a quote</a>. It costs nothing and there's nothing to sign: tell us what needs auditing and by when, and within a week you get scope, price and timeline in writing. If we're not the right fit, we'll still tell you where to start.</p>
-      <section>
-        <h2>Four ways to start</h2>
+      <div className="portada">
+        <h1 className="portada__titulo">Your product, your brand, your site: <br />accessible.</h1>
+        <p className="lede">Accessibility audits against WCAG 2.2, ADA and Section 508, EN 301 549 and the European Accessibility Act. Team training, and support through remediation so accessibility stops being a last-minute fix. We work with companies in the United States, Spain and Latin America.</p>
+        <div className="portada__accion">
+          <Boton href="/en/contact/">Ask for a quote</Boton>
+          <p>It costs nothing and there's nothing to sign: tell us what needs auditing and by when, and within a week you get scope, price and timeline in writing. If we're not the right fit, we'll still tell you where to start.</p>
+        </div>
+        <p className="portada__nota">María Pía runs the manual testing. She has used a screen reader as her primary interface for 13 years, the way another auditor holds a certification. It changes what gets tested, and what gets caught.</p>
+      </div>
+      <Seccion numero="01" titulo="Four ways to start">
         <Tarjetas>
           <Tarjeta titulo="Express audit" href="/en/services/#express-audit" icono={Zap}>
             A fast, prioritized diagnosis when you need to know, now, where your site actually stands.
@@ -31,25 +38,25 @@ export default function Home() {
             So your team stops repeating the same mistakes on every new project.
           </Tarjeta>
         </Tarjetas>
-      </section>
-      <section>
-        <h2>Why tuaccesible</h2>
+      </Seccion>
+      <Seccion numero="02" titulo="Why tuaccesible">
         <div className="prose">
           <p><strong>Scope.</strong> Most audits in this market cover a representative sample: 8 to 15 pages, or a set of templates. That is what the W3C evaluation methodology falls back on when reviewing everything isn't feasible. Its first recommendation is different: <q>If feasible, it is recommended to evaluate the entire digital product.</q> On a Site audit we make it feasible. We review page by page and link by link, which is what lets an accessibility statement cover your product with no gaps in it.</p>
           <p><strong>Who runs the test.</strong> Plenty of firms bring in screen reader users for a testing session and hand the notes to someone else to classify against the standard. Here the person who runs the test and the person who writes the finding are the same person. Nothing gets lost translating what someone hit into which criterion it fails.</p>
           <p><strong>Two readings.</strong> No report ships after one pass. A second person reviews every finding and its priority before it reaches you. That's slower. It's also the point: a criterion applied wrongly in a conformance report propagates into every remediation plan you build on top of it. The whole process is on <a href="/en/about/">how we work</a>.</p>
           <p>Has someone offered you an accessibility seal or a certificate? Before you pay for one, read <a href="/en/web-accessibility-certificate/">which certificates actually exist</a> and which document the law requires. It isn't called a certificate.</p>
         </div>
-      </section>
-      <section>
-        <h2>How it starts</h2>
+      </Seccion>
+      <Seccion numero="03" titulo="How it starts">
         <div className="prose">
           <p>You email us with what needs reviewing and by when. We come back with the service that fits, what it costs and how long it takes. Nothing to sign, nothing to pay.</p>
           <p>We audit with automated tools and with real use, and you get a report prioritized by impact, not by rule count. The <a href="/en/services/">full service details</a> explain what each one includes.</p>
           <p>If you don't know whether any regulation binds you, start with <a href="/en/regulations/">which accessibility law applies to you</a>. It's written to answer that question and nothing else.</p>
         </div>
-      </section>
-      <p>Tell us what needs auditing and by when, and we'll tell you where to start. <a href="/en/contact/">Email us</a> or read the <a href="/en/services/">full service details</a>.</p>
+      </Seccion>
+      <Banda>
+        <p>Tell us what needs auditing and by when, and we'll tell you where to start. <a href="/en/contact/">Email us</a> or read the <a href="/en/services/">full service details</a>.</p>
+      </Banda>
     </>
   );
 }

@@ -24,7 +24,7 @@ before(async () => {
     server: { middlewareMode: true, hmr: false, watch: null },
     optimizeDeps: { noDiscovery: true, include: [] },
   });
-  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Encabezado", "Sitio"]) {
+  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Encabezado", "Sitio"]) {
     Object.assign(m, await vite.ssrLoadModule(`/src/componentes/${nombre}.jsx`));
   }
   iconos = await import("lucide-react");
@@ -121,6 +121,27 @@ test("Desplegable: details nativo con la flecha oculta", () => {
   assert.match(html, /^<details class="desplegable"><summary><span class="desplegable__resumen">Qué incluye<\/span><svg[^>]*aria-hidden="true"/);
   assert.match(html, /<\/summary><div class="desplegable__contenido"><p>Todo.<\/p><\/div><\/details>$/);
   assert.doesNotMatch(html, /aria-expanded/);
+});
+
+test("Seccion: section sin nombre, h2 y numero oculto al lector", () => {
+  const html = dibujar(h(m.Seccion, { numero: "01", titulo: "Cuatro formas de empezar" }, h("p", null, "Texto.")));
+  assert.equal(
+    html,
+    '<section class="seccion"><div class="seccion__cabeza"><span class="seccion__numero" aria-hidden="true">01</span><h2 class="seccion__titulo">Cuatro formas de empezar</h2></div><div class="seccion__cuerpo"><p>Texto.</p></div></section>'
+  );
+  // Sin nombre no es una region: no suma puntos de referencia en NVDA.
+  assert.doesNotMatch(html, /aria-label|role=/);
+
+  const sinNumero = dibujar(h(m.Seccion, { titulo: "Contacto", id: "contacto" }, "x"));
+  assert.match(sinNumero, /^<section class="seccion" id="contacto"><div class="seccion__cabeza"><h2 /);
+  assert.doesNotMatch(sinNumero, /seccion__numero/);
+
+  assert.throws(() => dibujar(h(m.Seccion, {}, "x")), /falta titulo/);
+});
+
+test("Banda: un div comun, sin rol ni nombre", () => {
+  const html = dibujar(h(m.Banda, null, h("p", null, h("a", { href: "/contacto/" }, "Escribir"), " o leer.")));
+  assert.equal(html, '<div class="banda"><p><a href="/contacto/">Escribir</a> o leer.</p></div>');
 });
 
 test("Encabezado: el aviso de idioma queda dentro de la cabecera", () => {
