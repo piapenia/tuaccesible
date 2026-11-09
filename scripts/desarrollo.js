@@ -84,18 +84,25 @@ vite.watcher.on("change", (archivo) => {
   }
 });
 
+// Un solo aviso, con el puerto que de verdad quedo: si el primero estaba
+// ocupado, el intento fallido no tiene que anunciar nada.
+let alFallar = null;
+servidor.on("listening", () => {
+  if (alFallar) servidor.off("error", alFallar);
+  console.log(`\nSitio en http://localhost:${servidor.address().port}/  (Ctrl+C para apagar)\n`);
+});
+
 function escuchar(puerto) {
-  servidor.once("error", (error) => {
+  alFallar = (error) => {
     if (error.code === "EADDRINUSE" && puerto < puertoInicial + 20) {
       console.log(`El puerto ${puerto} esta ocupado, pruebo con ${puerto + 1}...`);
       escuchar(puerto + 1);
     } else {
       throw error;
     }
-  });
-  servidor.listen(puerto, () => {
-    console.log(`\nSitio en http://localhost:${puerto}/  (Ctrl+C para apagar)\n`);
-  });
+  };
+  servidor.once("error", alFallar);
+  servidor.listen(puerto);
 }
 
 escuchar(puertoInicial);

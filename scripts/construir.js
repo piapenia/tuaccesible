@@ -112,6 +112,14 @@ try {
   const donde = path.relative(raiz, salida);
   const carpeta = !donde || donde.startsWith("..") ? salida : `${donde}/`;
   console.log(`Listo: ${resultados.length} paginas en ${carpeta}${islas} (${segundos} s).`);
+} catch (error) {
+  // Los errores que escribimos nosotros (una pagina sin titulo, dos paginas
+  // que no se apuntan entre si) ya dicen que arreglar: se muestra solo el
+  // mensaje, sin la pila de llamadas, que con lector de pantalla es una
+  // pared de ruido. Para ver la pila: DEPURAR=1 npm run build
+  console.error(`\nNo se pudo compilar el sitio.\n${error.message}\n`);
+  if (process.env.DEPURAR) console.error(error.stack);
+  process.exitCode = 1;
 } finally {
   fs.rmSync(temporal, { recursive: true, force: true });
 }
