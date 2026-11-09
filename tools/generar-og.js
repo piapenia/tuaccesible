@@ -2,10 +2,11 @@
 /*
  * Generador de las tarjetas sociales de tuaccesible.com
  *
- * Produce src/img/og-tuaccesible.png y src/img/og-tuaccesible-en.png, que son
- * la imagen que se ve cuando alguien comparte el sitio en LinkedIn, WhatsApp o
- * Slack. Hay una por idioma porque la version inglesa mostraba el lema en
- * espanol, y esa es la primera impresion de todo el trafico anglohablante.
+ * Produce public/img/og-tuaccesible.png y public/img/og-tuaccesible-en.png,
+ * que son la imagen que se ve cuando alguien comparte el sitio en LinkedIn,
+ * WhatsApp o Slack. Hay una por idioma porque la version inglesa mostraba el
+ * lema en espanol, y esa es la primera impresion de todo el trafico
+ * anglohablante.
  *
  * NO corre en CI y no debe correr: reescribe dos binarios que ya estan
  * comiteados. Se ejecuta a mano, con "npm run generar:og", solo cuando cambia
@@ -21,15 +22,15 @@
  * cero pixeles en las tres cajas de texto. Si alguien toca estos valores a
  * ojo, las dos tarjetas dejan de parecer el mismo sitio.
  *
- * El logotipo no se redibuja: se lee de src/img/logo-tuaccesible.svg, que ya
- * esta trazado a curvas, asi que el simbolo y el nombre son los mismos
+ * El logotipo no se redibuja: se lee de public/img/logo-tuaccesible.svg, que
+ * ya esta trazado a curvas, asi que el simbolo y el nombre son los mismos
  * vectores que en el resto de la marca y no dependen de ninguna fuente.
  *
  * El lema si depende de una fuente: Century Gothic, la primera de
- * --font-display en global.css. Si la maquina donde se corre esto no la tiene,
- * el texto sale con otra letra y la tarjeta no coincide con la publicada. Por
- * eso el script lo comprueba y aborta en vez de generar algo distinto en
- * silencio.
+ * --font-display en public/css/global.css. Si la maquina donde se corre esto
+ * no la tiene, el texto sale con otra letra y la tarjeta no coincide con la
+ * publicada. Por eso el script lo comprueba y aborta en vez de generar algo
+ * distinto en silencio.
  *
  * Dependencia: puppeteer. No esta declarado en package.json porque ya viene
  * instalado como dependencia de pa11y-ci, que si lo esta. Si algun dia pa11y-ci
@@ -40,11 +41,11 @@
  * sin acentos por coherencia con el otro tool.
  */
 
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
-const RAIZ = path.join(__dirname, "..");
-const IMG = path.join(RAIZ, "src", "img");
+const RAIZ = path.join(import.meta.dirname, "..");
+const IMG = path.join(RAIZ, "public", "img");
 
 /* Lo unico que se edita normalmente. Dos lineas por idioma. */
 const LEMAS = {
@@ -75,9 +76,12 @@ const GEOMETRIA = {
 const PILA_TIPOGRAFICA =
   '"Century Gothic","Avenir Next",Futura,"Segoe UI","Helvetica Neue",Arial,sans-serif';
 
-function cargarPuppeteer() {
+/* Se importa aqui dentro y no con un import arriba del archivo: un import
+   estatico que no encuentra el paquete corta el script antes de la primera
+   linea, sin dar ocasion de explicar que hacer. */
+async function cargarPuppeteer() {
   try {
-    return require("puppeteer");
+    return (await import("puppeteer")).default;
   } catch (e) {
     console.error(
       "No se encontro puppeteer.\n" +
@@ -158,7 +162,7 @@ function describir(c) {
 }
 
 async function main() {
-  const puppeteer = cargarPuppeteer();
+  const puppeteer = await cargarPuppeteer();
   const logo = leerLogo();
   const navegador = await puppeteer.launch();
   const pagina = await navegador.newPage();

@@ -30,19 +30,36 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 20
+          # La version sale de .nvmrc, el mismo archivo que leen nvm y fnm en
+          # las computadoras: CI usa el mismo Node con el que se trabaja. Hoy
+          # es 26, la LTS activa desde el 28 de octubre de 2026, con soporte
+          # hasta el 30 de abril de 2029. Dependabot no toca ese archivo: el
+          # cambio de version es a mano, antes de esa fecha.
+          node-version-file: .nvmrc
       - run: npm ci
+      # Primero lo que no necesita el sitio compilado: los tests (node:test)
+      # y el contraste, que lee public/css/global.css directamente. Si algo
+      # falla, se corta antes de compilar.
+      - run: npm test
       - name: Contrast check (WCAG 2.x, sobre el CSS real)
         run: npm run verificar:contraste
-      - run: npx @11ty/eleventy
+      - run: npm run build
       - name: Accessibility check (pa11y-ci, WCAG2AAA)
+        # wait-on espera a que el servidor responda. Si en un minuto no lo
+        # hizo, falla con un mensaje claro en vez de esperar hasta que se
+        # agote el tiempo del trabajo.
         run: |
-          npx http-server _site -p 8080 &
-          npx wait-on http://localhost:8080
+          npx http-server dist -p 8080 &
+          npx wait-on --timeout 60s http://localhost:8080
           npx pa11y-ci
+      # Ojo al aceptar una version nueva de esta accion: la v4 deja fuera
+      # todo lo que empieza con punto, sin opcion para evitarlo, y
+      # dist/.well-known/security.txt tiene que publicarse. Desde la v5 se
+      # incluye con include-hidden-files: true. Dependabot ya propone la v5:
+      # ese PR no se fusiona sin agregar esa linea en "with".
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
-          path: _site
+          path: dist
 
   deploy:
     needs: build

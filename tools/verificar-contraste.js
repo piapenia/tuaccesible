@@ -2,7 +2,7 @@
 /*
  * Verificador de contraste de tuaccesible.com
  *
- * Lee los colores directamente de src/css/global.css, no de una copia: si
+ * Lee los colores directamente de public/css/global.css, no de una copia: si
  * alguien cambia un hex en la hoja de estilos, este chequeo se entera. Corre
  * en cada push, antes de construir el sitio, y corta el despliegue si algun
  * par baja del minimo.
@@ -21,10 +21,10 @@
  * que revisar esta funcion.
  */
 
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
-const CSS = path.join(__dirname, "..", "src", "css", "global.css");
+const CSS = path.join(import.meta.dirname, "..", "public", "css", "global.css");
 
 function hexARgb(h) {
   h = h.replace("#", "");
