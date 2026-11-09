@@ -36,6 +36,14 @@ Por qué así y no una aplicación React de una sola página: el sitio funciona 
 
 Cada vez que guardas un archivo de `src/` o de `public/`, la pestaña se recarga sola. Para apagar el servidor, pulsa Ctrl+C en la terminal.
 
+El servidor solo responde a tu propia computadora. Para abrir el sitio desde el celular u otro equipo conectado a la misma red, por ejemplo para probarlo con TalkBack o VoiceOver, levántalo así:
+
+```bash
+npm run dev -- --host
+```
+
+La terminal muestra entonces la dirección para el otro equipo, del tipo `http://192.168.0.10:5173/`. Mientras esté así, lo puede abrir cualquiera conectado a esa red: úsalo solo en una red de confianza y apágalo al terminar.
+
 ## Si algo falla
 
 ### La instalación tarda mucho o falla al descargar Chrome
@@ -79,10 +87,10 @@ Es a propósito. `npm run build` revisa cada página y se corta con un mensaje q
 
 ## Comandos
 
-- `npm run dev`: servidor local con recarga automática, en `http://localhost:5173/`.
-- `npm run build`: compila el sitio en `dist/`, que es exactamente lo que se publica.
+- `npm run dev`: servidor local con recarga automática, en `http://localhost:5173/`. Con `npm run dev -- --host` también se abre desde otros equipos de tu red.
+- `npm run build`: compila el sitio en `dist/`, que es exactamente lo que se publica. Para compilar en otra carpeta: `node scripts/construir.js --salida otra-carpeta`. Como la compilación vacía esa carpeta antes de escribir, solo acepta `dist/`, una carpeta nueva o vacía, o una compilación anterior del sitio; cualquier otra la rechaza sin tocarla.
 - `npm run preview`: sirve lo compilado en `http://localhost:8080/`. Corre antes `npm run build`.
-- `npm test`: corre las pruebas del cliente de la API (`src/api/`).
+- `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas y del control de la carpeta de salida.
 - `npm run verificar:contraste`: el mismo control de contraste que se hace antes de publicar. Lee los colores de `public/css/global.css` y falla si algún par queda por debajo del mínimo.
 - `npm run generar:og`: regenera las dos tarjetas para redes sociales. Solo hace falta si cambian el lema o el logotipo, y necesita la fuente Century Gothic instalada.
 
@@ -219,6 +227,8 @@ Para crear una:
    ```
 
 Qué pasa al compilar: el componente se dibuja como el resto de la página, así que su contenido inicial está en el HTML aunque no cargue el JavaScript. Esa página, y solo esa, carga un archivo `/assets/cliente-....js`. En el navegador, React toma ese HTML ya dibujado y le conecta los eventos.
+
+Cada isla lleva su propio prefijo para los `id` que crea `useId`, así que dos islas en la misma página nunca repiten un `id`, como el que une una etiqueta con su campo. No hace falta hacer nada para que funcione.
 
 Dos cuidados:
 

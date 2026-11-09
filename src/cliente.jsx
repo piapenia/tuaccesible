@@ -14,5 +14,7 @@ for (const elemento of document.querySelectorAll("[data-isla]")) {
     continue;
   }
   const props = elemento.dataset.props ? JSON.parse(elemento.dataset.props) : {};
-  hydrateRoot(elemento, <Componente {...props} />);
+  // El mismo prefijo de useId con que se dibujo al compilar (ver
+  // src/componentes/Isla.jsx): si no coincide, React no reconoce el HTML.
+  hydrateRoot(elemento, <Componente {...props} />, { identifierPrefix: elemento.dataset.islaPrefijo });
 }

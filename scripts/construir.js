@@ -5,6 +5,10 @@
  *   npm run build                      escribe el sitio en dist/
  *   node scripts/construir.js --salida /otra/carpeta
  *
+ * La carpeta de salida se vacia antes de escribir. Por eso tiene que ser
+ * dist/, una carpeta nueva o vacia, o una compilacion anterior del sitio:
+ * cualquier otra se rechaza sin tocarla (ver scripts/salida-segura.js).
+ *
  * Pasos:
  *   1. Vite compila src/renderizar.jsx para Node (en una carpeta temporal).
  *   2. Se copia public/ tal cual: CSS, imagenes, los dos scripts chicos,
@@ -24,6 +28,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { build } from "vite";
+import { revisarSalida } from "./salida-segura.js";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 
@@ -33,6 +38,15 @@ function opcion(nombre) {
 }
 
 const salida = path.resolve(raiz, opcion("--salida") ?? "dist");
+
+// El paso 2 vacia la carpeta de salida: antes de llegar ahi, que no sea el
+// proyecto ni otra carpeta con cosas (ver scripts/salida-segura.js).
+try {
+  revisarSalida(salida, raiz);
+} catch (error) {
+  console.error(`\nNo se pudo compilar el sitio.\n${error.message}\n`);
+  process.exit(1);
+}
 
 function escribir(relativo, contenido) {
   const destino = path.join(salida, relativo);

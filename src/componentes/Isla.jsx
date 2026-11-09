@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useId } from "react";
 import { renderToString } from "react-dom/server";
 import { islas } from "../islas/registro.js";
 
@@ -32,8 +32,23 @@ export function Isla({ nombre, props = {}, como: Etiqueta = "div" }) {
     throw new Error(`No existe la isla "${nombre}". Hay que registrarla en src/islas/registro.js`);
   }
   if (usadas) usadas.add(nombre);
+  // Cada isla se dibuja aparte, con su propio React, y cada uno empieza a
+  // contar los useId desde cero: sin un prefijo distinto, dos islas en la
+  // misma pagina repetirian los id que unen una <label> con su campo o un
+  // aria-describedby con su texto, y el lector de pantalla leeria el que no
+  // es. El prefijo sale del useId de la propia <Isla>, que es unico en la
+  // pagina, y viaja en data-isla-prefijo para que src/cliente.jsx hidrate
+  // con el mismo.
+  const prefijo = `isla${useId()}`;
   // renderToString, y no el render del resto de la pagina, porque deja las
   // marcas que React necesita para hidratar este pedazo sin redibujarlo.
-  const html = renderToString(<Componente {...props} />);
-  return <Etiqueta data-isla={nombre} data-props={JSON.stringify(props)} dangerouslySetInnerHTML={{ __html: html }} />;
+  const html = renderToString(<Componente {...props} />, { identifierPrefix: prefijo });
+  return (
+    <Etiqueta
+      data-isla={nombre}
+      data-isla-prefijo={prefijo}
+      data-props={JSON.stringify(props)}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 }
