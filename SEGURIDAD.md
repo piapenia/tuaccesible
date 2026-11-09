@@ -1,12 +1,13 @@
 # Postura de seguridad de tuaccesible.com
 
-Última revisión: 19 de agosto de 2026.
+Última revisión: 9 de noviembre de 2026.
 
 ## Qué superficie hay realmente
 
-El sitio es estático: Eleventy genera HTML y GitHub Pages lo sirve. No hay
-base de datos, ni sesiones, ni panel de administración, ni código propio
-corriendo en ningún servidor. Eso elimina de entrada las familias de fallos
+El sitio es estático: las páginas son componentes de React que Vite
+convierte en HTML al compilar, y GitHub Pages sirve ese HTML. No hay base de
+datos, ni sesiones, ni panel de administración, ni código propio corriendo
+en ningún servidor. Eso elimina de entrada las familias de fallos
 que se llevan la mayoría de los incidentes de un sitio de consultora
 (inyección SQL, subida de archivos, escalada de privilegios en el gestor de
 contenidos).
@@ -19,7 +20,10 @@ el sitio**, y **el dominio**.
 
 - **Política de seguridad de contenido** declarada en cada página. Bloquea
   script que no venga de este propio dominio, prohíbe conectarse a servidores
-  ajenos y fija el único destino al que un formulario puede enviarse.
+  ajenos y fija el único destino al que un formulario puede enviarse. Vive en
+  `src/seguridad.js`. Cuando el servicio de testing tenga backend publicado,
+  su dirección (`VITE_API_URL`) se suma a `connect-src` y a ninguna otra
+  directiva; hoy el sitio publicado no tiene ninguna.
 - **Ningún script de terceros.** Ni fuentes web, ni redes sociales
   incrustadas, ni CDN. La analítica es GoatCounter, pero su archivo se aloja
   en este mismo dominio en lugar de cargarse desde el servidor del proveedor,
@@ -30,8 +34,12 @@ el sitio**, y **el dominio**.
   de idioma, en almacenamiento local, y está declarado en la política de
   privacidad.
 - **JavaScript solo aditivo.** El sitio entero funciona con el script
-  desactivado; el único archivo que hay sirve para sugerir idioma en la
-  primera visita.
+  desactivado. React se usa para escribir las páginas, pero corre al
+  compilar, no en el navegador: hoy ninguna página carga React. Las partes
+  que más adelante lo necesiten (las islas) se compilan como archivos del
+  propio dominio, solo las cargan las páginas que las usan y su contenido
+  inicial también está en el HTML. El único script propio que corre en todas
+  las páginas sigue siendo el que sugiere idioma en la primera visita.
 - `Referrer-Policy` en `strict-origin-when-cross-origin`.
 - **HTTPS forzado** por GitHub Pages, con certificado de Let's Encrypt que
   cubre el dominio raíz y el `www`. Comprobado: `http://` y `www` responden
@@ -57,7 +65,8 @@ el sitio**, y **el dominio**.
   trampa antispam; si algún día llega spam de verdad, la respuesta correcta es
   la restricción por dominio del plan de pago, no un captcha (un captcha
   visual sería un barrera de accesibilidad justo en la página de contacto de
-  una consultora de accesibilidad).
+  una consultora de accesibilidad). La clave está escrita en un solo lugar,
+  `src/componentes/formularios/FormularioWeb3Forms.jsx`.
 
 ## Controles en la cadena de construcción
 
@@ -68,24 +77,48 @@ el sitio**, y **el dominio**.
 - `persist-credentials: false` en la descarga del repositorio, para no dejar
   el token de Actions escrito en el disco del ejecutor.
 - Dependabot vigila semanalmente las acciones y los paquetes de npm.
-- Antes de publicar nada corren dos comprobaciones que pueden cortar el
-  despliegue: el verificador de contraste sobre el CSS real y `pa11y-ci`
-  contra WCAG2AAA en las 22 páginas.
+- La versión de Node sale de `.nvmrc`, la misma en integración continua y en
+  las computadoras. Hoy es la 26, la LTS activa.
+- Antes de publicar nada corren cuatro comprobaciones que pueden cortar el
+  despliegue: las pruebas (`npm test`), el verificador de contraste sobre el
+  CSS real, la compilación (que también se corta si una página no declara
+  título, descripción, idioma o su versión en el otro idioma, o si dos
+  páginas no se apuntan entre sí) y `pa11y-ci` contra WCAG2AAA en las 25
+  páginas de `.pa11yci.json`.
+- `upload-pages-artifact` sigue en la v3, y no conviene subirla sin cuidado:
+  la v4 deja fuera del sitio publicado todo archivo cuyo nombre empieza con
+  punto, y con eso `.well-known/security.txt`. La v5 lo incluye solo con
+  `include-hidden-files: true`. Está anotado junto a la acción en
+  `deploy.yml`.
 
-## Avisos de npm que quedan abiertos a propósito
+## Avisos de npm
 
-`npm audit` informa de seis vulnerabilidades altas. Las seis vienen de una
-sola: `extract-zip`, arrastrado por el Chrome que usa `pa11y-ci` para
-auditar. **No tiene versión corregida publicada**, así que no hay a dónde
-actualizar, y `npm audit fix --force` solo devuelve el proyecto a una versión
-anterior con otros avisos distintos.
+`npm audit` no informa ninguna vulnerabilidad (comprobado el 9 de noviembre
+de 2026). Los seis avisos altos que había venían de `extract-zip`, que
+llegaba con el Chrome de `pa11y-ci` 4; desaparecieron al pasar a `pa11y-ci` 5
+con la migración a React.
 
-Por qué se acepta: el fallo consiste en extraer un archivo comprimido
-malicioso. El único archivo comprimido que se extrae en esta cadena es la
-compilación de Chrome que descarga Google por HTTPS. Además, todo esto ocurre
-en el entorno de integración continua, no en el sitio publicado: ningún
-visitante toca ese código. Revisar cuando Dependabot proponga una versión
-nueva de `pa11y-ci`.
+## El servicio de testing que viene
+
+El backend del servicio de testing (Node.js, Express y PostgreSQL) vive en
+otro repositorio y no es parte de este sitio estático. Trae una superficie
+que aquí no existe: una base de datos y una API pública. Lo que ya está
+decidido del lado del sitio:
+
+- El sitio solo puede conectarse a la dirección de `VITE_API_URL`; la
+  política de seguridad no deja ninguna otra.
+- El cliente (`src/api/`) manda los pedidos sin cookies ni credenciales,
+  valida los datos antes de enviarlos y nunca muestra en pantalla el texto
+  que devuelve el servidor.
+- La dirección que se analiza viaja sin query ni fragmento, que es donde
+  suelen ir correos y tokens.
+- La tabla guarda seis columnas y ningún dato personal; los logs, sin IP.
+
+El contrato propuesto, con una tabla de referencia y las preguntas abiertas,
+está en `docs/contrato-api.md`. Cuando el servicio se publique, este
+documento tiene que sumar los controles del backend (validación, límite de
+pedidos, copias de seguridad de la base), y la política de privacidad del
+sitio tiene que contar qué se guarda y para qué.
 
 ## Lo que GitHub Pages no deja hacer
 

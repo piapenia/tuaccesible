@@ -93,14 +93,14 @@ subrayado: un rectángulo de esquinas redondeadas, en terracota.
 
 | Archivo | Para qué |
 | --- | --- |
-| `src/_includes/logo.njk` | El símbolo dentro del sitio. Va en línea en el HTML y toma el color de la paleta activa, así que funciona en claro, en oscuro y en contraste forzado de Windows. |
-| `src/img/logo-tuaccesible.svg` | Logotipo horizontal completo, con el nombre trazado en curvas. Listo para piezas externas, para imprenta y para entregar a un tercero: firmas, portadas de informe, facturas. Lienzo de 266 × 64. |
-| `src/img/logo-marca.svg` | Solo el símbolo, a color. |
-| `src/img/logo-marca-mono.svg` | Solo el símbolo, en `currentColor`: hereda el color de donde se ponga. Para sellos, grabados, o cualquier soporte de una tinta. |
-| `src/img/favicon.svg` | Icono de pestaña. Trae su propia versión oscura. |
-| `src/img/icono-180.png` | Icono de pantalla de inicio en iOS. Mosaico petróleo con la letra en blanco. |
-| `src/img/og-tuaccesible.png` | Tarjeta de 1200 × 630 que se ve cuando alguien comparte una página **en español** en LinkedIn, WhatsApp o Slack. |
-| `src/img/og-tuaccesible-en.png` | La misma tarjeta para las páginas **en inglés**, con el lema traducido y ADA delante de EN 301 549, que es lo que reconoce un comprador estadounidense. `base.njk` elige una u otra según el idioma de la página. |
+| `src/componentes/Logo.jsx` | El símbolo dentro del sitio. Va en línea en el HTML y toma el color de la paleta activa, así que funciona en claro, en oscuro y en contraste forzado de Windows. |
+| `public/img/logo-tuaccesible.svg` | Logotipo horizontal completo, con el nombre trazado en curvas. Listo para piezas externas, para imprenta y para entregar a un tercero: firmas, portadas de informe, facturas. Lienzo de 266 × 64. |
+| `public/img/logo-marca.svg` | Solo el símbolo, a color. |
+| `public/img/logo-marca-mono.svg` | Solo el símbolo, en `currentColor`: hereda el color de donde se ponga. Para sellos, grabados, o cualquier soporte de una tinta. |
+| `public/img/favicon.svg` | Icono de pestaña. Trae su propia versión oscura. |
+| `public/img/icono-180.png` | Icono de pantalla de inicio en iOS. Mosaico petróleo con la letra en blanco. |
+| `public/img/og-tuaccesible.png` | Tarjeta de 1200 × 630 que se ve cuando alguien comparte una página **en español** en LinkedIn, WhatsApp o Slack. |
+| `public/img/og-tuaccesible-en.png` | La misma tarjeta para las páginas **en inglés**, con el lema traducido y ADA delante de EN 301 549, que es lo que reconoce un comprador estadounidense. `src/documento.js` elige una u otra según el idioma de la página. |
 
 Las dos tarjetas comparten geometría exacta: franja petróleo de 16 px arriba,
 logotipo a 100 px del borde izquierdo con 760,7 px de ancho, lema en Century
