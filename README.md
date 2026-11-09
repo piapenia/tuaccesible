@@ -101,10 +101,14 @@ npm run build
 npm run preview
 ```
 
-Y en otra terminal, dentro de la misma carpeta:
+Y en otra terminal, dentro de la misma carpeta, las dos pasadas: la primera con HTML_CodeSniffer en WCAG 2 AAA y la segunda con axe-core, que suma las reglas de WCAG 2.2 y de AAA que trae (el detalle está en `.pa11yci-axe.cjs`):
 
 ```bash
 npx pa11y-ci
+```
+
+```bash
+npx pa11y-ci --config .pa11yci-axe.cjs
 ```
 
 ## Cómo está organizado
@@ -254,7 +258,7 @@ Cómo probar la versión compilada contra el backend local, los pedidos que exis
 
 ## Cómo se publica
 
-Cada push a la rama `master` dispara `.github/workflows/deploy.yml`. En orden: instala con `npm ci`, corre las pruebas, el control de contraste, la compilación y `pa11y-ci` con WCAG 2 nivel AAA en las 25 direcciones de `.pa11yci.json`. Si todo pasa, publica `dist/` en tuaccesible.com. Si algo falla, no se publica nada. Para proponer un cambio sin publicarlo, trabaja en una rama propia y abre un pull request.
+Cada push a la rama `master` dispara `.github/workflows/deploy.yml`. En orden: instala con `npm ci`, corre las pruebas, el control de contraste, la compilación y `pa11y-ci` en las 25 direcciones de `.pa11yci.json`, dos veces: con HTML_CodeSniffer en WCAG 2 nivel AAA y con axe-core, que suma WCAG 2.2. Si todo pasa, publica `dist/` en tuaccesible.com. Si algo falla, no se publica nada. Para proponer un cambio sin publicarlo, trabaja en una rama propia y abre un pull request.
 
 En `deploy.yml`, `upload-pages-artifact` lleva `include-hidden-files: true`. No quites esa línea: sin ella, desde la versión 4 de esa acción, el sitio deja de publicar `.well-known/security.txt`. Cuando Dependabot proponga una versión nueva de la acción, comprueba después de publicar que `https://tuaccesible.com/.well-known/security.txt` siga respondiendo.
 

@@ -16,19 +16,19 @@ export default function Inicio() {
         <h2>Cuatro formas de empezar</h2>
         <div className="card-grid">
           <div className="card">
-            <h3><a href="/servicios/">Auditoría exprés</a></h3>
+            <h3><a href="/servicios/#auditoria-expres">Auditoría exprés</a></h3>
             <p>Un diagnóstico rápido y priorizado cuando necesitas saber ya dónde está tu sitio.</p>
           </div>
           <div className="card">
-            <h3><a href="/servicios/">Auditoría de sitio</a></h3>
+            <h3><a href="/servicios/#auditoria-de-sitio">Auditoría de sitio</a></h3>
             <p>Revisión completa contra WCAG 2.2 y EN 301 549, página por página y no por muestra.</p>
           </div>
           <div className="card">
-            <h3><a href="/servicios/">Servicio integral</a></h3>
+            <h3><a href="/servicios/#servicio-integral">Servicio integral</a></h3>
             <p>La auditoría completa más el acompañamiento hasta que las correcciones estén implementadas.</p>
           </div>
           <div className="card">
-            <h3><a href="/servicios/">Taller corporativo</a></h3>
+            <h3><a href="/servicios/#taller-corporativo">Taller corporativo</a></h3>
             <p>Para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo.</p>
           </div>
         </div>

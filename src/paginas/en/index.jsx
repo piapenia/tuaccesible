@@ -16,19 +16,19 @@ export default function Home() {
         <h2>Four ways to start</h2>
         <div className="card-grid">
           <div className="card">
-            <h3><a href="/en/services/">Express audit</a></h3>
+            <h3><a href="/en/services/#express-audit">Express audit</a></h3>
             <p>A fast, prioritized diagnosis when you need to know, now, where your site actually stands.</p>
           </div>
           <div className="card">
-            <h3><a href="/en/services/">Site audit</a></h3>
+            <h3><a href="/en/services/#site-audit">Site audit</a></h3>
             <p>A full review against WCAG 2.2 and EN 301 549, page by page and not by sample.</p>
           </div>
           <div className="card">
-            <h3><a href="/en/services/">Full package</a></h3>
+            <h3><a href="/en/services/#full-package">Full package</a></h3>
             <p>The full audit plus support until the fixes are actually implemented.</p>
           </div>
           <div className="card">
-            <h3><a href="/en/services/">Corporate workshop</a></h3>
+            <h3><a href="/en/services/#corporate-workshop">Corporate workshop</a></h3>
             <p>So your team stops repeating the same mistakes on every new project.</p>
           </div>
         </div>

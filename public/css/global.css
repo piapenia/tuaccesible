@@ -98,7 +98,6 @@ body {
   border-radius: 4px;
   text-decoration: none;
   font-weight: 600;
-  transition: top 0.15s ease;
   z-index: 20;
 }
 .skip-link:focus { top: 1rem; }
@@ -313,6 +312,7 @@ footer.site-footer a:hover { color: var(--brand); }
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+  .skip-link { transition: top 0.15s ease; }
 }
 
 /* Formularios: los controles por defecto venian en 13px, de ancho fijo y

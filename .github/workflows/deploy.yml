@@ -44,14 +44,16 @@ jobs:
       - name: Contrast check (WCAG 2.x, sobre el CSS real)
         run: npm run verificar:contraste
       - run: npm run build
-      - name: Accessibility check (pa11y-ci, WCAG2AAA)
+      - name: Accessibility check (pa11y-ci, HTML_CodeSniffer WCAG2AAA + axe-core)
         # wait-on espera a que el servidor responda. Si en un minuto no lo
         # hizo, falla con un mensaje claro en vez de esperar hasta que se
-        # agote el tiempo del trabajo.
+        # agote el tiempo del trabajo. Las dos pasadas revisan las mismas
+        # direcciones; por que van separadas, en .pa11yci-axe.cjs.
         run: |
           npx http-server dist -p 8080 &
           npx wait-on --timeout 60s http://localhost:8080
           npx pa11y-ci
+          npx pa11y-ci --config .pa11yci-axe.cjs
       # Desde la v4, esta accion deja fuera todo lo que empieza con punto, y
       # dist/.well-known/security.txt tiene que publicarse. include-hidden-files
       # (desde la v5) lo vuelve a incluir: no se quita esa linea, y en cada

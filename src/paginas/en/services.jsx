@@ -26,7 +26,7 @@ export default function Services() {
         </ul>
       </div>
       <div className="prose">
-        <h2>Express audit</h2>
+        <h2 id="express-audit">Express audit</h2>
         <p>A fast read on the state of your site, before you commit budget to a bigger project. We review the home page at minimum, plus the key pages that matter most on your site. It's a first pass: it tells you where you stand, and it doesn't replace the page-by-page report. Delivered in 2 to 3 business days, paid in full up front.</p>
         <Desplegable resumen="What the express audit includes">
           <ul>
@@ -37,7 +37,7 @@ export default function Services() {
           <p><strong>What it doesn't include:</strong> the page-by-page report or the full criteria table. That's what the Site audit adds.</p>
         </Desplegable>
         <p><a href="/en/contact/">Get a quote for an express audit</a></p>
-        <h2>Site audit</h2>
+        <h2 id="site-audit">Site audit</h2>
         <p>The foundation for any accessibility statement that will hold up. <strong>We review the site page by page and link by link. We don't sample.</strong> The usual practice in this industry is a representative sample, around 8 to 15 pages. The W3C evaluation methodology treats sampling as the fallback and recommends evaluating the entire product wherever that's feasible. We make it feasible, against Level AA at minimum.</p>
         <Desplegable resumen="What the site audit includes">
           <ul>
@@ -50,7 +50,7 @@ export default function Services() {
           <p><strong>How it differs from the Express audit:</strong> the Express audit tells you whether you have a problem. This one tells you which problems, where they are, and what to fix first, in a document that stands up as the basis for an accessibility statement.</p>
         </Desplegable>
         <p><a href="/en/contact/">Get a quote for a site audit</a></p>
-        <h2>Full package</h2>
+        <h2 id="full-package">Full package</h2>
         <p>Everything in the Site audit, plus the help it takes to get the fixes shipped. It's the only option with support after delivery.</p>
         <Desplegable resumen="What the full package includes">
           <ul>
@@ -65,7 +65,7 @@ export default function Services() {
           <p>If you'd rather not handle it in-house, we scope and quote the remediation too. We make the changes in the code, not just flag them.</p>
         </Desplegable>
         <p><a href="/en/contact/">Ask about the full package</a></p>
-        <h2>Corporate workshop</h2>
+        <h2 id="corporate-workshop">Corporate workshop</h2>
         <p><strong>Delivered in Spanish.</strong> This is training for teams that work in Spanish, and that's a deliberate scope, not a gap we're working on: the centerpiece of the session is a live screen reader demonstration, run and narrated by the person who uses it, and that only works in the language she works in. If your product team is in Latin America or Spain, or you have Spanish-speaking engineers and content owners, this is built for them.</p>
         <p>Accessibility training so your team stops repeating the same mistakes on the next project. One hour, extendable as needed. Remote anywhere in the world, or in person in Argentina.</p>
         <Desplegable resumen="What the corporate workshop includes">

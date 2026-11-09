@@ -16,7 +16,7 @@ export default function Servicios() {
       <p><strong>Presupuestar no cuesta nada.</strong> Con la dirección del sitio, cuántas plantillas distintas tiene, qué recorridos hay que revisar y si tiene área privada, te damos alcance, precio y plazo cerrados en una semana, por escrito y antes de empezar. Sin tarifario público, porque no hay dos sitios iguales.</p>
       <p>El presupuesto te dice cuánto cuesta y cuánto tarda. No incluye la lista de lo que está mal: eso es la auditoría exprés, que además afina el presupuesto del trabajo mayor, porque para entonces ya sabemos con qué nos encontramos.</p>
       <div className="prose">
-        <h2>Auditoría exprés</h2>
+        <h2 id="auditoria-expres">Auditoría exprés</h2>
         <p>El diagnóstico rápido de accesibilidad web, para saber en qué situación estás antes de comprometer un proyecto grande. Revisamos como mínimo la página de inicio, y sumamos los enlaces clave según el sitio. Es una observación de primer nivel: te dice en qué estado estás, no sustituye al informe página por página. Entrega en 2 a 3 días hábiles, y se abona entera al contratarla.</p>
         <Desplegable resumen="Qué incluye la auditoría exprés">
           <ul>
@@ -27,7 +27,7 @@ export default function Servicios() {
           <p><strong>Lo que no incluye:</strong> el informe página por página ni la tabla de criterios completa. Eso es lo que agrega la auditoría de sitio.</p>
         </Desplegable>
         <p><a href="/contacto/">Pedir presupuesto de auditoría exprés</a></p>
-        <h2>Auditoría de sitio</h2>
+        <h2 id="auditoria-de-sitio">Auditoría de sitio</h2>
         <p>La base para cualquier declaración de accesibilidad real. <strong>Evaluamos el sitio página por página y enlace por enlace, no una muestra.</strong> Lo habitual en el sector es auditar una muestra representativa de entre 8 y 15 páginas; aquí se revisa todo, contra el nivel AA como mínimo.</p>
         <Desplegable resumen="Qué incluye la auditoría de sitio">
           <ul>
@@ -40,7 +40,7 @@ export default function Servicios() {
           <p><strong>La diferencia con la exprés:</strong> la exprés te dice si tienes un problema. Esta te dice exactamente cuál, dónde y con qué prioridad, en un documento que sirve como base de una declaración de accesibilidad.</p>
         </Desplegable>
         <p><a href="/contacto/">Pedir presupuesto de auditoría de sitio</a></p>
-        <h2>Servicio integral</h2>
+        <h2 id="servicio-integral">Servicio integral</h2>
         <p>Todo lo de la auditoría de sitio, más lo que hace falta para que las correcciones lleguen a implementarse. Es la única modalidad con acompañamiento posterior a la entrega.</p>
         <Desplegable resumen="Qué incluye el servicio integral">
           <ul>
@@ -55,7 +55,7 @@ export default function Servicios() {
           <p>Si prefieres no resolverlo puertas adentro, también evaluamos y presupuestamos la corrección: aplicamos los cambios en el código, no solo los señalamos.</p>
         </Desplegable>
         <p><a href="/contacto/">Consultar por el servicio integral</a></p>
-        <h2>Taller corporativo</h2>
+        <h2 id="taller-corporativo">Taller corporativo</h2>
         <p>Formación en accesibilidad web para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo. Un encuentro de una hora, extendible según necesidad. Remoto a cualquier país, o presencial en Argentina. Por ahora damos los talleres solo en español.</p>
         <Desplegable resumen="Qué incluye el taller corporativo">
           <ul>
