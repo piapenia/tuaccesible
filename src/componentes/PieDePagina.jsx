@@ -1,8 +1,12 @@
+import { Mail } from "lucide-react";
+import { Icono } from "./Icono.jsx";
 import { sitio } from "../sitio.js";
 
-/* Los {" "} entre enlaces no cambian nada en pantalla (el contenedor es
+/* Pie: quien es, el correo y los dos enlaces legales.
+
+   Los {" "} entre enlaces no cambian nada en pantalla (el contenedor es
    flex y ahi el espacio no se dibuja), pero mantienen el texto separado
-   para quien lo lee sin estilos, igual que en el sitio anterior. */
+   para quien lo lee sin estilos. */
 export function PieDePagina({ idioma }) {
   const en = idioma === "en";
   return (
@@ -10,7 +14,10 @@ export function PieDePagina({ idioma }) {
       <div className="wrap">
         <p>
           tuaccesible.com — © 2026. {en ? "Digital accessibility consulting." : "Consultoría en accesibilidad digital."}{" "}
-          <a href={`mailto:${sitio.correo}`}>{sitio.correo}</a>
+          <a className="site-footer__correo" href={`mailto:${sitio.correo}`}>
+            <Icono de={Mail} />
+            {sitio.correo}
+          </a>
         </p>
         <p className="footer-links">
           <a href={en ? "/en/privacy/" : "/privacidad/"}>{en ? "Privacy policy" : "Política de privacidad"}</a>{" "}

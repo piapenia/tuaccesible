@@ -1,3 +1,6 @@
+import { GraduationCap, ListChecks, Wrench, Zap } from "lucide-react";
+import { Tarjeta, Tarjetas } from "../componentes/Tarjetas.jsx";
+
 export const pagina = {
   idioma: "es",
   titulo: "Inicio",
@@ -14,24 +17,20 @@ export default function Inicio() {
       <p><a href="/contacto/">Pedir presupuesto</a>. Presupuestar no cuesta nada: cuéntanos qué hay que auditar y en qué plazo, y te decimos por dónde conviene empezar aunque no termines contratando nada.</p>
       <section>
         <h2>Cuatro formas de empezar</h2>
-        <div className="card-grid">
-          <div className="card">
-            <h3><a href="/servicios/#auditoria-expres">Auditoría exprés</a></h3>
-            <p>Un diagnóstico rápido y priorizado cuando necesitas saber ya dónde está tu sitio.</p>
-          </div>
-          <div className="card">
-            <h3><a href="/servicios/#auditoria-de-sitio">Auditoría de sitio</a></h3>
-            <p>Revisión completa contra WCAG 2.2 y EN 301 549, página por página y no por muestra.</p>
-          </div>
-          <div className="card">
-            <h3><a href="/servicios/#servicio-integral">Servicio integral</a></h3>
-            <p>La auditoría completa más el acompañamiento hasta que las correcciones estén implementadas.</p>
-          </div>
-          <div className="card">
-            <h3><a href="/servicios/#taller-corporativo">Taller corporativo</a></h3>
-            <p>Para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo.</p>
-          </div>
-        </div>
+        <Tarjetas>
+          <Tarjeta titulo="Auditoría exprés" href="/servicios/#auditoria-expres" icono={Zap}>
+            Un diagnóstico rápido y priorizado cuando necesitas saber ya dónde está tu sitio.
+          </Tarjeta>
+          <Tarjeta titulo="Auditoría de sitio" href="/servicios/#auditoria-de-sitio" icono={ListChecks}>
+            Revisión completa contra WCAG 2.2 y EN 301 549, página por página y no por muestra.
+          </Tarjeta>
+          <Tarjeta titulo="Servicio integral" href="/servicios/#servicio-integral" icono={Wrench}>
+            La auditoría completa más el acompañamiento hasta que las correcciones estén implementadas.
+          </Tarjeta>
+          <Tarjeta titulo="Taller corporativo" href="/servicios/#taller-corporativo" icono={GraduationCap}>
+            Para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo.
+          </Tarjeta>
+        </Tarjetas>
       </section>
       <section>
         <h2>Por qué tuaccesible</h2>

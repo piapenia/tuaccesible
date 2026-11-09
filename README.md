@@ -90,7 +90,7 @@ Es a propósito. `npm run build` revisa cada página y se corta con un mensaje q
 - `npm run dev`: servidor local con recarga automática, en `http://localhost:5173/`. Con `npm run dev -- --host` también se abre desde otros equipos de tu red.
 - `npm run build`: compila el sitio en `dist/`, que es exactamente lo que se publica. Para compilar en otra carpeta: `node scripts/construir.js --salida otra-carpeta`. Como la compilación vacía esa carpeta antes de escribir, solo acepta `dist/`, una carpeta nueva o vacía, o una compilación anterior del sitio; cualquier otra la rechaza sin tocarla.
 - `npm run preview`: sirve lo compilado en `http://localhost:8080/`. Corre antes `npm run build`.
-- `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas, del control de la carpeta de salida y del control de `VITE_API_URL` al compilar.
+- `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas, de los componentes (que cada uno dibuje el HTML que promete y ninguno escriba `style=`), del control de la carpeta de salida y del control de `VITE_API_URL` al compilar.
 - `npm run verificar:contraste`: el mismo control de contraste que se hace antes de publicar. Lee los colores de `src/estilos/global.css` y falla si algún par queda por debajo del mínimo.
 - `npm run generar:og`: regenera las dos tarjetas para redes sociales. Solo hace falta si cambian el lema o el logotipo, y necesita la fuente Century Gothic instalada.
 
@@ -116,13 +116,16 @@ npx pa11y-ci --config .pa11yci-axe.cjs
 - `src/`: el código del sitio.
   - `paginas/`: una página por archivo. Las de español están sueltas en esta carpeta y las de inglés en `paginas/en/`.
   - `componentes/`: lo que comparten las páginas.
-    - `Sitio.jsx`: el esqueleto visible de todas las páginas: enlace para saltar al contenido, aviso de idioma, cabecera, contenido y pie.
+    - `Sitio.jsx`: el esqueleto visible de todas las páginas: enlace para saltar al contenido, cabecera (con el aviso de idioma dentro, para que el lector de pantalla lo encuentre en una región), contenido y pie.
     - `Encabezado.jsx`, `PieDePagina.jsx`, `AvisoIdioma.jsx` y `Logo.jsx`: las partes de ese esqueleto.
-    - `Desplegable.jsx` y `DatosEstructurados.jsx`: piezas para usar dentro de las páginas.
+    - `Boton.jsx`, `Tarjetas.jsx`, `Campo.jsx`, `Aviso.jsx`, `Desplegable.jsx`, `Icono.jsx` y `DatosEstructurados.jsx`: piezas para usar dentro de las páginas (ver "Piezas que ya existen").
     - `formularios/`: `FormularioWeb3Forms.jsx` y `ProteccionDeDatos.jsx`, para los formularios de contacto y de reseñas.
     - `Isla.jsx`: marca una parte interactiva (ver "Partes interactivas: las islas").
   - `islas/`: los componentes interactivos y su lista, `registro.js`. Hoy está vacía.
-  - `estilos/`: la hoja de estilos. `global.css` tiene los colores (con el modo oscuro y el alto contraste) y el estilo de cada parte del sitio; `sitio.css` la junta con Tailwind y es la que compila Vite. Una clase de Tailwind escrita en cualquier archivo de `src/` (`grid`, `md:flex`, `text-brand`) genera su CSS sola al compilar.
+  - `estilos/`: la hoja de estilos, en tres archivos.
+    - `global.css`: los colores (con el modo oscuro y el alto contraste), las fuentes, la escala de tamaños y lo que vale para todo el sitio, como el foco y los enlaces.
+    - `componentes.css`: el estilo de cada componente de `componentes/`, en un bloque con su nombre.
+    - `sitio.css`: junta los dos con Tailwind y es la que compila Vite. Los ordena en capas: `componentes.css` le gana a `global.css`, y una clase de Tailwind escrita en una página les gana a los dos, sin pelear por especificidad. Una clase de Tailwind escrita en cualquier archivo de `src/` (`grid`, `md:flex`, `text-brand`) genera su CSS sola al compilar.
   - `api/`: el cliente que habla con el backend del servicio de testing.
   - `documento.js`: el `<head>` de todas las páginas y los scripts del final.
   - `seguridad.js`: la política de seguridad de contenido.
@@ -183,30 +186,37 @@ El contenido es JSX, que se parece mucho a HTML. Las diferencias que aparecen en
 - `class` se escribe `className` y `for` se escribe `htmlFor`:
 
   ```jsx
-  <label htmlFor="name">Nombre (obligatorio)</label>
+  <p className="lede">Como prefieras.</p>
+  <label htmlFor="botcheck">No completar este campo</label>
   ```
 
 - Las etiquetas que no tienen cierre terminan en `/>`: `<br />`, `<img ... />`, `<input ... />`.
 - Algunos atributos van con mayúscula en el medio (`autoComplete`, `tabIndex`, `hrefLang`) y los números van entre llaves: `rows={6}`, `tabIndex={-1}`.
 - Las entidades funcionan como en HTML, por ejemplo `&nbsp;`. Las llaves son especiales: para escribir una como texto, se escribe `{"{"}`.
 - Los comentarios dentro del contenido van así: `{/* comentario */}`.
-- Los espacios. Dentro de un mismo renglón, funcionan como en HTML. Pero un salto de renglón entre dos elementos se come el espacio que hubiera entre ellos. Por eso, donde dos elementos en renglones distintos tienen que quedar separados en pantalla, el primero termina con `{" "}`. Es el caso de la casilla de autorización del formulario de reseñas:
+- Los espacios. Dentro de un mismo renglón, funcionan como en HTML. Pero un salto de renglón entre dos elementos se come el espacio que hubiera entre ellos. Por eso, donde dos elementos en renglones distintos tienen que quedar separados en pantalla, el primero termina con `{" "}`. Es el caso de la trampa antispam de `FormularioWeb3Forms.jsx`:
 
   ```jsx
-  <input type="checkbox" id="consent" name="consent_publicacion" value="Sí" required />{" "}
-  <label htmlFor="consent">Autorizo a publicar esta reseña y el nombre que escribí arriba en tuaccesible.com (obligatorio)</label>
+  <label htmlFor="botcheck">No completar este campo</label>{" "}
+  <input type="checkbox" id="botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
   ```
 
-  Sin ese `{" "}`, la casilla y su texto quedarían pegados. Los párrafos de texto con enlaces van en un solo renglón, como `<p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>`, y ahí no hay nada que pensar.
+  Sin ese `{" "}`, la etiqueta y la casilla quedarían pegadas. Los campos de formulario no lo necesitan: `<Campo>` ya pone ese espacio. Los párrafos de texto con enlaces van en un solo renglón, como `<p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>`, y ahí no hay nada que pensar.
 
 ### Piezas que ya existen
 
+- `<Boton href="/contacto/">Pedir presupuesto</Boton>`: un enlace con forma de botón. Sin `href` es un `<button>` de verdad, y con `tipo="submit"`, el de enviar un formulario. `variante="secundario"` lo dibuja con borde y sin relleno, `chico` lo achica y `icono={ArrowRight}` le suma un ícono después del texto. La regla para elegir: si lleva a otra página, enlace (`href`); si hace algo en esta, botón.
+- `<Tarjetas>` con `<Tarjeta titulo="Auditoría exprés" href="/servicios/#auditoria-expres" icono={Zap}>Un diagnóstico rápido.</Tarjeta>` adentro: una lista de tarjetas. Cada tarjeta tiene un solo enlace, en su título, y toda la tarjeta responde al clic; el lector de pantalla la anuncia como un elemento de lista con un título y un enlace. El título es un `<h3>`; con `nivel={2}` pasa a `<h2>`, para cuando la lista no está debajo de otro título.
+- `<Campo etiqueta="Correo (obligatorio)" ayuda="Te respondemos ahí."><input type="email" id="email" ... /></Campo>`: la etiqueta, el texto de ayuda y el mensaje de error de un campo, ya unidos al control con `htmlFor` y `aria-describedby`. El control tiene que llevar `id`. Con `error="..."` marca el campo como inválido, y con `casilla` pone la casilla antes de su texto.
+- `<Aviso>...</Aviso>`: un recuadro para una nota que tiene que destacarse, como la de que todavía no hay reseñas. No interrumpe al lector de pantalla: se lee en su lugar, como un párrafo.
 - `<Desplegable resumen="Qué incluye la auditoría exprés">...</Desplegable>`: un bloque que se abre y se cierra, hecho con el `<details>` nativo del navegador.
 - `<FormularioWeb3Forms idioma="es" asunto="Nueva consulta desde tuaccesible.com">...</FormularioWeb3Forms>`: la etiqueta del formulario, los campos ocultos de Web3Forms y la trampa antispam. Dentro van los campos visibles y el botón.
 - `<ProteccionDeDatos>...</ProteccionDeDatos>`: el recuadro de protección de datos que va junto al botón de envío.
 - `<DatosEstructurados datos={...} />`: un bloque de datos para buscadores (schema.org).
 
 Cada una explica en su archivo cuándo usarla y por qué está hecha así.
+
+Los íconos salen de Lucide (`import { Zap } from "lucide-react"`) y se pasan a las piezas por nombre, como en `icono={Zap}`. Para uno suelto, `<Icono de={Mail} />`. Son siempre decorativos: quedan ocultos para el lector de pantalla, así que el texto de al lado tiene que decir todo. Qué íconos no usar está en `MARCA.md`.
 
 ## Partes interactivas: las islas
 

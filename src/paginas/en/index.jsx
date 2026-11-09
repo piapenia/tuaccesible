@@ -1,3 +1,6 @@
+import { GraduationCap, ListChecks, Wrench, Zap } from "lucide-react";
+import { Tarjeta, Tarjetas } from "../../componentes/Tarjetas.jsx";
+
 export const pagina = {
   idioma: "en",
   titulo: "ADA and WCAG web accessibility audits",
@@ -14,24 +17,20 @@ export default function Home() {
       <p><a href="/en/contact/">Ask for a quote</a>. It costs nothing and there's nothing to sign: tell us what needs auditing and by when, and within a week you get scope, price and timeline in writing. If we're not the right fit, we'll still tell you where to start.</p>
       <section>
         <h2>Four ways to start</h2>
-        <div className="card-grid">
-          <div className="card">
-            <h3><a href="/en/services/#express-audit">Express audit</a></h3>
-            <p>A fast, prioritized diagnosis when you need to know, now, where your site actually stands.</p>
-          </div>
-          <div className="card">
-            <h3><a href="/en/services/#site-audit">Site audit</a></h3>
-            <p>A full review against WCAG 2.2 and EN 301 549, page by page and not by sample.</p>
-          </div>
-          <div className="card">
-            <h3><a href="/en/services/#full-package">Full package</a></h3>
-            <p>The full audit plus support until the fixes are actually implemented.</p>
-          </div>
-          <div className="card">
-            <h3><a href="/en/services/#corporate-workshop">Corporate workshop</a></h3>
-            <p>So your team stops repeating the same mistakes on every new project.</p>
-          </div>
-        </div>
+        <Tarjetas>
+          <Tarjeta titulo="Express audit" href="/en/services/#express-audit" icono={Zap}>
+            A fast, prioritized diagnosis when you need to know, now, where your site actually stands.
+          </Tarjeta>
+          <Tarjeta titulo="Site audit" href="/en/services/#site-audit" icono={ListChecks}>
+            A full review against WCAG 2.2 and EN 301 549, page by page and not by sample.
+          </Tarjeta>
+          <Tarjeta titulo="Full package" href="/en/services/#full-package" icono={Wrench}>
+            The full audit plus support until the fixes are actually implemented.
+          </Tarjeta>
+          <Tarjeta titulo="Corporate workshop" href="/en/services/#corporate-workshop" icono={GraduationCap}>
+            So your team stops repeating the same mistakes on every new project.
+          </Tarjeta>
+        </Tarjetas>
       </section>
       <section>
         <h2>Why tuaccesible</h2>

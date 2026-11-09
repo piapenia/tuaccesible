@@ -11,9 +11,11 @@ import { sitio } from "../../sitio.js";
    visibles, el aviso de proteccion de datos y el boton de envio.
 
      <FormularioWeb3Forms idioma="en" asunto="New inquiry from tuaccesible.com">
-       <p>...un campo...</p>
+       <Campo etiqueta="Name (required)">
+         <input type="text" id="name" name="name" autoComplete="name" required />
+       </Campo>
        <ProteccionDeDatos>...</ProteccionDeDatos>
-       <button type="submit">Send message</button>
+       <Boton tipo="submit">Send message</Boton>
      </FormularioWeb3Forms>
 
    - asunto: el asunto del correo que llega al buzon.

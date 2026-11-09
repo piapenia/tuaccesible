@@ -150,6 +150,21 @@ En el sitio, el nombre **no** es una imagen: es texto real al lado del símbolo.
 Así crece con el zoom de texto, se lee tal cual con lector de pantalla y no
 desaparece si un archivo no carga.
 
+## Íconos
+
+Los íconos del sitio son de Lucide, de trazo fino y del mismo grosor, y se
+usan con `src/componentes/Icono.jsx`. Toman el color del texto de al lado,
+así que siguen a la paleta activa sin reglas propias.
+
+- Siempre acompañan a un texto que dice lo mismo; nunca van solos. El lector
+  de pantalla no los anuncia.
+- Un ícono por tarjeta o por botón, como mucho. No son ilustración: si una
+  sección necesita imagen, va una de verdad.
+- Ninguno de los tres clichés del sector (ojo, mano, silla de ruedas), ni el
+  ícono `accessibility` de Lucide. Por la misma razón que el logotipo no los
+  dibuja: el sitio dice de qué trabaja con el subrayado, no con un
+  pictograma.
+
 ## Qué no hacer
 
 - No cambiar la proporción entre el símbolo y el nombre en el logotipo.

@@ -1,0 +1,512 @@
+/* =========================================================================
+   tuaccesible.com: componentes
+
+   El estilo de cada pieza que dibujan los componentes de src/componentes/:
+   cabecera, aviso de idioma, pie, botones, tarjetas, avisos, campos de
+   formulario y desplegables. Cada bloque nombra el componente al que
+   pertenece.
+
+   Va en la capa "components" (ver sitio.css): le gana a global.css, que esta
+   en "base", sin pelear por especificidad, y pierde contra una clase de
+   Tailwind escrita en la pagina. Los colores salen siempre de las variables
+   de global.css; el unico hex suelto es el texto oscuro de los botones en
+   modo oscuro, el mismo que revisa tools/verificar-contraste.js.
+
+   Movimiento: solo con CSS y solo dentro de
+   @media (prefers-reduced-motion: no-preference). Quien pidio menos
+   movimiento en su sistema ve todo igual, pero quieto.
+
+   Espaciado: multiplos de 4 px (0.25rem, 0.5rem, 0.75rem, 1rem, 1.5rem,
+   2rem, 3rem...). Tamanos de letra: solo las variables --step de global.css.
+   ========================================================================= */
+
+
+/* ---- Icono.jsx --------------------------------------------------------- */
+
+/* Se alinea con la linea de texto que acompana. El tamano es 1em: sigue a
+   la letra de donde este. */
+.icono {
+  flex: none;
+  vertical-align: -0.125em;
+}
+
+
+/* ---- Boton.jsx --------------------------------------------------------- */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.5rem;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid var(--brand-strong);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.boton:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.boton--primario {
+  color: var(--bg);
+  background: var(--brand-strong);
+}
+.boton--primario:hover {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+@media (prefers-color-scheme: dark) {
+  .boton--primario { color: #0B0F11; }
+}
+
+.boton--secundario {
+  color: var(--brand);
+  background: transparent;
+  border-color: var(--brand);
+}
+.boton--secundario:hover { background: var(--surface); }
+
+.boton--chico {
+  font-size: var(--step--1);
+  padding: 0.5rem 1rem;
+}
+
+.boton__icono { font-size: 1.125em; }
+
+
+/* ---- AvisoIdioma.jsx --------------------------------------------------- */
+
+/* Oculto hasta que public/js/lang.js le pone is-visible. */
+.lang-banner {
+  display: none;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.lang-banner.is-visible { display: block; }
+.lang-banner .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding-block: 0.75rem;
+  font-size: var(--step--1);
+}
+.lang-banner__botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+
+/* ---- Encabezado.jsx ---------------------------------------------------- */
+
+/* No es fija: una cabecera pegada arriba tapa contenido con zoom grande y
+   puede tapar el foco (criterio 2.4.11). */
+.site-header {
+  border-top: 4px solid var(--brand);
+  border-bottom: 1px solid var(--border);
+}
+/* Solo la fila de la cabecera, no la del aviso de idioma. */
+.site-header > .wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  padding-block: 1rem;
+}
+
+/* La marca es texto real, no una imagen: escala con el zoom de texto, se
+   lee tal cual con lector de pantalla y no depende de que cargue ningun
+   archivo. El simbolo va al lado, decorativo. */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  margin-inline-end: auto;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+}
+.wordmark .mark {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--accent);
+}
+.wordmark:hover .mark { text-decoration-thickness: 3px; }
+
+.logo-symbol {
+  flex: none;
+  width: 1.6em;
+  height: 1.6em;
+}
+.logo-symbol .logo-letter { stroke: var(--brand); }
+.logo-symbol .logo-rule { fill: var(--accent); }
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+.main-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.main-nav a:hover {
+  color: var(--brand);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
+/* La pagina actual no se senala solo con color: va en negrita y con un
+   subrayado grueso, en terracota porque es un filete y no texto. */
+.main-nav a[aria-current="page"] {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.35em;
+}
+
+/* El borde va en el color de los bordes de campo (3:1 o mas, verificado):
+   es un control y tiene que verse como tal. */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.875rem;
+  font-size: var(--step--1);
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+}
+.lang-switch:hover {
+  color: var(--brand);
+  border-color: var(--brand);
+  text-decoration: underline;
+}
+.lang-switch .icono { font-size: 1.25em; }
+
+/* Pantalla chica: el menu ocupa su propia fila y se acomoda en una grilla
+   de casillas, todas de 44 px de alto como minimo. Sin hamburguesa. */
+@media (max-width: 47.99rem) {
+  .main-nav { flex-basis: 100%; }
+  .main-nav ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    gap: 0.5rem;
+  }
+  .main-nav a {
+    padding: 0.5rem 0.75rem;
+    line-height: 1.25;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .main-nav a[aria-current="page"] { border-color: var(--brand); }
+}
+
+
+/* ---- PieDePagina.jsx --------------------------------------------------- */
+
+.site-footer {
+  padding: 2.5rem 0;
+  color: var(--text-muted);
+  font-size: var(--step--1);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.site-footer .wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 3rem;
+}
+.site-footer p {
+  margin: 0;
+  max-width: 34em;
+}
+.site-footer a { color: var(--text-muted); }
+.site-footer a:hover { color: var(--brand); }
+/* El sobre y la direccion no se separan: sin esto, el icono quedaba al final
+   de una linea y el correo empezaba la siguiente. */
+.site-footer__correo { white-space: nowrap; }
+.site-footer__correo .icono { margin-inline-end: 0.35em; }
+
+/* Enlaces legales. Objetivo tactil de 44 px y sin caracter separador entre
+   ellos: se separan con hueco real. */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+}
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+
+/* ---- Tarjetas.jsx ------------------------------------------------------ */
+
+/* Dos columnas como mucho: con cuatro en fila, cada tarjeta quedaba en
+   unos 22 caracteres por linea, que se lee a saltos. Con este ancho maximo
+   entran dos de unos 40, y en el celular una sola. */
+.tarjetas {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: 1.5rem;
+  max-width: 50rem;
+  margin: 2rem 0 3rem;
+  padding: 0;
+}
+
+/* max-width: none le gana al "main li" de global.css, que limita el largo
+   de linea del texto corrido. */
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: none;
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.tarjeta__icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  color: var(--brand);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.tarjeta__titulo {
+  margin: 0.25rem 0 0;
+  font-size: var(--step-1);
+}
+.tarjeta__titulo a {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+/* El enlace se estira sobre toda la tarjeta. content vacio: no hay nada que
+   un lector de pantalla pueda leer en voz alta. */
+.tarjeta__titulo a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+/* El foco rodea la tarjeta entera, no solo el titulo. */
+.tarjeta__titulo a:focus-visible { outline: none; }
+.tarjeta__titulo a:focus-visible::after {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.tarjeta__flecha {
+  margin-inline-start: 0.35em;
+  color: var(--brand);
+}
+
+.tarjeta__texto { margin: 0; }
+
+.tarjeta:hover { border-color: var(--brand); }
+.tarjeta:hover .tarjeta__titulo a { text-decoration-thickness: 3px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tarjeta { transition: transform 0.2s ease, border-color 0.2s ease; }
+  .tarjeta:hover,
+  .tarjeta:focus-within { transform: translateY(-2px); }
+  .tarjeta__flecha { transition: transform 0.2s ease; }
+  .tarjeta:hover .tarjeta__flecha { transform: translateX(3px); }
+}
+
+
+/* ---- Aviso.jsx --------------------------------------------------------- */
+
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  max-width: calc(var(--medida, 34em) + 4.5rem);
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+}
+.aviso__icono {
+  font-size: 1.5rem;
+  color: var(--brand);
+}
+.aviso__texto { margin: 0; }
+
+
+/* ---- Campo.jsx --------------------------------------------------------- */
+
+.campo {
+  max-width: 32rem;
+  margin: 0 0 1.5rem;
+}
+.campo__etiqueta {
+  display: block;
+  margin: 0 0 0.25rem;
+}
+.campo__ayuda {
+  margin: 0 0 0.5rem;
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+/* El error se dice con texto y con icono; el borde terracota del campo es
+   un refuerzo, no la senal. */
+.campo__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+.campo__error-icono {
+  font-size: 1.25em;
+  color: var(--accent);
+}
+.campo [aria-invalid="true"] {
+  border-color: var(--accent);
+  border-width: 2px;
+}
+
+/* Casilla: el control a la izquierda y la etiqueta al lado, alineada con
+   la primera linea. */
+.campo--casilla {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.25rem 0.75rem;
+  max-width: 34rem;
+}
+.campo--casilla input { margin: 0.25rem 0 0; }
+.campo--casilla .campo__etiqueta {
+  margin: 0;
+  font-weight: 400;
+}
+.campo--casilla .campo__ayuda,
+.campo--casilla .campo__error { grid-column: 2; }
+
+
+/* ---- formularios/ProteccionDeDatos.jsx --------------------------------- */
+
+.form-legal {
+  max-width: 32rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  font-size: var(--step--1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+}
+.form-legal p { margin: 0 0 0.5rem; }
+.form-legal p:last-child { margin-bottom: 0; }
+
+
+/* ---- Desplegable.jsx --------------------------------------------------- */
+
+/* Se oculta el triangulo del navegador y en su lugar va la flecha del
+   componente, que es un icono en el marcado y no contenido generado. */
+.desplegable {
+  max-width: calc(var(--medida, 34em) + 2.25rem);
+  margin: 0.75rem 0 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.desplegable > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--brand);
+  list-style: none;
+  cursor: pointer;
+}
+.desplegable > summary::-webkit-details-marker { display: none; }
+.desplegable > summary:hover .desplegable__resumen {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+.desplegable__flecha { font-size: 1.25em; }
+.desplegable[open] > summary { border-bottom: 1px solid var(--border); }
+.desplegable[open] > summary .desplegable__flecha { transform: rotate(180deg); }
+
+.desplegable__contenido { padding: 1rem; }
+.desplegable__contenido > :first-child { margin-top: 0; }
+.desplegable__contenido > :last-child { margin-bottom: 0; }
+.desplegable ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+.desplegable li { margin-bottom: 0.5rem; }
+
+/* Apertura suave, donde el navegador sabe animar hasta "auto". Donde no,
+   el bloque se abre de golpe como siempre. */
+@media (prefers-reduced-motion: no-preference) {
+  .desplegable { interpolate-size: allow-keywords; }
+  .desplegable::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete;
+  }
+  .desplegable[open]::details-content { block-size: auto; }
+  .desplegable__flecha { transition: transform 0.2s ease; }
+}
+
+
+/* ---- Contraste forzado de Windows -------------------------------------- */
+
+/* El sistema reemplaza la paleta entera; aca solo se cuida que nada pierda
+   su borde ni su indicador de foco. */
+@media (forced-colors: active) {
+  .site-header { border-top-color: CanvasText; }
+  .logo-symbol .logo-letter { stroke: CanvasText; }
+  .logo-symbol .logo-rule { fill: CanvasText; }
+  .boton { border-color: ButtonText; }
+  .tarjeta, .aviso, .form-legal, .desplegable { border-color: CanvasText; }
+  .tarjeta__titulo a:focus-visible::after { outline-color: Highlight; }
+}

@@ -1,3 +1,5 @@
+import { Aviso } from "../../componentes/Aviso.jsx";
+
 export const pagina = {
   idioma: "en",
   titulo: "What an accessibility audit includes",
@@ -34,7 +36,7 @@ export default function Testimonials() {
       </section>
       <section>
         <h2>Client reviews</h2>
-        <div className="notice"><strong>No reviews published yet.</strong> We publish a review only when the person who wrote it gives us written permission, and only after we've read it. That's the same standard we hold client names to, and it's the reason this section is empty rather than full.</div>
+        <Aviso><strong>No reviews published yet.</strong> We publish a review only when the person who wrote it gives us written permission, and only after we've read it. That's the same standard we hold client names to, and it's the reason this section is empty rather than full.</Aviso>
         <p>Already worked with tuaccesible? <a href="/en/leave-a-review/">Leave us a review</a>.</p>
       </section>
       <section>

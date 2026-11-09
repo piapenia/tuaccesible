@@ -40,6 +40,11 @@
 
 @import "./global.css" layer(base);
 
+/* El estilo de cada componente de src/componentes/ (botones, tarjetas,
+   cabecera, campos...). En "components": le gana a global.css y pierde
+   contra una clase de Tailwind escrita en la pagina. */
+@import "./componentes.css" layer(components);
+
 /* source("../"): Tailwind busca clases solo en src/. Sin esto miraria
    tambien README, docs/ y las demas carpetas del proyecto, y generaria CSS
    para palabras sueltas de esos textos. */

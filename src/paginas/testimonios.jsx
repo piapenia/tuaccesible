@@ -1,3 +1,5 @@
+import { Aviso } from "../componentes/Aviso.jsx";
+
 export const pagina = {
   idioma: "es",
   titulo: "Casos y prueba de trabajo",
@@ -40,7 +42,7 @@ export default function Testimonios() {
       </section>
       <section>
         <h2>Reseñas de clientes</h2>
-        <div className="notice"><strong>Todavía no hay reseñas publicadas.</strong> Las reseñas se revisan antes de publicarse y solo aparecen con autorización de quien las escribe, así que esta sección va a empezar a llenarse a medida que terminemos los primeros proyectos bajo esta marca.</div>
+        <Aviso><strong>Todavía no hay reseñas publicadas.</strong> Las reseñas se revisan antes de publicarse y solo aparecen con autorización de quien las escribe, así que esta sección va a empezar a llenarse a medida que terminemos los primeros proyectos bajo esta marca.</Aviso>
         <p>¿Ya has trabajado con tuaccesible? <a href="/dejar-una-resena/">Déjanos tu reseña</a>.</p>
       </section>
       <div className="prose">

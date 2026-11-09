@@ -104,6 +104,7 @@ function pares(p, modo) {
     ["Enlaces y resumenes desplegables sobre el fondo", p.brand, p.bg, 7],
     ["Enlaces sobre tarjeta", p.brand, p.surface, 7],
     ["Texto del boton sobre el boton", textoBoton, p["brand-strong"], 7],
+    ["Texto del boton primario al pasar el mouse", textoBoton, p.brand, 7],
     ["Texto del salto al contenido sobre su fondo", textoBoton, p["brand-strong"], 7],
     ["Acento calido sobre el fondo (solo decorativo)", p.accent, p.bg, 3],
     ["Acento calido sobre tarjeta (solo decorativo)", p.accent, p.surface, 3],

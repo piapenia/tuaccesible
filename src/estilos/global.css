@@ -156,116 +156,9 @@ h4 { font-size: var(--step-0); }
   h2 { font-size: var(--step-3); }
 }
 
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
-
-/* Cabecera y marca */
-.site-header {
-  border-top: 4px solid var(--brand);
-  border-bottom: 1px solid var(--border);
-  padding: 1.2rem 0;
-}
-.site-header .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* La marca es texto real, no una imagen: escala con el zoom de texto,
-   se lee tal cual con lector de pantalla y no depende de que cargue
-   ningun archivo. El simbolo va al lado, decorativo. */
-.wordmark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: var(--font-display);
-  overflow-wrap: anywhere;
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-}
-.wordmark .mark {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
-  text-decoration-color: var(--accent);
-}
-.wordmark:hover { text-decoration: none; }
-.wordmark:hover .mark { text-decoration-thickness: 3px; }
-
-.logo-symbol {
-  flex: none;
-  width: 1.75em;
-  height: 1.75em;
-}
-.logo-symbol .logo-letter { stroke: var(--brand); }
-.logo-symbol .logo-rule { fill: var(--accent); }
-
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.4rem;
-  margin: 0;
-  padding: 0;
-}
-.main-nav a {
-  display: inline-block;
-  padding: 0.7rem 0;
-  overflow-wrap: anywhere;
-  text-decoration: none;
-  font-size: 0.95rem;
-  color: var(--text);
-}
-.main-nav a:hover,
-.main-nav a[aria-current="page"] {
-  color: var(--brand);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
-}
-/* La pagina actual no se senala solo con color: queda subrayada y en negrita. */
-.main-nav a[aria-current="page"] { font-weight: 600; }
-
-.lang-switch {
-  display: inline-block;
-  font-size: var(--step--1);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.7rem;
-  text-decoration: none;
-  color: var(--text);
-}
-.lang-switch:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
-
-/* Aviso de idioma de la primera visita, que solo muestra el script */
-.lang-banner {
-  display: none;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-}
-.lang-banner.is-visible { display: block; }
-.lang-banner .wrap {
-  padding: 0.7rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-    font-size: var(--step--1);
-}
-.lang-banner button {
-  font: inherit;
-  color: var(--text);
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.3rem 0.7rem;
-  cursor: pointer;
-}
-.lang-banner button:hover { border-color: var(--brand); color: var(--brand); }
+/* Contenedor de cada franja: 75rem (1200 px con la letra por defecto) de
+   maximo. Adentro, el texto corrido sigue limitado por --medida. */
+.wrap { max-width: 75rem; margin: 0 auto; padding: 0 1.5rem; }
 
 /* Contenido principal */
 main { padding: 3rem 0 4rem; }
@@ -288,33 +181,6 @@ small { font-size: var(--step--1); }
 main p:has(> small:only-child) { max-width: calc(var(--medida) * 0.875); }
 main .prose p { margin: 0 0 1.1rem; }
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.4rem 1.6rem;
-}
-.card h2, .card h3 {
-  color: var(--brand);
-  margin-top: 0;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 1.2rem;
-  margin: 2rem 0;
-}
-
-.notice {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 10px;
-  padding: 1.2rem 1.4rem;
-  color: var(--text);
-}
-
 .portrait {
   display: block;
   width: 100%;
@@ -323,35 +189,6 @@ main .prose p { margin: 0 0 1.1rem; }
   margin: 1.2rem 0 1.6rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-}
-
-footer.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
-  color: var(--text-muted);
-  font-size: var(--step--1);
-}
-footer.site-footer .wrap {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-footer.site-footer a { color: var(--text-muted); }
-footer.site-footer a:hover { color: var(--brand); }
-
-/* Enlaces legales del pie. Objetivo tactil de 44px como el resto del sitio,
-   y sin caracter separador entre ellos: se separan con hueco real. */
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem 1.4rem;
-  margin: 0;
-}
-.footer-links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -399,12 +236,6 @@ input[type="checkbox"] {
   height: 1.15rem;
   accent-color: var(--brand);
 }
-input[type="checkbox"] + label {
-  font-weight: 400;
-  margin-left: 0.4rem;
-  max-width: 30rem;
-  vertical-align: top;
-}
 
 /* Trampa antispam de Web3Forms. Va con display:none y no con un
    desplazamiento fuera de pantalla: asi queda tambien fuera del arbol de
@@ -413,88 +244,16 @@ input[type="checkbox"] + label {
    style="" del marcado entero. */
 .hp { display: none; }
 
-/* Informacion basica de proteccion de datos, junto al boton de envio */
-.form-legal {
-  max-width: 32rem;
-  margin: 0 0 1.4rem;
-  padding: 0.9rem 1.1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 8px;
-  font-size: var(--step--1);
-  color: var(--text);
-}
-.form-legal p { margin: 0 0 0.5rem; }
-.form-legal p:last-child { margin-bottom: 0; }
-
-button[type="submit"] {
-  font: inherit;
-  font-weight: 600;
-  min-height: 2.75rem;
-  padding: 0.7rem 1.5rem;
-  color: var(--bg);
-  background: var(--brand-strong);
-  border: 1px solid var(--brand-strong);
-  border-radius: 6px;
-  cursor: pointer;
-}
-button[type="submit"]:hover {
-  background: var(--brand);
-  border-color: var(--brand);
-}
-@media (prefers-color-scheme: dark) {
-  button[type="submit"] { color: #0B0F11; }
-}
-
-/* Pantallas angostas: la cabecera se apila en vez de exprimirse en una fila. */
+/* Pantallas angostas: menos margen a los costados y menos aire arriba. */
 @media (max-width: 40rem) {
   .wrap { padding: 0 1rem; }
-  .site-header .wrap {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-  }
-  .main-nav ul { gap: 0 1.2rem; }
   main { padding: 2rem 0 3rem; }
-  footer.site-footer .wrap { flex-direction: column; gap: 0.4rem; }
 }
-
-/* Detalles desplegables de la pagina de servicios. Se usa <details> nativo:
-   el contenido esta en el marcado aunque no corra JavaScript, y el estado
-   expandido lo anuncia el propio navegador. Sin contenido generado por CSS,
-   que algunos lectores de pantalla leen en voz alta. */
-details {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin: 0.6rem 0 2rem;
-}
-
-details > summary {
-  min-height: 2.75rem;
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-  color: var(--brand);
-  cursor: pointer;
-}
-details > summary:hover { text-decoration: underline; }
-details[open] > summary { border-bottom: 1px solid var(--border); }
-
-details > div { padding: 1rem; }
-details > div > :first-child { margin-top: 0; }
-details > div > :last-child { margin-bottom: 0; }
-details ul { margin: 0 0 1rem; padding-left: 1.3rem; }
-details li { margin-bottom: 0.4rem; }
 
 /* Modo de contraste forzado de Windows, el que usa bastante gente junto con
    NVDA. Ahi el sistema reemplaza la paleta entera: lo unico que hay que
-   garantizar es que nada quede sin borde ni sin indicador de foco. */
+   garantizar es que nada quede sin borde ni sin indicador de foco. Los
+   bordes de cada componente estan en componentes.css. */
 @media (forced-colors: active) {
-  .site-header { border-top-color: CanvasText; }
-  .logo-symbol .logo-letter { stroke: CanvasText; }
-  .logo-symbol .logo-rule { fill: CanvasText; }
   :focus-visible { outline-color: Highlight; }
-  button[type="submit"] { border: 2px solid ButtonText; }
-  .notice, .form-legal, .card { border: 1px solid CanvasText; }
 }
