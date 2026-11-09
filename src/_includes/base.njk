@@ -13,8 +13,15 @@
      nuevo tiene que vivir en /js/ del propio sitio. Si algún día se agrega
      analítica externa (GoatCounter, por ejemplo), hay que sumar su dominio
      aquí o no va a cargar. frame-ancestors no se pone: el navegador lo
-     ignora cuando viene por <meta>, así que sería una falsa tranquilidad. #}
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; connect-src https://tuaccesible.goatcounter.com; script-src 'self'; style-src 'self'; img-src 'self' data: https://tuaccesible.goatcounter.com; font-src 'self'; form-action https://api.web3forms.com; upgrade-insecure-requests">
+     ignora cuando viene por <meta>, así que sería una falsa tranquilidad.
+     Solo con "npm run serve" (runMode "serve") cambian dos cosas, y el sitio
+     publicado no se entera porque el despliegue compila en modo "build":
+     connect-src suma 'self' ws: para que la recarga automática de Eleventy
+     pueda abrir su WebSocket, y se quita upgrade-insecure-requests porque
+     Safari lo aplica también a localhost, pide el CSS y los scripts por
+     https y el servidor local no lo sirve: la página se ve sin estilos. #}
+  {%- set enLocal = eleventy.env.runMode == "serve" %}
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; connect-src {% if enLocal %}'self' ws: {% endif %}https://tuaccesible.goatcounter.com; script-src 'self'; style-src 'self'; img-src 'self' data: https://tuaccesible.goatcounter.com; font-src 'self'; form-action https://api.web3forms.com{% if not enLocal %}; upgrade-insecure-requests{% endif %}">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <title>{{ title }} · tuaccesible.com</title>
