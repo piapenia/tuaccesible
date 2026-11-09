@@ -246,6 +246,8 @@ Para trabajar con los dos a la vez:
 
 No hace falta configurar nada más: `.env.development` ya fija `VITE_API_URL=http://localhost:3000`. Si tu backend usa otro puerto, no cambies ese archivo: crea `.env.development.local` (no se sube a GitHub) con tu valor, por ejemplo `VITE_API_URL=http://localhost:3001`. No uses `.env.local` para esto: ese archivo también lo lee la compilación.
 
+El sitio tiene que quedar en el puerto 5173, porque el backend solo acepta pedidos de ese origen y del 8080. Si el 5173 está ocupado, `npm run dev` salta al 5174 y avisa en la terminal que desde ahí no va a haber conexión con el backend: cierra lo que ocupa el 5173 (suele ser otro `npm run dev` olvidado) o suma el origen nuevo a `CORS_ORIGIN` en el `.env` del backend. Con `npm run dev -- --host`, el sitio se ve desde el celular, pero el celular no llega al backend de tu computadora: para `localhost:3000`, localhost es el propio celular.
+
 La política de seguridad suma esa dirección a `connect-src` sola. En el sitio publicado no hay `VITE_API_URL` todavía: la política queda como siempre y el cliente informa que el servicio no está configurado, sin intentar ninguna conexión.
 
 Cómo probar la versión compilada contra el backend local, los pedidos que existen, el formato de error y las reglas de privacidad están en [el contrato con el backend](docs/contrato-api.md).

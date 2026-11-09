@@ -14,7 +14,7 @@ Hoy no hay ninguna pantalla que use la API. Lo que ya existe del lado del sitio 
 
 El navegador solo deja que una página de `localhost:5173` lea respuestas de `localhost:3000` si el backend lo autoriza. Propuesta para el backend:
 
-- Orígenes permitidos en su `.env`: `CORS_ORIGIN=http://localhost:5173,http://localhost:8080`. Al publicar, se suma `https://tuaccesible.com`.
+- Orígenes permitidos en su `.env`: `CORS_ORIGIN=http://localhost:5173,http://localhost:8080`. Al publicar, se suma `https://tuaccesible.com`. El origen incluye el puerto: si el 5173 está ocupado, `npm run dev` abre el sitio en el 5174, y desde ahí el backend no contesta. El servidor de desarrollo lo avisa en la terminal con las dos salidas posibles: liberar el 5173 o sumar `http://localhost:5174` a `CORS_ORIGIN`.
 - Sin credenciales. El sitio manda todos los pedidos con `credentials: "omit"`, porque el servicio no tiene usuarios ni cookies. No hace falta `credentials: true` en `cors`.
 - Métodos `GET`, `POST` y `PATCH`. Antes de un `POST` o un `PATCH` con JSON el navegador hace una consulta previa (`OPTIONS`); el paquete `cors` la contesta solo si va con `app.use` antes de las rutas.
 

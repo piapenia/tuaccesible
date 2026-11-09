@@ -7,7 +7,9 @@
  * de src/, la pestana abierta se recarga sola.
  *
  * Abre en http://localhost:5173/. Si ese puerto esta ocupado, prueba el
- * siguiente (5174, 5175...) y avisa en la terminal cual quedo.
+ * siguiente (5174, 5175...) y avisa en la terminal cual quedo. En otro
+ * puerto el backend local no acepta los pedidos del sitio (CORS), y eso
+ * tambien se avisa.
  * Para apagarlo: Ctrl+C.
  *
  * Solo atiende a esta misma computadora. Para abrir el sitio desde el
@@ -131,6 +133,42 @@ vite.watcher.on("change", (archivo) => {
   }
 });
 
+// Segun el contrato (docs/contrato-api.md), el backend local solo acepta
+// pedidos de estos dos origenes (CORS_ORIGIN en su .env). Desde otro puerto
+// el navegador bloquea sus respuestas, y lo que hable con el backend diria
+// que no hay conexion sin que se note por que: se avisa en la terminal.
+const ORIGENES_DEL_BACKEND = ["http://localhost:5173", "http://localhost:8080"];
+const esLocal = (url) => ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname);
+
+function avisarDelBackend(puerto) {
+  const valor = vite.config.env.VITE_API_URL;
+  if (!valor) return;
+  let api;
+  try {
+    api = new URL(valor);
+  } catch {
+    return;
+  }
+  const origen = `http://localhost:${puerto}`;
+  if (!ORIGENES_DEL_BACKEND.includes(origen)) {
+    const volver =
+      puertoInicial === 5173
+        ? "cierra lo que ocupa el puerto 5173 y vuelve a levantar el sitio"
+        : "levanta el sitio sin la variable PORT";
+    console.log(
+      `Atencion: el backend de ${api.origin} solo acepta pedidos de ${ORIGENES_DEL_BACKEND.join(" y de ")}. ` +
+        `Desde el puerto ${puerto}, lo que use el backend va a decir que no hay conexion. ` +
+        `Para arreglarlo, ${volver}, o suma ${origen} a CORS_ORIGIN en el .env del backend.`
+    );
+  }
+  if (abiertoALaRed && esLocal(api)) {
+    console.log(
+      `Desde otro equipo, ${api.origin} apunta a ese mismo equipo y no a esta computadora: ` +
+        "ahi el sitio se ve, pero no llega al backend."
+    );
+  }
+}
+
 function direccionesDeLaRed() {
   return Object.values(os.networkInterfaces())
     .flat()
@@ -149,6 +187,7 @@ servidor.on("listening", () => {
     for (const ip of direccionesDeLaRed()) console.log(`Desde otro equipo de la red: http://${ip}:${puerto}/`);
     console.log("Atencion: lo puede abrir cualquiera conectado a esta red.");
   }
+  avisarDelBackend(puerto);
   console.log("");
 });
 
