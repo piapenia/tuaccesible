@@ -16,7 +16,7 @@ export function PieDePagina({ idioma }) {
           tuaccesible.com — © 2026. {en ? "Digital accessibility consulting." : "Consultoría en accesibilidad digital."}{" "}
           <a className="site-footer__correo" href={`mailto:${sitio.correo}`}>
             <Icono de={Mail} />
-            {sitio.correo}
+            <span className="site-footer__direccion">{sitio.correo}</span>
           </a>
         </p>
         <p className="footer-links">

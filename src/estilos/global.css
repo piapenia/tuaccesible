@@ -208,6 +208,13 @@ main .prose p { margin: 0 0 1.1rem; }
   border-radius: 8px;
 }
 
+/* Foco no tapado (WCAG 2.4.11 y 2.4.12). Cuando el tabulador llega a algo
+   que estaba fuera de la ventana, el navegador lo desplaza justo hasta el
+   borde y el contorno de foco (3px, mas 3px de separacion) queda cortado.
+   Este margen deja aire arriba y abajo. Sirve tambien para los enlaces a un
+   #ancla: el titulo no queda pegado al borde de arriba. */
+html { scroll-padding-block: 1.5rem; }
+
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
   .skip-link { transition: top 0.15s ease; }

@@ -56,6 +56,19 @@
    global.css, asi que el modo oscuro y el alto contraste del sistema
    siguen saliendo de un solo lugar.
    Uso: text-brand, bg-surface, border-border, text-text-muted. */
+/* Paso entre paginas: al seguir un enlace a otra pagina de este mismo sitio,
+   la vieja se funde en la nueva en un cuarto de segundo, en vez del parpadeo
+   en blanco. Es la transicion de vistas del navegador, sin JavaScript: no
+   toca el HTML ni lo que lee NVDA, y el foco arranca al principio de la
+   pagina nueva como siempre. Quien pidio menos movimiento en el sistema no
+   la recibe, y un navegador que no la conoce (Firefox, por ahora) ignora la
+   regla y cambia de pagina como antes.
+   Va aca y fuera de las capas a proposito: es un ajuste del documento y no
+   el estilo de un elemento. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
 @theme inline {
   --color-*: initial;
   --color-bg: var(--bg);

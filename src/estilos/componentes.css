@@ -250,8 +250,12 @@
 .site-footer a { color: var(--text-muted); }
 .site-footer a:hover { color: var(--brand); }
 /* El sobre y la direccion no se separan: sin esto, el icono quedaba al final
-   de una linea y el correo empezaba la siguiente. */
+   de una linea y el correo empezaba la siguiente. La direccion, en cambio,
+   si se puede cortar, pero solo cuando no entra entera en una linea: con la
+   letra al 200 % en un telefono de 320 px empujaba la pagina 73 px hacia el
+   costado. */
 .site-footer__correo { white-space: nowrap; }
+.site-footer__direccion { white-space: normal; }
 .site-footer__correo .icono { margin-inline-end: 0.35em; }
 
 /* Enlaces legales. Objetivo tactil de 44 px y sin caracter separador entre
@@ -801,4 +805,12 @@
   .tarjeta, .aviso, .form-legal, .desplegable, .banda, .formulario, .credenciales { border-color: CanvasText; }
   .portada__nota, .nota { border-inline-start-color: CanvasText; }
   .tarjeta__titulo a:focus-visible::after { outline-color: Highlight; }
+  /* La barra corta de Seccion: su fondo pasa a ser el del sistema y tapaba
+     el comienzo del filete. Se quita y el filete queda entero. */
+  .seccion::before { display: none; }
+  /* Los SVG solo toman el color del sistema si lo heredan. Estos tres
+     tienen color propio y lo conservaban: la flecha salia en celeste palido
+     sobre el blanco del contraste alto. Van a colores del sistema. */
+  .tarjeta__flecha { color: LinkText; }
+  .aviso__icono, .campo__error-icono { color: CanvasText; }
 }
