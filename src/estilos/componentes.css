@@ -558,6 +558,14 @@
 }
 .portada__accion p { margin: 0; }
 
+/* Los dos botones, uno al lado del otro mientras entren; si no entran, el
+   segundo baja. Primero el que pide presupuesto, que es el principal. */
+.portada__botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 /* La nota va con un filete terracota a la izquierda, como una cita
    destacada de un informe. Sin fondo: no es un aviso. */
 .portada__nota {
@@ -584,6 +592,59 @@
     grid-row: 2 / span 2;
     margin: 0;
   }
+  .portada .credenciales { grid-column: 1 / -1; }
+}
+
+/* Los pasos de "Como empieza": una lista numerada de verdad (<ol>), con el
+   numero nativo de la lista. Solo cambia como se dibuja el numero, con
+   ::marker: la letra de los titulos y el petroleo de los enlaces (7:1 o
+   mas sobre el fondo en los cuatro modos). Asi la lista no pierde su
+   semantica en ningun lector, como pasaria con list-style: none. */
+.pasos { padding-inline-start: 2rem; }
+.pasos li { padding-inline-start: 0.5rem; }
+.pasos li + li { margin-top: 1rem; }
+.pasos li::marker {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--brand);
+}
+
+
+/* ---- Credenciales.jsx -------------------------------------------------- */
+
+/* Una fila de datos debajo de la primera franja de la portada: una columna
+   en el celular, dos desde 40rem y cuatro desde 64rem. El valor, en la
+   letra de los titulos; la explicacion, en texto atenuado (AAA igual). El
+   filete de arriba es decorativo: separa la franja, no dice nada. */
+.credenciales {
+  display: grid;
+  gap: 1.5rem 2rem;
+  margin: 3rem 0 0;
+  padding: 2rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+.credencial { margin: 0; }
+.credencial__valor {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.credencial__texto {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+
+@media (min-width: 40rem) {
+  .credenciales { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 64rem) {
+  .credenciales { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 
@@ -737,7 +798,7 @@
   .logo-symbol .logo-letter { stroke: CanvasText; }
   .logo-symbol .logo-rule { fill: CanvasText; }
   .boton { border-color: ButtonText; }
-  .tarjeta, .aviso, .form-legal, .desplegable, .banda, .formulario { border-color: CanvasText; }
+  .tarjeta, .aviso, .form-legal, .desplegable, .banda, .formulario, .credenciales { border-color: CanvasText; }
   .portada__nota, .nota { border-inline-start-color: CanvasText; }
   .tarjeta__titulo a:focus-visible::after { outline-color: Highlight; }
 }

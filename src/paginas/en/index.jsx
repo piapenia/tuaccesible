@@ -1,6 +1,7 @@
 import { GraduationCap, ListChecks, Wrench, Zap } from "lucide-react";
 import { Banda } from "../../componentes/Banda.jsx";
 import { Boton } from "../../componentes/Boton.jsx";
+import { Credencial, Credenciales } from "../../componentes/Credenciales.jsx";
 import { Seccion } from "../../componentes/Seccion.jsx";
 import { Tarjeta, Tarjetas } from "../../componentes/Tarjetas.jsx";
 
@@ -18,10 +19,19 @@ export default function Home() {
         <h1 className="portada__titulo">Your product, your brand, your site: <br />accessible.</h1>
         <p className="lede">Accessibility audits against WCAG 2.2, ADA and Section 508, EN 301 549 and the European Accessibility Act. Team training, and support through remediation so accessibility stops being a last-minute fix. We work with companies in the United States, Spain and Latin America.</p>
         <div className="portada__accion">
-          <Boton href="/en/contact/">Ask for a quote</Boton>
+          <div className="portada__botones">
+            <Boton href="/en/contact/">Ask for a quote</Boton>
+            <Boton href="/en/services/" variante="secundario">See services</Boton>
+          </div>
           <p>It costs nothing and there's nothing to sign: tell us what needs auditing and by when, and within a week you get scope, price and timeline in writing. If we're not the right fit, we'll still tell you where to start.</p>
         </div>
         <p className="portada__nota">María Pía runs the manual testing. She has used a screen reader as her primary interface for 13 years, the way another auditor holds a certification. It changes what gets tested, and what gets caught.</p>
+        <Credenciales>
+          <Credencial valor="Since 2021">Professional audits of websites, apps, documents and software</Credencial>
+          <Credencial valor="IAAP">A11Y Development Knowledge Badge, 2026</Credencial>
+          <Credencial valor="WCAG 2.2 AA">Specialist program by <span lang="es">Instituto de Accesibilidad</span> and DALAT, certified by an Argentine national university (UNTREF)</Credencial>
+          <Credencial valor="UTN and WeAAAre">Training in digital accessibility and ARIA</Credencial>
+        </Credenciales>
       </div>
       <Seccion numero="01" titulo="Four ways to start">
         <Tarjetas>
@@ -49,12 +59,15 @@ export default function Home() {
       </Seccion>
       <Seccion numero="03" titulo="How it starts">
         <div className="prose">
-          <p>You email us with what needs reviewing and by when. We come back with the service that fits, what it costs and how long it takes. Nothing to sign, nothing to pay.</p>
-          <p>We audit with automated tools and with real use, and you get a report prioritized by impact, not by rule count. The <a href="/en/services/">full service details</a> explain what each one includes.</p>
+          <ol className="pasos">
+            <li>You email us with what needs reviewing and by when.</li>
+            <li>We come back with the service that fits, what it costs and how long it takes. Nothing to sign, nothing to pay.</li>
+            <li>We audit with automated tools and with real use, and you get a report prioritized by impact, not by rule count. The <a href="/en/services/">full service details</a> explain what each one includes.</li>
+          </ol>
           <p>If you don't know whether any regulation binds you, start with <a href="/en/regulations/">which accessibility law applies to you</a>. It's written to answer that question and nothing else.</p>
         </div>
       </Seccion>
-      <Banda>
+      <Banda titulo="Ready to start?">
         <p>Tell us what needs auditing and by when, and we'll tell you where to start. <a href="/en/contact/">Email us</a> or read the <a href="/en/services/">full service details</a>.</p>
       </Banda>
     </>

@@ -1,6 +1,7 @@
 import { GraduationCap, ListChecks, Wrench, Zap } from "lucide-react";
 import { Banda } from "../componentes/Banda.jsx";
 import { Boton } from "../componentes/Boton.jsx";
+import { Credencial, Credenciales } from "../componentes/Credenciales.jsx";
 import { Seccion } from "../componentes/Seccion.jsx";
 import { Tarjeta, Tarjetas } from "../componentes/Tarjetas.jsx";
 
@@ -18,10 +19,19 @@ export default function Inicio() {
         <h1 className="portada__titulo">Tu producto, tu marca, tu sitio: <br />accesible.</h1>
         <p className="lede">Auditorías WCAG y EN 301 549, formación para equipos, y acompañamiento para que la accesibilidad deje de resolverse en el último momento. Trabajamos con empresas de España, América Latina y Estados Unidos.</p>
         <div className="portada__accion">
-          <Boton href="/contacto/">Pedir presupuesto</Boton>
+          <div className="portada__botones">
+            <Boton href="/contacto/">Pedir presupuesto</Boton>
+            <Boton href="/servicios/" variante="secundario">Ver servicios</Boton>
+          </div>
           <p>Presupuestar no cuesta nada: cuéntanos qué hay que auditar y en qué plazo, y te decimos por dónde conviene empezar aunque no termines contratando nada.</p>
         </div>
         <p className="portada__nota">La revisión manual la hace María Pía, que usa un lector de pantalla como su forma principal de trabajar desde hace más de trece años. No es un argumento de marketing: cambia qué se prueba y cómo.</p>
+        <Credenciales>
+          <Credencial valor="Desde 2021">Auditorías profesionales de sitios, apps, documentos y software</Credencial>
+          <Credencial valor="IAAP"><span lang="en">A11Y Development Knowledge Badge</span>, 2026</Credencial>
+          <Credencial valor="WCAG 2.2 AA">Especialización del Instituto de Accesibilidad y DALAT, certificada por la UNTREF</Credencial>
+          <Credencial valor="UTN y WeAAAre">Formación en accesibilidad digital y en ARIA</Credencial>
+        </Credenciales>
       </div>
       <Seccion numero="01" titulo="Cuatro formas de empezar">
         <Tarjetas>
@@ -48,12 +58,15 @@ export default function Inicio() {
       </Seccion>
       <Seccion numero="03" titulo="Cómo empieza">
         <div className="prose">
-          <p>Nos escribes contando qué producto hay que revisar y para cuándo. Te decimos qué servicio encaja y cuánto costaría, sin coste ni compromiso.</p>
-          <p>Auditamos con herramientas automáticas y con uso real, y te entregamos un informe priorizado por impacto, no por cantidad de reglas incumplidas. El <a href="/servicios/">detalle de cada servicio</a> explica qué incluye cada uno.</p>
+          <ol className="pasos">
+            <li>Nos escribes contando qué producto hay que revisar y para cuándo.</li>
+            <li>Te decimos qué servicio encaja y cuánto costaría, sin coste ni compromiso.</li>
+            <li>Auditamos con herramientas automáticas y con uso real, y te entregamos un informe priorizado por impacto, no por cantidad de reglas incumplidas. El <a href="/servicios/">detalle de cada servicio</a> explica qué incluye cada uno.</li>
+          </ol>
           <p>Si no sabes si te obliga alguna norma, empieza por <a href="/normativa/">qué ley de accesibilidad te obliga</a>: está escrito para responder esa pregunta y nada más.</p>
         </div>
       </Seccion>
-      <Banda>
+      <Banda titulo="¿Empezamos?">
         <p><a href="/contacto/">Escribir a tuaccesible</a> o ver el <a href="/servicios/">detalle de servicios</a>.</p>
       </Banda>
     </>

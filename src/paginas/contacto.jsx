@@ -16,7 +16,7 @@ export default function Contacto() {
       <div className="contacto">
         <div className="contacto__intro">
           <h1>Contacto</h1>
-          <p className="lede">Como prefieras: un correo directo o el formulario de aquí abajo.</p>
+          <p className="lede">Como prefieras: un correo directo o el formulario de esta página.</p>
           <p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
         </div>
         <FormularioWeb3Forms idioma="es" asunto="Nueva consulta desde tuaccesible.com">

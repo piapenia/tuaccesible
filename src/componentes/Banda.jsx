@@ -11,7 +11,8 @@
    por pagina, como mucho, y al final.
 
    - titulo: opcional. Si esta, va como <h2> y la banda se puede alcanzar
-     con la tecla H, como cualquier otra seccion. En la portada no lleva.
+     con la tecla H, como cualquier otra seccion. Todas las paginas que la
+     usan hoy lo llevan, la portada incluida.
 
    El fondo es petroleo en los dos modos (--banda) y el texto, blanco en
    claro y gris muy claro en oscuro (--sobre-banda): 13.54:1 y 11.66:1. Los

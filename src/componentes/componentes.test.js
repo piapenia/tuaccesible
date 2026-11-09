@@ -24,7 +24,7 @@ before(async () => {
     server: { middlewareMode: true, hmr: false, watch: null },
     optimizeDeps: { noDiscovery: true, include: [] },
   });
-  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Encabezado", "Sitio"]) {
+  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Credenciales", "Encabezado", "Sitio"]) {
     Object.assign(m, await vite.ssrLoadModule(`/src/componentes/${nombre}.jsx`));
   }
   iconos = await import("lucide-react");
@@ -147,6 +147,12 @@ test("Banda: un div comun, sin rol ni nombre", () => {
 test("Banda: con titulo, el titulo va como h2 al principio", () => {
   const html = dibujar(h(m.Banda, { titulo: "Hablemos" }, h("p", null, "Texto.")));
   assert.equal(html, '<div class="banda"><h2 class="banda__titulo">Hablemos</h2><p>Texto.</p></div>');
+});
+
+test("Credenciales: una lista con el valor y la explicacion de cada dato", () => {
+  const html = dibujar(h(m.Credenciales, null, h(m.Credencial, { valor: "Desde 2021" }, "Auditorías")));
+  assert.equal(html, '<ul class="credenciales" role="list"><li class="credencial"><span class="credencial__valor">Desde 2021</span> <span class="credencial__texto">Auditorías</span></li></ul>');
+  assert.throws(() => dibujar(h(m.Credencial, null, "sin valor")), /falta valor/);
 });
 
 test("Encabezado: el aviso de idioma queda dentro de la cabecera", () => {
