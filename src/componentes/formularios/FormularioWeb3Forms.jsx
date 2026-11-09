@@ -23,7 +23,7 @@ import { sitio } from "../../sitio.js";
 
    La trampa antispam es el parrafo .hp con la casilla botcheck. Las
    personas no la ven: la clase hp la oculta con display:none
-   (public/css/global.css), que la saca tambien del arbol de accesibilidad,
+   (src/estilos/global.css), que la saca tambien del arbol de accesibilidad,
    asi que NVDA no la anuncia. Un robot que rellena todo lo que encuentra la
    marca, y Web3Forms descarta los envios que llegan con esa casilla
    marcada. Si la hoja de estilos no carga, la casilla queda a la vista: la

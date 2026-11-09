@@ -38,7 +38,7 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       # Primero lo que no necesita el sitio compilado: los tests (node:test)
-      # y el contraste, que lee public/css/global.css directamente. Si algo
+      # y el contraste, que lee src/estilos/global.css directamente. Si algo
       # falla, se corta antes de compilar.
       - run: npm test
       - name: Contrast check (WCAG 2.x, sobre el CSS real)

@@ -91,9 +91,12 @@ function quitarPrecargasAutomaticas(html) {
 }
 
 /* desarrollo: true en "npm run dev".
+   hojaDeEstilos: direccion del CSS que enlazan todas las paginas. En la
+   compilacion es el archivo que genero Vite (con su hash en el nombre); en
+   "npm run dev", /src/estilos/sitio.css, que Vite compila al pedirlo.
    scriptCliente: direccion del JavaScript de las islas, o null si todavia no
    se compilo. Solo se usa si la pagina tiene alguna <Isla>. */
-export function renderizarPagina(pagina, { desarrollo = false, scriptCliente = null } = {}) {
+export function renderizarPagina(pagina, { desarrollo = false, hojaDeEstilos = null, scriptCliente = null } = {}) {
   const islasUsadas = new Set();
   const { Componente } = pagina;
   const html = renderToStaticMarkup(
@@ -112,6 +115,7 @@ export function renderizarPagina(pagina, { desarrollo = false, scriptCliente = n
       cuerpoHtml: quitarPrecargasAutomaticas(html),
       desarrollo,
       origenApi,
+      hojaDeEstilos,
       scriptCliente: usaIslas ? scriptCliente : null,
     }),
   };

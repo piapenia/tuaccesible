@@ -11,11 +11,13 @@
  *
  * Pasos:
  *   1. Vite compila src/renderizar.jsx para Node (en una carpeta temporal).
- *   2. Se copia public/ tal cual: CSS, imagenes, los dos scripts chicos,
- *      CNAME y .well-known/security.txt.
- *   3. Se dibuja cada pagina con React y se escribe como index.html en su
- *      carpeta, mas 404.html, sitemap.xml y robots.txt.
- *   4. Solo si alguna pagina usa una <Isla>, Vite compila el JavaScript del
+ *   2. Se copia public/ tal cual: imagenes, los dos scripts chicos, CNAME y
+ *      .well-known/security.txt.
+ *   3. Vite compila la hoja de estilos (src/estilos/sitio.css, con Tailwind)
+ *      en dist/assets/, con un hash en el nombre del archivo.
+ *   4. Se dibuja cada pagina con React, enlazando esa hoja, y se escribe como
+ *      index.html en su carpeta, mas 404.html, sitemap.xml y robots.txt.
+ *   5. Solo si alguna pagina usa una <Isla>, Vite compila el JavaScript del
  *      navegador (src/cliente.jsx) en dist/assets/ y esas paginas se vuelven
  *      a dibujar con su <script>. Si ninguna la usa, no se publica nada de
  *      React para el navegador.
@@ -59,6 +61,32 @@ function escribir(relativo, contenido) {
   fs.writeFileSync(destino, contenido);
 }
 
+/* Compila una entrada para el navegador en dist/assets/ y devuelve la
+   direccion con la que la enlazan las paginas. El nombre del archivo lleva
+   un hash que cambia con el contenido, y solo el manifiesto de Vite sabe
+   cual es: se lee y se borra, porque no se publica. */
+async function compilarParaNavegador(entrada) {
+  await build({
+    root: raiz,
+    mode: "production",
+    logLevel: "warn",
+    publicDir: false,
+    build: {
+      outDir: salida,
+      emptyOutDir: false,
+      manifest: true,
+      copyPublicDir: false,
+      rolldownOptions: { input: path.join(raiz, entrada) },
+    },
+  });
+  const carpetaManifiesto = path.join(salida, ".vite");
+  const manifiesto = JSON.parse(fs.readFileSync(path.join(carpetaManifiesto, "manifest.json"), "utf8"));
+  fs.rmSync(carpetaManifiesto, { recursive: true, force: true });
+  const archivo = manifiesto[entrada]?.file;
+  if (!archivo) throw new Error(`El manifiesto de Vite no tiene la entrada ${entrada}`);
+  return `/${archivo}`;
+}
+
 const inicio = Date.now();
 // La carpeta temporal va dentro de node_modules/.cache y no en la del
 // sistema: el renderizador compilado importa react, y Node lo busca en el
@@ -93,33 +121,17 @@ try {
   fs.rmSync(salida, { recursive: true, force: true });
   fs.cpSync(path.join(raiz, "public"), salida, { recursive: true });
 
-  // 3. Las paginas.
-  let resultados = paginas.map((p) => renderizarPagina(p));
+  // 3. La hoja de estilos.
+  const hojaDeEstilos = await compilarParaNavegador("src/estilos/sitio.css");
 
-  // 4. El JavaScript del navegador, solo si hace falta.
+  // 4. Las paginas.
+  let resultados = paginas.map((p) => renderizarPagina(p, { hojaDeEstilos }));
+
+  // 5. El JavaScript del navegador, solo si hace falta.
   const conIslas = resultados.filter((r) => r.usaIslas).length;
   if (conIslas > 0) {
-    await build({
-      root: raiz,
-      mode: "production",
-      logLevel: "warn",
-      publicDir: false,
-      build: {
-        outDir: salida,
-        emptyOutDir: false,
-        manifest: true,
-        copyPublicDir: false,
-        rolldownOptions: { input: path.join(raiz, "src/cliente.jsx") },
-      },
-    });
-    const rutaManifiesto = path.join(salida, ".vite", "manifest.json");
-    const manifiesto = JSON.parse(fs.readFileSync(rutaManifiesto, "utf8"));
-    const entrada = manifiesto["src/cliente.jsx"];
-    if (!entrada) throw new Error("El manifiesto de Vite no tiene la entrada src/cliente.jsx");
-    const scriptCliente = `/${entrada.file}`;
-    resultados = paginas.map((p) => renderizarPagina(p, { scriptCliente }));
-    // El manifiesto solo sirve para esta compilacion: no se publica.
-    fs.rmSync(path.join(salida, ".vite"), { recursive: true, force: true });
+    const scriptCliente = await compilarParaNavegador("src/cliente.jsx");
+    resultados = paginas.map((p) => renderizarPagina(p, { hojaDeEstilos, scriptCliente }));
   }
 
   for (const r of resultados) escribir(r.archivo, r.html);

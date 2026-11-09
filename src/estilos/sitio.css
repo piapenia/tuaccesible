@@ -1,0 +1,51 @@
+/* =========================================================================
+   tuaccesible.com: entrada de los estilos
+
+   Este es el archivo que compila Vite, con el plugin de Tailwind, y que
+   enlazan todas las paginas. Junta dos cosas:
+
+     - global.css: la hoja de estilos de siempre, con los colores, el
+       alto contraste y todo lo que ya tenia el sitio.
+     - Las clases de Tailwind (p-4, grid, md:flex...) que aparezcan escritas
+       en los componentes de src/, incluidas las islas. Solo se genera CSS
+       para las clases que de verdad se usan.
+
+   Capas, de menor a mayor prioridad: theme, base, components, utilities.
+   global.css va en base, asi una clase de Tailwind escrita en un componente
+   le gana sin pelear por especificidad. Dentro de base, global.css sigue
+   comportandose igual que antes.
+
+   No se carga preflight, el reinicio de estilos de Tailwind: cambiaria
+   margenes, titulos y listas en todas las paginas. Lo que hace falta de el
+   (box-sizing, imagenes fluidas) ya esta en global.css.
+   ========================================================================= */
+
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "./global.css" layer(base);
+
+/* source("../"): Tailwind busca clases solo en src/. Sin esto miraria
+   tambien README, docs/ y las demas carpetas del proyecto, y generaria CSS
+   para palabras sueltas de esos textos. */
+@import "tailwindcss/utilities.css" layer(utilities) source("../");
+
+/* Colores: solo los de la marca. Se borra la paleta de Tailwind (red-500,
+   slate-200...) para que ninguna clase pueda usar un color que no paso por
+   tools/verificar-contraste.js. Cada color apunta a su variable de
+   global.css, asi que el modo oscuro y el alto contraste del sistema
+   siguen saliendo de un solo lugar.
+   Uso: text-brand, bg-surface, border-border, text-text-muted. */
+@theme inline {
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-accent: var(--accent);
+  --color-focus: var(--focus);
+}

@@ -27,7 +27,7 @@
  * vectores que en el resto de la marca y no dependen de ninguna fuente.
  *
  * El lema si depende de una fuente: Century Gothic, la primera de
- * --font-display en public/css/global.css. Si la maquina donde se corre esto
+ * --font-display en src/estilos/global.css. Si la maquina donde se corre esto
  * no la tiene, el texto sale con otra letra y la tarjeta no coincide con la
  * publicada. Por eso el script lo comprueba y aborta en vez de generar algo
  * distinto en silencio.

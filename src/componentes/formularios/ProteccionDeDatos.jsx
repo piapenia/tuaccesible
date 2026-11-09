@@ -12,7 +12,7 @@
        <p>...</p>
      </ProteccionDeDatos>
 
-   El recuadro lo dibuja la clase form-legal de public/css/global.css. */
+   El recuadro lo dibuja la clase form-legal de src/estilos/global.css. */
 export function ProteccionDeDatos({ children }) {
   return <div className="form-legal">{children}</div>;
 }

@@ -82,6 +82,15 @@ function fallar(res, error) {
   );
 }
 
+/* En desarrollo las paginas enlazan los archivos fuente y Vite los compila
+   cuando el navegador los pide: el CSS con Tailwind, el JavaScript de las
+   islas con React. Asi un cambio se ve al recargar, sin compilar nada. */
+const opcionesDePagina = {
+  desarrollo: true,
+  hojaDeEstilos: "/src/estilos/sitio.css",
+  scriptCliente: "/src/cliente.jsx",
+};
+
 async function atender(req, res) {
   const { pathname } = new URL(req.url, "http://localhost");
   const r = await vite.ssrLoadModule("/src/renderizar.jsx");
@@ -100,7 +109,7 @@ async function atender(req, res) {
 
   const pagina = r.buscarPagina(ruta);
   if (pagina) {
-    const { html } = r.renderizarPagina(pagina, { desarrollo: true, scriptCliente: "/src/cliente.jsx" });
+    const { html } = r.renderizarPagina(pagina, opcionesDePagina);
     return responder(res, 200, "text/html; charset=utf-8", html);
   }
 
@@ -111,7 +120,7 @@ async function atender(req, res) {
 
   // Y cualquier otra direccion muestra la pagina 404 con su codigo.
   const noEncontrada = r.buscarPagina("/404.html");
-  const { html } = r.renderizarPagina(noEncontrada, { desarrollo: true, scriptCliente: "/src/cliente.jsx" });
+  const { html } = r.renderizarPagina(noEncontrada, opcionesDePagina);
   return responder(res, 404, "text/html; charset=utf-8", html);
 }
 

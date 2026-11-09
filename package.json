@@ -21,8 +21,10 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "http-server": "^14.1.1",
     "pa11y-ci": "^5.0.0",
+    "tailwindcss": "^4.3.3",
     "vite": "^8.3.5",
     "wait-on": "^9.5.1"
   }

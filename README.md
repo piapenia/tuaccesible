@@ -79,7 +79,7 @@ Si aparece `EBADENGINE` o `Unsupported engine`, tu Node es anterior a la 22.13. 
 
 ### La página se ve sin estilos
 
-No abras los archivos `.html` con doble clic. Las rutas del sitio empiezan en la raíz (`/css/global.css`) y solo funcionan cuando un servidor las sirve. Usa `npm run dev`, o `npm run preview` para ver lo compilado.
+No abras los archivos `.html` con doble clic. Las rutas del sitio empiezan en la raíz (`/assets/sitio-….css`) y solo funcionan cuando un servidor las sirve. Usa `npm run dev`, o `npm run preview` para ver lo compilado.
 
 ### La compilación se corta con un mensaje sobre una página
 
@@ -91,7 +91,7 @@ Es a propósito. `npm run build` revisa cada página y se corta con un mensaje q
 - `npm run build`: compila el sitio en `dist/`, que es exactamente lo que se publica. Para compilar en otra carpeta: `node scripts/construir.js --salida otra-carpeta`. Como la compilación vacía esa carpeta antes de escribir, solo acepta `dist/`, una carpeta nueva o vacía, o una compilación anterior del sitio; cualquier otra la rechaza sin tocarla.
 - `npm run preview`: sirve lo compilado en `http://localhost:8080/`. Corre antes `npm run build`.
 - `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas, del control de la carpeta de salida y del control de `VITE_API_URL` al compilar.
-- `npm run verificar:contraste`: el mismo control de contraste que se hace antes de publicar. Lee los colores de `public/css/global.css` y falla si algún par queda por debajo del mínimo.
+- `npm run verificar:contraste`: el mismo control de contraste que se hace antes de publicar. Lee los colores de `src/estilos/global.css` y falla si algún par queda por debajo del mínimo.
 - `npm run generar:og`: regenera las dos tarjetas para redes sociales. Solo hace falta si cambian el lema o el logotipo, y necesita la fuente Century Gothic instalada.
 
 Para correr el control de accesibilidad igual que antes de publicar, hace falta haber instalado Chrome (sin `PUPPETEER_SKIP_DOWNLOAD`) y tener libre el puerto 8080. Compila y sirve lo compilado:
@@ -122,6 +122,7 @@ npx pa11y-ci --config .pa11yci-axe.cjs
     - `formularios/`: `FormularioWeb3Forms.jsx` y `ProteccionDeDatos.jsx`, para los formularios de contacto y de reseñas.
     - `Isla.jsx`: marca una parte interactiva (ver "Partes interactivas: las islas").
   - `islas/`: los componentes interactivos y su lista, `registro.js`. Hoy está vacía.
+  - `estilos/`: la hoja de estilos. `global.css` tiene los colores (con el modo oscuro y el alto contraste) y el estilo de cada parte del sitio; `sitio.css` la junta con Tailwind y es la que compila Vite. Una clase de Tailwind escrita en cualquier archivo de `src/` (`grid`, `md:flex`, `text-brand`) genera su CSS sola al compilar.
   - `api/`: el cliente que habla con el backend del servicio de testing.
   - `documento.js`: el `<head>` de todas las páginas y los scripts del final.
   - `seguridad.js`: la política de seguridad de contenido.
@@ -131,7 +132,7 @@ npx pa11y-ci --config .pa11yci-axe.cjs
   - `renderizar.jsx`: convierte cada página en un documento HTML y arma el sitemap y el robots.txt.
   - `cliente.jsx`: el JavaScript que llega al navegador en las páginas con islas.
   - `utilidades/`: dos funciones chicas, una que escapa texto para el HTML y otra que escribe los datos para buscadores.
-- `public/`: se copia tal cual al sitio publicado: `css/global.css`, `img/`, `js/lang.js` (el aviso de idioma), `js/count.js` (GoatCounter), `CNAME` y `.well-known/security.txt`.
+- `public/`: se copia tal cual al sitio publicado: `img/`, `js/lang.js` (el aviso de idioma), `js/count.js` (GoatCounter), `CNAME` y `.well-known/security.txt`.
 - `scripts/`: `construir.js` (lo que corre `npm run build`) y `desarrollo.js` (lo que corre `npm run dev`).
 - `tools/`: el verificador de contraste y el generador de tarjetas sociales.
 - `docs/`: `contrato-api.md`, el contrato propuesto con el backend.
@@ -267,6 +268,7 @@ La compilación también se corta en GitHub Actions si encuentra una `VITE_API_U
 ## Antes de tocar ciertas cosas
 
 - Colores, logotipo o tipografía: lee `MARCA.md`.
+- Colores en las clases de Tailwind: solo existen los de la marca (`text-brand`, `bg-surface`, `border-border`…). La paleta de Tailwind está borrada, así que `text-red-500` no genera nada. Un color nuevo va en las cuatro paletas de `src/estilos/global.css`, en el bloque `@theme` de `src/estilos/sitio.css` y en los pares que revisa `tools/verificar-contraste.js`.
 - Scripts, formularios o servicios externos: lee `SEGURIDAD.md` y los comentarios de `src/seguridad.js`, donde vive la política de seguridad de contenido. Un script nuevo tiene que vivir en `public/js/` o ser una isla, porque la política no deja cargar scripts de otros dominios ni escritos dentro del HTML.
 - El destino de los formularios: si deja de ser Web3Forms, hay que cambiar también `form-action` en `src/seguridad.js`, o el navegador bloquea el envío.
 - Con `npm run dev`, la política es un poco más abierta que en el sitio publicado, para que funcionen la recarga automática y Safari en `localhost`. El sitio publicado no cambia: el despliegue compila con `npm run build`, y ahí esa excepción no se aplica.

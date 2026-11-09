@@ -13,8 +13,11 @@ import { politicaDeSeguridad } from "./seguridad.js";
 import { escapar } from "./utilidades/escapar.js";
 import { serializarJsonLd } from "./utilidades/json-ld.js";
 
-export function documentoHtml({ pagina, cuerpoHtml, desarrollo, origenApi, scriptCliente }) {
+export function documentoHtml({ pagina, cuerpoHtml, desarrollo, origenApi, hojaDeEstilos, scriptCliente }) {
   const { idioma, titulo, descripcion, ruta, rutaAlternativa, noindex } = pagina;
+  /* Sin hoja de estilos la pagina saldria en blanco y negro sin que nada
+     avise: mejor cortar la compilacion. */
+  if (!hojaDeEstilos) throw new Error(`Falta la hoja de estilos para ${ruta}: renderizarPagina necesita { hojaDeEstilos }`);
   const en = idioma === "en";
   const url = sitio.url + ruta;
   const tituloCompleto = `${titulo} · tuaccesible.com`;
@@ -84,7 +87,7 @@ export function documentoHtml({ pagina, cuerpoHtml, desarrollo, origenApi, scrip
     `  <meta property="og:image:alt" content="${escapar(altImagenSocial)}">`,
     '  <meta name="twitter:card" content="summary_large_image">',
     "",
-    '  <link rel="stylesheet" href="/css/global.css">',
+    `  <link rel="stylesheet" href="${escapar(hojaDeEstilos)}">`,
     "",
     '  <script type="application/ld+json">',
     serializarJsonLd(organizacion),

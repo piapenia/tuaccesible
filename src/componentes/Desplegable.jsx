@@ -4,7 +4,7 @@
    el contenido esta en el HTML aunque no corra ningun script, y el propio
    navegador le anuncia al lector de pantalla si el bloque esta abierto o
    cerrado, sin aria-expanded que mantener a mano. Los estilos estan en
-   public/css/global.css, que explica tambien por que no usan contenido
+   src/estilos/global.css, que explica tambien por que no usan contenido
    generado por CSS: algunos lectores de pantalla lo leen en voz alta.
 
      <Desplegable resumen="What the site audit includes">
