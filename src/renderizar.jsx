@@ -4,8 +4,7 @@
    la pagina cada vez que el navegador la pide, y la compilacion, que las
    dibuja todas una vez y las escribe en dist/.
 
-   La direccion de cada pagina sale del nombre de su archivo, como hacia
-   Eleventy:
+   La direccion de cada pagina sale del nombre de su archivo:
      src/paginas/index.jsx           ->  /
      src/paginas/servicios.jsx       ->  /servicios/
      src/paginas/en/index.jsx        ->  /en/

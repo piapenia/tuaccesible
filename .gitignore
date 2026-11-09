@@ -1,6 +1,5 @@
 node_modules/
 dist/
-.cache/
 # Valores propios de cada computadora (por ejemplo otro puerto del backend).
 .env.local
 .env.*.local

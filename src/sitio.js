@@ -1,4 +1,4 @@
-/* Datos generales del sitio. Antes vivian en src/_data/site.json. */
+/* Datos generales del sitio. */
 export const sitio = {
   url: "https://tuaccesible.com",
   nombre: "tuaccesible",
