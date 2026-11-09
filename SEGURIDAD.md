@@ -85,11 +85,12 @@ el sitio**, y **el dominio**.
   título, descripción, idioma o su versión en el otro idioma, o si dos
   páginas no se apuntan entre sí) y `pa11y-ci` contra WCAG2AAA en las 25
   páginas de `.pa11yci.json`.
-- `upload-pages-artifact` sigue en la v3, y no conviene subirla sin cuidado:
-  la v4 deja fuera del sitio publicado todo archivo cuyo nombre empieza con
-  punto, y con eso `.well-known/security.txt`. La v5 lo incluye solo con
-  `include-hidden-files: true`. Está anotado junto a la acción en
-  `deploy.yml`.
+- `upload-pages-artifact` va en la v5 con `include-hidden-files: true`.
+  Desde la v4, esa acción deja fuera del sitio publicado todo archivo cuyo
+  nombre empieza con punto, y con eso `.well-known/security.txt`; esa línea
+  lo vuelve a incluir. Está anotado junto a la acción en `deploy.yml`, y
+  después de cada versión nueva hay que comprobar que
+  `https://tuaccesible.com/.well-known/security.txt` siga respondiendo.
 
 ## Avisos de npm
 

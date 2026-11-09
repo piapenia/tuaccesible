@@ -254,7 +254,7 @@ Cómo probar la versión compilada contra el backend local, los pedidos que exis
 
 Cada push a la rama `master` dispara `.github/workflows/deploy.yml`. En orden: instala con `npm ci`, corre las pruebas, el control de contraste, la compilación y `pa11y-ci` con WCAG 2 nivel AAA en las 25 direcciones de `.pa11yci.json`. Si todo pasa, publica `dist/` en tuaccesible.com. Si algo falla, no se publica nada. Para proponer un cambio sin publicarlo, trabaja en una rama propia y abre un pull request.
 
-Antes de aceptar el pull request de Dependabot que sube `upload-pages-artifact` a la versión 5, lee el comentario que hay sobre esa acción en `deploy.yml`: sin una línea más, el sitio dejaría de publicar `.well-known/security.txt`.
+En `deploy.yml`, `upload-pages-artifact` lleva `include-hidden-files: true`. No quites esa línea: sin ella, desde la versión 4 de esa acción, el sitio deja de publicar `.well-known/security.txt`. Cuando Dependabot proponga una versión nueva de la acción, comprueba después de publicar que `https://tuaccesible.com/.well-known/security.txt` siga respondiendo.
 
 ## Antes de tocar ciertas cosas
 
