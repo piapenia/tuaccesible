@@ -25,8 +25,24 @@
   --accent: #A2450A;
   --focus: #0A1013;
 
-  --font-display: "Century Gothic", "Avenir Next", Futura, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Las dos fuentes se alojan en el sitio (ver sitio.css). Detras van las
+     del sistema, que se ven mientras baja el archivo o si no llega. */
+  --font-display: "Jost Variable", "Century Gothic", "Avenir Next", Futura, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Atkinson Hyperlegible Next Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* ESCALA TIPOGRAFICA
+     Razon 1.25 a partir de 1rem, siempre en rem y sin unidades de viewport
+     (vw): asi todo crece con el zoom y con el tamano de letra que elija cada
+     persona en su navegador (WCAG 1.4.4). Las pantallas anchas suben un
+     escalon los titulos grandes con una media query, mas abajo.
+     --step--1 es el texto chico (pie, avisos, el boton de idioma): no baja
+     de 14px con la configuracion por defecto. */
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -73,7 +89,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.6;
   overflow-wrap: anywhere;
   margin: 0;
@@ -120,11 +136,24 @@ a:hover { text-decoration-thickness: 2px; }
   border-radius: 2px;
 }
 
+/* Titulos en Jost semibold. El tamano va explicito en cada nivel: sin
+   esto, el navegador achica un h1 que este dentro de <section> o <article>,
+   y cada navegador lo hace distinto. */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
+  font-weight: 600;
   color: var(--ink);
   line-height: 1.2;
   text-wrap: balance;
+}
+h1 { font-size: var(--step-3); line-height: 1.15; }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+h4 { font-size: var(--step-0); }
+
+@media (min-width: 48rem) {
+  h1 { font-size: var(--step-4); }
+  h2 { font-size: var(--step-3); }
 }
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
@@ -202,7 +231,7 @@ h1, h2, h3, h4 {
 
 .lang-switch {
   display: inline-block;
-  font-size: 0.85rem;
+  font-size: var(--step--1);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.7rem;
@@ -225,7 +254,7 @@ h1, h2, h3, h4 {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  font-size: 0.9rem;
+    font-size: var(--step--1);
 }
 .lang-banner button {
   font: inherit;
@@ -240,8 +269,23 @@ h1, h2, h3, h4 {
 
 /* Contenido principal */
 main { padding: 3rem 0 4rem; }
-main .lede { color: var(--text-muted); font-size: 1.1rem; max-width: 42rem; }
-main .prose { max-width: 42rem; }
+/* Largo de linea: unos 67 caracteres de promedio, y ningun parrafo pasa de
+   80 de promedio (WCAG 1.4.8, AAA, medido como pide la tecnica C20). Medido
+   en las 23 paginas con Atkinson cargada: promedio por parrafo de 76 como
+   mucho, y alguna linea suelta en ingles llega a 85 contando espacios.
+   Va en em y no en rem para que cada texto se mida con su propio tamano de
+   letra, y no en ch: en Atkinson el cero es mucho mas ancho que la letra
+   promedio, y 65ch darian mas de 85 caracteres de promedio. */
+main { --medida: 34em; }
+main .lede { color: var(--text-muted); font-size: var(--step-1); line-height: 1.5; max-width: var(--medida); }
+main .prose { max-width: var(--medida); }
+main p, main li { max-width: var(--medida); }
+
+/* Letra chica: el escalon --step--1 en vez del "smaller" del navegador. El
+   parrafo que es todo letra chica (los avisos legales de normativa) se mide
+   con ese tamano y no con el del parrafo, o le entrarian 90 caracteres. */
+small { font-size: var(--step--1); }
+main p:has(> small:only-child) { max-width: calc(var(--medida) * 0.875); }
 main .prose p { margin: 0 0 1.1rem; }
 
 .card {
@@ -285,7 +329,7 @@ footer.site-footer {
   border-top: 1px solid var(--border);
   padding: 2rem 0;
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: var(--step--1);
 }
 footer.site-footer .wrap {
   display: flex;
@@ -378,7 +422,7 @@ input[type="checkbox"] + label {
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent);
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: var(--step--1);
   color: var(--text);
 }
 .form-legal p { margin: 0 0 0.5rem; }

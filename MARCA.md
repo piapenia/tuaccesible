@@ -58,22 +58,55 @@ de un desplegable lo anuncia el propio `details` del navegador.
 
 ## Tipografía
 
-- **Titulares y marca:** Century Gothic, con Avenir Next, Futura y Segoe UI
-  detrás. Geométrica, de caja ancha.
-- **Texto:** la tipografía del sistema. No se carga ninguna fuente web: menos
-  peso, y ningún dato del visitante viajando a un servidor de fuentes.
-- **Del logotipo:** **Jost 500 Medium**, licencia SIL Open Font 1.1. Es la
-  alternativa libre a Futura, se puede redistribuir dentro de un archivo de
-  logo, y **el logotipo ya está trazado con ella**: el archivo no contiene
-  texto vivo, son curvas. Se ve igual en cualquier ordenador y en imprenta,
-  sin instalar nada. Century Gothic es comercial y por eso no se usó.
+Dos familias, las dos con licencia SIL Open Font 1.1 y alojadas en el propio
+sitio. No hay una tercera.
 
-Ojo con una consecuencia de esto: en la web el nombre se dibuja con la
-tipografía del sistema (Century Gothic y sus alternativas), mientras que el
-logotipo está trazado en Jost. Son parecidas pero no idénticas. Si algún día
-molesta esa diferencia, la solución es alojar Jost en el propio sitio; hoy no
-se carga ninguna tipografía web, que es lo que mantiene el sitio ligero y sin
-pedidos a servidores ajenos.
+- **Titulares y marca: Jost.** Geométrica, de caja ancha, la alternativa libre
+  a Futura. Los títulos van en peso 600; el nombre de la cabecera, en 500.
+- **Del logotipo:** **Jost 500 Medium**, la misma. **El logotipo ya está
+  trazado con ella**: el archivo no contiene texto vivo, son curvas, y se ve
+  igual en cualquier ordenador y en imprenta sin instalar nada. Como la web
+  ahora carga Jost, el nombre de la cabecera y el del logotipo son las mismas
+  letras.
+- **Texto: Atkinson Hyperlegible Next**, del Braille Institute, pensada para
+  baja visión: cada letra se distingue de las que se le parecen (la I
+  mayúscula, la l y el 1; la b y la d; el cero lleva una barra para no
+  confundirse con la O). Trae cursiva propia. Jost no se carga en cursiva
+  porque ningún título la usa.
+- **Detrás de cada una**, las del sistema: Century Gothic, Avenir Next y
+  Futura para los títulos, y la del sistema operativo para el texto. Se ven
+  el instante en que baja el archivo, o si no llega.
+
+**Cómo se cargan.** Los archivos `.woff2` salen de los paquetes de Fontsource
+(`@fontsource-variable/jost` y `@fontsource-variable/atkinson-hyperlegible-next`)
+y Vite los copia a `dist/assets/`. Se sirven desde este mismo dominio y no
+desde Google Fonts: ninguna visita le avisa a un tercero, y la política de
+seguridad sigue en `font-src 'self'`. Cada paquete trae un archivo por grupo
+de caracteres y el navegador baja solo el latino: **59,8 KB por página**
+entre las dos, medidos el 9 de noviembre de 2026. Una página con texto en
+cursiva suma 37 KB más.
+
+**Escala.** Razón 1,25 a partir de 1rem, siempre en `rem` y nunca en unidades
+de pantalla (`vw`), para que la ampliación de texto del navegador agrande
+todo por igual (criterio 1.4.4). Desde 48rem de ancho, h1 y h2 suben un
+escalón. Los tamaños son variables de `src/estilos/global.css`; no se escribe
+un tamaño suelto fuera de ellas.
+
+| Variable | Tamaño | Dónde |
+| --- | --- | --- |
+| `--step--1` | 0,875rem (14 px) | Letra chica: pie, avisos legales, selector y aviso de idioma. No se baja de aquí. |
+| `--step-0` | 1rem (16 px) | Texto y h4. |
+| `--step-1` | 1,25rem (20 px) | h3 y entradillas (`.lede`). |
+| `--step-2` | 1,5625rem (25 px) | h2 en pantalla chica. |
+| `--step-3` | 1,953rem (31 px) | h1 en pantalla chica, h2 desde 48rem. |
+| `--step-4` | 2,441rem (39 px) | h1 desde 48rem. |
+
+**Medida.** El texto del contenido no pasa de 34em de ancho (`--medida`):
+unos 67 caracteres por línea de promedio, y ningún párrafo pasa de 80, que es
+lo que pide el criterio 1.4.8 (AAA). Va en `em` y no en `ch` porque el cero de
+Atkinson es bastante más ancho que la letra promedio: una medida en `ch`
+dejaría pasar líneas de más de 90 caracteres. Si cambia la fuente del texto o
+su tamaño, hay que volver a medir.
 
 ## El símbolo
 
@@ -107,6 +140,11 @@ logotipo a 100 px del borde izquierdo con 760,7 px de ancho, lema en Century
 Gothic de 44 px con interlineado de 57 px, y la dirección del sitio en 30 px
 sobre `#455055`. Si hay que rehacer una, hay que rehacer la otra igual, o
 dejan de parecer el mismo sitio.
+
+El lema de las tarjetas sigue en Century Gothic y no en Jost: se hicieron
+antes de alojar las fuentes, y `tools/generar-og.js` busca Century Gothic
+instalada en la máquina. Pasarlas a Jost es posible, pero hay que rehacer las
+dos y volver a calibrar la geometría.
 
 En el sitio, el nombre **no** es una imagen: es texto real al lado del símbolo.
 Así crece con el zoom de texto, se lee tal cual con lector de pantalla y no

@@ -24,8 +24,11 @@ el sitio**, y **el dominio**.
   `src/seguridad.js`. Cuando el servicio de testing tenga backend publicado,
   su dirección (`VITE_API_URL`) se suma a `connect-src` y a ninguna otra
   directiva; hoy el sitio publicado no tiene ninguna.
-- **Ningún script de terceros.** Ni fuentes web, ni redes sociales
-  incrustadas, ni CDN. La analítica es GoatCounter, pero su archivo se aloja
+- **Ningún script ni recurso de terceros.** Ni redes sociales incrustadas, ni
+  CDN. Las dos fuentes del sitio (Jost y Atkinson Hyperlegible Next) se
+  alojan en este mismo dominio y no en Google Fonts, y la política solo admite
+  fuentes propias (`font-src 'self'`): ninguna visita le avisa a un servidor
+  de fuentes. La analítica es GoatCounter, pero su archivo se aloja
   en este mismo dominio en lugar de cargarse desde el servidor del proveedor,
   de modo que la política sigue admitiendo solo script propio. Lo único que
   sale hacia fuera es el aviso de la visita, y la política lo limita a ese

@@ -26,10 +26,13 @@
  * ya esta trazado a curvas, asi que el simbolo y el nombre son los mismos
  * vectores que en el resto de la marca y no dependen de ninguna fuente.
  *
- * El lema si depende de una fuente: Century Gothic, la primera de
- * --font-display en src/estilos/global.css. Si la maquina donde se corre esto
- * no la tiene, el texto sale con otra letra y la tarjeta no coincide con la
- * publicada. Por eso el script lo comprueba y aborta en vez de generar algo
+ * El lema si depende de una fuente: Century Gothic, que era la primera de
+ * --font-display en src/estilos/global.css cuando se hicieron las tarjetas.
+ * Hoy el sitio aloja Jost y Century Gothic quedo detras, como respaldo, pero
+ * las tarjetas publicadas siguen en Century Gothic (ver MARCA.md). Pasarlas a
+ * Jost obliga a rehacer las dos y recalibrar GEOMETRIA. Si la maquina donde
+ * se corre esto no la tiene, el texto sale con otra letra y la tarjeta no
+ * coincide con la publicada. Por eso el script lo comprueba y aborta en vez de generar algo
  * distinto en silencio.
  *
  * Dependencia: puppeteer. No esta declarado en package.json porque ya viene

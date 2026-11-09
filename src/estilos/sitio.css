@@ -23,6 +23,21 @@
 @layer theme, base, components, utilities;
 
 @import "tailwindcss/theme.css" layer(theme);
+
+/* Fuentes: Jost para los titulos (la del logotipo) y Atkinson Hyperlegible
+   Next para el texto. Salen de los paquetes de Fontsource, y Vite copia los
+   .woff2 a dist/assets/ con el resto: se sirven desde este mismo dominio y
+   no desde Google Fonts ni otro servidor ajeno, asi que ninguna visita le
+   avisa a un tercero y la politica de seguridad sigue en font-src 'self'.
+   Cada paquete trae un archivo por grupo de caracteres (latino, latino
+   extendido, cirilico) y el navegador baja solo el que la pagina usa: en
+   este sitio, el latino. La cursiva solo es de Atkinson, porque el unico
+   texto en cursiva del sitio esta en parrafos; un titulo en cursiva saldria
+   inclinado por el navegador. */
+@import "@fontsource-variable/jost/wght.css" layer(base);
+@import "@fontsource-variable/atkinson-hyperlegible-next/wght.css" layer(base);
+@import "@fontsource-variable/atkinson-hyperlegible-next/wght-italic.css" layer(base);
+
 @import "./global.css" layer(base);
 
 /* source("../"): Tailwind busca clases solo en src/. Sin esto miraria
