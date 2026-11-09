@@ -1,4 +1,6 @@
 import { Aviso } from "../../componentes/Aviso.jsx";
+import { Seccion } from "../../componentes/Seccion.jsx";
+import { Banda } from "../../componentes/Banda.jsx";
 
 export const pagina = {
   idioma: "en",
@@ -12,16 +14,14 @@ export default function Testimonials() {
     <>
       <h1>Our work, and how you can check it</h1>
       <p className="lede">We don't publish a client's name without their written permission, and we don't have it yet. So instead of a wall of logos, here's the work itself, and a site you can audit yourself, right now.</p>
-      <section>
-        <h2>A recent project</h2>
+      <Seccion numero="01" titulo="A recent project">
         <div className="prose">
           <p>A full audit of a web product and its browser extension, across web and Windows 11. Manual evaluation with NVDA and keyboard-only navigation, against WCAG 2.2 Level AA, EN 301 549 and the European Accessibility Act. Both of us worked on it, so every finding was reviewed twice.</p>
           <p>The main finding wasn't a long list of different problems. It was one problem, repeated screen after screen, in a component reused across the whole product. That completely changes the client's job: it isn't a hundred fixes, it's one fix done properly. Counting findings would have produced an alarming number and a misleading picture of the actual work.</p>
           <p>What we delivered: a 29-page report with findings prioritized by severity, cognitive accessibility recommendations, and a draft accessibility statement in Spanish and English.</p>
         </div>
-      </section>
-      <section>
-        <h2>What you actually get</h2>
+      </Seccion>
+      <Seccion numero="02" titulo="What you actually get">
         <div className="prose">
           <p>An accessibility report isn't a list of errors dumped out of a tool. Every report we deliver includes:</p>
           <ul>
@@ -33,23 +33,20 @@ export default function Testimonials() {
           </ul>
           <p>The <a href="/en/services/">full service details</a> explain what each service includes, and how it can be delivered.</p>
         </div>
-      </section>
-      <section>
-        <h2>Client reviews</h2>
+      </Seccion>
+      <Seccion numero="03" titulo="Client reviews">
         <Aviso><strong>No reviews published yet.</strong> We publish a review only when the person who wrote it gives us written permission, and only after we've read it. That's the same standard we hold client names to, and it's the reason this section is empty rather than full.</Aviso>
         <p>Already worked with tuaccesible? <a href="/en/leave-a-review/">Leave us a review</a>.</p>
-      </section>
-      <section>
-        <h2>You can audit this site too</h2>
+      </Seccion>
+      <Seccion numero="04" titulo="You can audit this site too">
         <div className="prose">
           <p>You don't have to take our word for any of this. Run this site with a keyboard, with a screen reader, or at 400% zoom, and see whether it holds up. Our <a href="/en/accessibility-statement/">accessibility statement</a> sets out what we meet, how we tested it, and what we don't claim.</p>
         </div>
-      </section>
-      <div className="prose">
-        <h2>Before you hire anyone</h2>
+      </Seccion>
+      <Banda titulo="Before you hire anyone">
         <p>Tell us what you need audited and on what timeline. We'll tell you where to start, even if you don't end up hiring anyone.</p>
         <p><a href="/en/contact/">Email us</a> or see the <a href="/en/services/">full service details</a>.</p>
-      </div>
+      </Banda>
     </>
   );
 }

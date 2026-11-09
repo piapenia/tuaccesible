@@ -444,11 +444,97 @@
 }
 .banda p + p { margin-top: 1rem; }
 .banda a { color: inherit; }
+.banda__titulo {
+  margin: 0 0 1rem;
+  color: var(--sobre-banda);
+}
+/* La aclaracion legal que sigue a la banda en normativa. */
+.banda + p { margin-top: 2rem; }
 
 @media (min-width: 64rem) {
   .banda {
     margin-top: 6rem;
     padding: 3rem;
+  }
+}
+
+
+/* ---- Nota suelta entre secciones ---------------------------------------- */
+
+/* Un parrafo que no tiene titulo propio y queda entre dos secciones, como
+   el "Tambien sueltos" de servicios. Va con el filete terracota de la nota
+   de la portada y, en pantalla ancha, alineado con la columna del contenido
+   de las secciones: empieza donde empieza la quinta columna de doce. */
+.nota {
+  padding-inline-start: 1.5rem;
+  border-inline-start: 3px solid var(--accent);
+}
+.suelto { margin-top: 3rem; }
+.suelto > :last-child { margin-bottom: 0; }
+
+@media (min-width: 64rem) {
+  .suelto { margin-inline-start: calc((100% - 22rem) / 3 + 8rem); }
+}
+
+
+/* ---- Perfil con foto: src/paginas/equipo.jsx y en/team.jsx -------------- */
+
+/* En el celular, la foto arriba y el texto debajo. Desde 64rem, la foto en
+   las primeras cuatro columnas y el texto en las otras ocho, alineado con
+   el contenido de las secciones que siguen. */
+@media (min-width: 64rem) {
+  .perfil {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+    align-items: start;
+    margin-top: 2.5rem;
+  }
+  .perfil .portrait {
+    grid-column: 1 / span 4;
+    margin: 0;
+  }
+  .perfil__texto { grid-column: 5 / -1; }
+  .perfil__texto > :last-child { margin-bottom: 0; }
+}
+
+
+/* ---- Formulario en panel: FormularioWeb3Forms.jsx ----------------------- */
+
+/* El formulario va en un recuadro, para que se lea como una sola pieza. Los
+   campos conservan su fondo de pagina, asi se distinguen del recuadro; el
+   borde de cada campo (texto atenuado) supera 7:1 sobre los dos fondos. */
+.formulario {
+  max-width: 40rem;
+  margin-top: 2rem;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.formulario .form-legal { background: var(--bg); }
+.formulario > :last-child { margin-bottom: 0; }
+
+@media (min-width: 40rem) {
+  .formulario { padding: 2rem; }
+}
+
+
+/* ---- Contacto: src/paginas/contacto.jsx y en/contact.jsx ---------------- */
+
+/* Desde 64rem, el titulo y la presentacion a la izquierda y el formulario a
+   la derecha. El orden de lectura y el visual son el mismo. */
+@media (min-width: 64rem) {
+  .contacto {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+    align-items: start;
+  }
+  .contacto__intro { grid-column: 1 / span 5; }
+  .contacto .formulario {
+    grid-column: 6 / -1;
+    margin-top: 0;
   }
 }
 
@@ -651,7 +737,7 @@
   .logo-symbol .logo-letter { stroke: CanvasText; }
   .logo-symbol .logo-rule { fill: CanvasText; }
   .boton { border-color: ButtonText; }
-  .tarjeta, .aviso, .form-legal, .desplegable, .banda { border-color: CanvasText; }
-  .portada__nota { border-inline-start-color: CanvasText; }
+  .tarjeta, .aviso, .form-legal, .desplegable, .banda, .formulario { border-color: CanvasText; }
+  .portada__nota, .nota { border-inline-start-color: CanvasText; }
   .tarjeta__titulo a:focus-visible::after { outline-color: Highlight; }
 }

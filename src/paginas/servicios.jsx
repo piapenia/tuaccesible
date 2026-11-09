@@ -1,4 +1,7 @@
 import { Desplegable } from "../componentes/Desplegable.jsx";
+import { Seccion } from "../componentes/Seccion.jsx";
+import { Banda } from "../componentes/Banda.jsx";
+import { Boton } from "../componentes/Boton.jsx";
 
 export const pagina = {
   idioma: "es",
@@ -15,89 +18,100 @@ export default function Servicios() {
       <p>Las pruebas manuales las hace María Pía, que usa un lector de pantalla como herramienta principal de trabajo desde hace más de trece años. Eso cambia qué se prueba: un formulario se recorre como lo recorre quien depende de esa tecnología para completarlo, no como lo recorre quien la enciende para revisarlo. Y ningún informe sale con una sola lectura: otra persona del equipo contrasta los hallazgos y su prioridad antes de que te lleguen. Puedes ver <a href="/equipo/">quién audita tu sitio</a>.</p>
       <p><strong>Presupuestar no cuesta nada.</strong> Con la dirección del sitio, cuántas plantillas distintas tiene, qué recorridos hay que revisar y si tiene área privada, te damos alcance, precio y plazo cerrados en una semana, por escrito y antes de empezar. Sin tarifario público, porque no hay dos sitios iguales.</p>
       <p>El presupuesto te dice cuánto cuesta y cuánto tarda. No incluye la lista de lo que está mal: eso es la auditoría exprés, que además afina el presupuesto del trabajo mayor, porque para entonces ya sabemos con qué nos encontramos.</p>
-      <div className="prose">
-        <h2 id="auditoria-expres">Auditoría exprés</h2>
-        <p>El diagnóstico rápido de accesibilidad web, para saber en qué situación estás antes de comprometer un proyecto grande. Revisamos como mínimo la página de inicio, y sumamos los enlaces clave según el sitio. Es una observación de primer nivel: te dice en qué estado estás, no sustituye al informe página por página. Entrega en 2 a 3 días hábiles, y se abona entera al contratarla.</p>
-        <Desplegable resumen="Qué incluye la auditoría exprés">
-          <ul>
-            <li>Revisión manual de la página de inicio y de una selección de enlaces clave.</li>
-            <li>Observaciones directas, ordenadas por lo que más impacta.</li>
-            <li>Una recomendación concreta de por dónde seguir.</li>
-          </ul>
-          <p><strong>Lo que no incluye:</strong> el informe página por página ni la tabla de criterios completa. Eso es lo que agrega la auditoría de sitio.</p>
-        </Desplegable>
-        <p><a href="/contacto/">Pedir presupuesto de auditoría exprés</a></p>
-        <h2 id="auditoria-de-sitio">Auditoría de sitio</h2>
-        <p>La base para cualquier declaración de accesibilidad real. <strong>Evaluamos el sitio página por página y enlace por enlace, no una muestra.</strong> Lo habitual en el sector es auditar una muestra representativa de entre 8 y 15 páginas; aquí se revisa todo, contra el nivel AA como mínimo.</p>
-        <Desplegable resumen="Qué incluye la auditoría de sitio">
-          <ul>
-            <li>Evaluación página por página y enlace por enlace, no una muestra.</li>
-            <li>Nivel AA como mínimo, con AAA sugerido donde sea alcanzable.</li>
-            <li>Informe completo con tabla de criterios, capturas y ejemplos.</li>
-            <li>Las dos caras de la auditoría: la funcional, con teclado y lector de pantalla, y también la visual.</li>
-            <li>Una llamada de cierre para repasar los hallazgos con quien quieras sumar de tu equipo.</li>
-          </ul>
-          <p><strong>La diferencia con la exprés:</strong> la exprés te dice si tienes un problema. Esta te dice exactamente cuál, dónde y con qué prioridad, en un documento que sirve como base de una declaración de accesibilidad.</p>
-        </Desplegable>
-        <p><a href="/contacto/">Pedir presupuesto de auditoría de sitio</a></p>
-        <h2 id="servicio-integral">Servicio integral</h2>
-        <p>Todo lo de la auditoría de sitio, más lo que hace falta para que las correcciones lleguen a implementarse. Es la única modalidad con acompañamiento posterior a la entrega.</p>
-        <Desplegable resumen="Qué incluye el servicio integral">
-          <ul>
-            <li>Todo lo de la auditoría de sitio.</li>
-            <li>Seguimiento después de la entrega, durante el tiempo que tu equipo lo necesite y nos lo pida.</li>
-            <li>La declaración de accesibilidad ya redactada.</li>
-            <li>Un 20 % de descuento sobre el retesteo, que es la segunda revisión que se hace una vez implementados los cambios. Cuesta menos porque partimos del material del primer trabajo, que guardamos.</li>
-            <li>Una sesión de auditoría en vivo, de 30 minutos a hora y media, según lo que haya para mostrar y conversar.</li>
-          </ul>
-          <p>El informe completo está garantizado sea cual sea el resultado de esa sesión en vivo. La grabación te la entregamos a ti como archivo, con los subtítulos aparte, para que puedas verla en el reproductor que uses habitualmente y guardarla donde quieras. No queda publicada en ningún sitio ni alojada en ningún canal nuestro.</p>
-          <p><strong>La diferencia con la auditoría de sitio:</strong> la auditoría termina cuando recibes el informe. El servicio integral termina cuando los cambios están hechos.</p>
-          <p>Si prefieres no resolverlo puertas adentro, también evaluamos y presupuestamos la corrección: aplicamos los cambios en el código, no solo los señalamos.</p>
-        </Desplegable>
-        <p><a href="/contacto/">Consultar por el servicio integral</a></p>
-        <h2 id="taller-corporativo">Taller corporativo</h2>
-        <p>Formación en accesibilidad web para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo. Un encuentro de una hora, extendible según necesidad. Remoto a cualquier país, o presencial en Argentina. Por ahora damos los talleres solo en español.</p>
-        <Desplegable resumen="Qué incluye el taller corporativo">
-          <ul>
-            <li>Una presentación armada a medida de las dudas concretas de tu equipo.</li>
-            <li>Una demostración en vivo navegando con lector de pantalla, como eje de la sesión.</li>
-            <li>Audiencia mixta: diseño, desarrollo y contenido en la misma sala, construyendo vocabulario compartido entre roles.</li>
-            <li>Sin límite de asistentes. La prioridad es que aprenda cuanta más gente mejor, no cobrar por cabeza.</li>
-          </ul>
-          <p>La demostración funciona mucho mejor sobre tu propio sitio que sobre un ejemplo genérico.</p>
-          <p><strong>En qué se diferencia del resto:</strong> los otros tres servicios evalúan un producto. Este forma a las personas que lo construyen, para que el próximo salga bien desde el principio.</p>
-        </Desplegable>
-        <p><a href="/contacto/">Consultar por un taller</a></p>
-      </div>
-      <div className="prose">
+      <Seccion numero="01" titulo="Auditoría exprés" id="auditoria-expres">
+        <div className="prose">
+          <p>El diagnóstico rápido de accesibilidad web, para saber en qué situación estás antes de comprometer un proyecto grande. Revisamos como mínimo la página de inicio, y sumamos los enlaces clave según el sitio. Es una observación de primer nivel: te dice en qué estado estás, no sustituye al informe página por página. Entrega en 2 a 3 días hábiles, y se abona entera al contratarla.</p>
+          <Desplegable resumen="Qué incluye la auditoría exprés">
+            <ul>
+              <li>Revisión manual de la página de inicio y de una selección de enlaces clave.</li>
+              <li>Observaciones directas, ordenadas por lo que más impacta.</li>
+              <li>Una recomendación concreta de por dónde seguir.</li>
+            </ul>
+            <p><strong>Lo que no incluye:</strong> el informe página por página ni la tabla de criterios completa. Eso es lo que agrega la auditoría de sitio.</p>
+          </Desplegable>
+          <p><Boton href="/contacto/" variante="secundario">Pedir presupuesto de auditoría exprés</Boton></p>
+        </div>
+      </Seccion>
+      <Seccion numero="02" titulo="Auditoría de sitio" id="auditoria-de-sitio">
+        <div className="prose">
+          <p>La base para cualquier declaración de accesibilidad real. <strong>Evaluamos el sitio página por página y enlace por enlace, no una muestra.</strong> Lo habitual en el sector es auditar una muestra representativa de entre 8 y 15 páginas; aquí se revisa todo, contra el nivel AA como mínimo.</p>
+          <Desplegable resumen="Qué incluye la auditoría de sitio">
+            <ul>
+              <li>Evaluación página por página y enlace por enlace, no una muestra.</li>
+              <li>Nivel AA como mínimo, con AAA sugerido donde sea alcanzable.</li>
+              <li>Informe completo con tabla de criterios, capturas y ejemplos.</li>
+              <li>Las dos caras de la auditoría: la funcional, con teclado y lector de pantalla, y también la visual.</li>
+              <li>Una llamada de cierre para repasar los hallazgos con quien quieras sumar de tu equipo.</li>
+            </ul>
+            <p><strong>La diferencia con la exprés:</strong> la exprés te dice si tienes un problema. Esta te dice exactamente cuál, dónde y con qué prioridad, en un documento que sirve como base de una declaración de accesibilidad.</p>
+          </Desplegable>
+          <p><Boton href="/contacto/" variante="secundario">Pedir presupuesto de auditoría de sitio</Boton></p>
+        </div>
+      </Seccion>
+      <Seccion numero="03" titulo="Servicio integral" id="servicio-integral">
+        <div className="prose">
+          <p>Todo lo de la auditoría de sitio, más lo que hace falta para que las correcciones lleguen a implementarse. Es la única modalidad con acompañamiento posterior a la entrega.</p>
+          <Desplegable resumen="Qué incluye el servicio integral">
+            <ul>
+              <li>Todo lo de la auditoría de sitio.</li>
+              <li>Seguimiento después de la entrega, durante el tiempo que tu equipo lo necesite y nos lo pida.</li>
+              <li>La declaración de accesibilidad ya redactada.</li>
+              <li>Un 20 % de descuento sobre el retesteo, que es la segunda revisión que se hace una vez implementados los cambios. Cuesta menos porque partimos del material del primer trabajo, que guardamos.</li>
+              <li>Una sesión de auditoría en vivo, de 30 minutos a hora y media, según lo que haya para mostrar y conversar.</li>
+            </ul>
+            <p>El informe completo está garantizado sea cual sea el resultado de esa sesión en vivo. La grabación te la entregamos a ti como archivo, con los subtítulos aparte, para que puedas verla en el reproductor que uses habitualmente y guardarla donde quieras. No queda publicada en ningún sitio ni alojada en ningún canal nuestro.</p>
+            <p><strong>La diferencia con la auditoría de sitio:</strong> la auditoría termina cuando recibes el informe. El servicio integral termina cuando los cambios están hechos.</p>
+            <p>Si prefieres no resolverlo puertas adentro, también evaluamos y presupuestamos la corrección: aplicamos los cambios en el código, no solo los señalamos.</p>
+          </Desplegable>
+          <p><Boton href="/contacto/" variante="secundario">Consultar por el servicio integral</Boton></p>
+        </div>
+      </Seccion>
+      <Seccion numero="04" titulo="Taller corporativo" id="taller-corporativo">
+        <div className="prose">
+          <p>Formación en accesibilidad web para que tu equipo deje de repetir los mismos errores en cada proyecto nuevo. Un encuentro de una hora, extendible según necesidad. Remoto a cualquier país, o presencial en Argentina. Por ahora damos los talleres solo en español.</p>
+          <Desplegable resumen="Qué incluye el taller corporativo">
+            <ul>
+              <li>Una presentación armada a medida de las dudas concretas de tu equipo.</li>
+              <li>Una demostración en vivo navegando con lector de pantalla, como eje de la sesión.</li>
+              <li>Audiencia mixta: diseño, desarrollo y contenido en la misma sala, construyendo vocabulario compartido entre roles.</li>
+              <li>Sin límite de asistentes. La prioridad es que aprenda cuanta más gente mejor, no cobrar por cabeza.</li>
+            </ul>
+            <p>La demostración funciona mucho mejor sobre tu propio sitio que sobre un ejemplo genérico.</p>
+            <p><strong>En qué se diferencia del resto:</strong> los otros tres servicios evalúan un producto. Este forma a las personas que lo construyen, para que el próximo salga bien desde el principio.</p>
+          </Desplegable>
+          <p><Boton href="/contacto/" variante="secundario">Consultar por un taller</Boton></p>
+        </div>
+      </Seccion>
+      <div className="prose nota suelto">
         <p><strong>También sueltos.</strong> La declaración de accesibilidad y el ACR se pueden contratar por separado, sobre una auditoría ya hecha. Si te están pidiendo un certificado, antes de contratar nada conviene leer <a href="/certificado-accesibilidad-web/">qué certificados de accesibilidad web existen de verdad</a> y cuál necesitas según dónde vendas.</p>
       </div>
-      <div className="prose">
-        <h2>Cómo auditamos la accesibilidad web</h2>
-        <p>Combinamos herramientas automáticas con revisión manual usando lectores de pantalla reales: NVDA, JAWS, el Narrador de Windows y TalkBack en Android. Lo automático da un primer barrido. La prueba manual es la que encuentra los problemas que importan, y ahí no hay atajos.</p>
-        <p>Trabajamos sobre WCAG 2.2 como base común. Desde ahí evaluamos contra el marco que te aplique: EN 301 549 y la Ley Europea de Accesibilidad, la EAA, en Europa; ADA y Section 508 en Estados Unidos; o la normativa nacional que corresponda en América Latina. Si no sabes cuál te aplica, lo explicamos en <a href="/normativa/">qué ley de accesibilidad te obliga</a>.</p>
-        <p>No nos limitamos a sitios web. Auditamos aplicaciones Android, documentos PDF y EPUB, software de escritorio y extensiones de navegador.</p>
-        <p>Cada informe se adapta a quién lo va a leer. Puede entregarse en cualquiera de estos formatos:</p>
-        <ul>
-          <li>Documento completo, con tabla de criterios, capturas y ejemplos.</li>
-          <li>Hoja de cálculo, si necesitas el detalle técnico completo.</li>
-          <li>Versión en lenguaje claro, para el resto del equipo.</li>
-          <li>ACR, la plantilla <span lang="en">VPAT</span> rellenada criterio por criterio, si vendes en Estados Unidos. Puede ir solo o acompañando al informe completo.</li>
-        </ul>
-        <p>No nos quedamos en señalar el problema: proponemos la solución.</p>
-      </div>
-      <div className="prose">
-        <h2>Condiciones de trabajo</h2>
-        <p>Trabajamos con particulares y con agencias, con preferencia por el trato directo. En la auditoría de sitio, el servicio integral y el taller se abona el 50 % al cerrar el contrato, por escrito o después de una videollamada, y el resto contra entrega. La auditoría exprés es la excepción: por su tamaño y su plazo se abona entera al contratarla.</p>
-        <p>Aceptamos PayPal y transferencia bancaria europea, argentina o estadounidense. Presupuestamos en euros para Europa y en dólares para América, con precios especiales para Argentina.</p>
-        <p><strong>Contrato.</strong> Al cerrar el trabajo emitimos un contrato propio que deja por escrito el alcance, los entregables y los plazos, más allá del presupuesto. Auditar un producto implica ver cosas que todavía no son públicas, así que si tu empresa necesita además un acuerdo de confidencialidad, lo firmamos.</p>
-        <p><strong>Alcance.</strong> Entregamos el diagnóstico, la priorización y las recomendaciones. La implementación y el cumplimiento del producto quedan del lado de quien lo desarrolla. La excepción es el servicio integral, que incluye acompañamiento durante esa implementación.</p>
-      </div>
-      <div className="prose">
-        <h2>Empezar no cuesta nada</h2>
+      <Seccion numero="05" titulo="Cómo auditamos la accesibilidad web">
+        <div className="prose">
+          <p>Combinamos herramientas automáticas con revisión manual usando lectores de pantalla reales: NVDA, JAWS, el Narrador de Windows y TalkBack en Android. Lo automático da un primer barrido. La prueba manual es la que encuentra los problemas que importan, y ahí no hay atajos.</p>
+          <p>Trabajamos sobre WCAG 2.2 como base común. Desde ahí evaluamos contra el marco que te aplique: EN 301 549 y la Ley Europea de Accesibilidad, la EAA, en Europa; ADA y Section 508 en Estados Unidos; o la normativa nacional que corresponda en América Latina. Si no sabes cuál te aplica, lo explicamos en <a href="/normativa/">qué ley de accesibilidad te obliga</a>.</p>
+          <p>No nos limitamos a sitios web. Auditamos aplicaciones Android, documentos PDF y EPUB, software de escritorio y extensiones de navegador.</p>
+          <p>Cada informe se adapta a quién lo va a leer. Puede entregarse en cualquiera de estos formatos:</p>
+          <ul>
+            <li>Documento completo, con tabla de criterios, capturas y ejemplos.</li>
+            <li>Hoja de cálculo, si necesitas el detalle técnico completo.</li>
+            <li>Versión en lenguaje claro, para el resto del equipo.</li>
+            <li>ACR, la plantilla <span lang="en">VPAT</span> rellenada criterio por criterio, si vendes en Estados Unidos. Puede ir solo o acompañando al informe completo.</li>
+          </ul>
+          <p>No nos quedamos en señalar el problema: proponemos la solución.</p>
+        </div>
+      </Seccion>
+      <Seccion numero="06" titulo="Condiciones de trabajo">
+        <div className="prose">
+          <p>Trabajamos con particulares y con agencias, con preferencia por el trato directo. En la auditoría de sitio, el servicio integral y el taller se abona el 50 % al cerrar el contrato, por escrito o después de una videollamada, y el resto contra entrega. La auditoría exprés es la excepción: por su tamaño y su plazo se abona entera al contratarla.</p>
+          <p>Aceptamos PayPal y transferencia bancaria europea, argentina o estadounidense. Presupuestamos en euros para Europa y en dólares para América, con precios especiales para Argentina.</p>
+          <p><strong>Contrato.</strong> Al cerrar el trabajo emitimos un contrato propio que deja por escrito el alcance, los entregables y los plazos, más allá del presupuesto. Auditar un producto implica ver cosas que todavía no son públicas, así que si tu empresa necesita además un acuerdo de confidencialidad, lo firmamos.</p>
+          <p><strong>Alcance.</strong> Entregamos el diagnóstico, la priorización y las recomendaciones. La implementación y el cumplimiento del producto quedan del lado de quien lo desarrolla. La excepción es el servicio integral, que incluye acompañamiento durante esa implementación.</p>
+        </div>
+      </Seccion>
+      <Banda titulo="Empezar no cuesta nada">
         <p>Cuéntanos qué producto tienes que auditar y en qué plazo. Te decimos por dónde conviene empezar, aunque no termines contratando nada.</p>
         <p><a href="/contacto/">Escribir a tuaccesible</a> o directo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
-      </div>
+      </Banda>
     </>
   );
 }

@@ -1,5 +1,7 @@
 import { DatosEstructurados } from "../../componentes/DatosEstructurados.jsx";
 import { sitio } from "../../sitio.js";
+import { Seccion } from "../../componentes/Seccion.jsx";
+import { Banda } from "../../componentes/Banda.jsx";
 
 export const pagina = {
   idioma: "en",
@@ -28,31 +30,44 @@ export default function Team({ ruta }) {
     <>
       <h1>Who audits your site</h1>
       <p className="lede">I'm María Pía Peña Foissac, and I do the audits at tuaccesible.</p>
-      <div className="prose">
+      <div className="perfil">
         <img className="portrait" src="/img/maria-pia.jpg" width="1458" height="1534" alt="" />
-        <p>I've used a screen reader for 13 years. It isn't a tool I open to work: it's how I use a computer. All of it, every day, at work and away from it. When I test your product with NVDA, I'm using it the same way I use everything else, at the same speed.</p>
-        <p>I work with NVDA, JAWS, Windows Narrator, and TalkBack on Android, and with keyboard-only navigation. That's the part of the job where the barriers no automated tool flags actually show up.</p>
-        <h2>What I audit, and since when</h2>
-        <p>I've audited accessibility professionally since 2021, across websites, mobile apps, documents, and desktop software, against WCAG 2.2, EN 301 549, and the European Accessibility Act.</p>
-        <p>I came to accessibility from software QA, and that's the part that shows in the deliverable. A finding doesn't reach your team as an observation. It reaches them with the WCAG criterion it fails and its level, the environment it was found in, the steps to reproduce it, and an acceptance criterion your team can close the ticket against. I also write accessibility statements and cognitive accessibility recommendations.</p>
-        <h2>I also teach</h2>
-        <p>I teach digital accessibility at the DALAT Foundation, and I taught the accessibility module at XAcademy. Teaching forced me to explain technical barriers to people who don't write code, and that changed how I write reports: if a content owner can't understand the finding, the finding doesn't get fixed.</p>
-        <h2>Certifications</h2>
-        <ul>
-          <li>A11Y Development Knowledge Badge — IAAP, the International Association of Accessibility Professionals, January 2026. Earned by scoring above 85% on their accessibility knowledge test for developers. <a href="https://www.credly.com/badges/b1386a4d-61cc-4c64-a4c4-a399475a6e42">Verify on Credly</a>.</li>
-          <li>Digital Accessibility Specialist, WCAG 2.2 Level AA — <span lang="es">Instituto de Accesibilidad</span> and DALAT, certified by <span lang="es">Universidad Nacional de Tres de Febrero</span>. October 2025.</li>
-          <li>ARIA from Scratch for Developers and Designers — WeAAAre, July 2025.</li>
-          <li>Digital Accessibility — <span lang="es">Universidad Tecnológica Nacional</span>, 2020.</li>
-        </ul>
-        <h2>Your report goes through two readings</h2>
-        <DatosEstructurados datos={persona} />
-        <p>I do the auditing. I don't get the last word on the report. Before it goes out, another person at tuaccesible reads it, checks the prioritization and pushes back on the criteria I applied. The pushback is real: sometimes I drop a finding from critical to high because I can't defend it. That's the point. What reaches your team has already survived an argument.</p>
+        <div className="prose perfil__texto">
+          <p>I've used a screen reader for 13 years. It isn't a tool I open to work: it's how I use a computer. All of it, every day, at work and away from it. When I test your product with NVDA, I'm using it the same way I use everything else, at the same speed.</p>
+          <p>I work with NVDA, JAWS, Windows Narrator, and TalkBack on Android, and with keyboard-only navigation. That's the part of the job where the barriers no automated tool flags actually show up.</p>
+        </div>
       </div>
-      <div className="prose">
-        <h2>Let's talk</h2>
+      <Seccion numero="01" titulo="What I audit, and since when">
+        <div className="prose">
+          <p>I've audited accessibility professionally since 2021, across websites, mobile apps, documents, and desktop software, against WCAG 2.2, EN 301 549, and the European Accessibility Act.</p>
+          <p>I came to accessibility from software QA, and that's the part that shows in the deliverable. A finding doesn't reach your team as an observation. It reaches them with the WCAG criterion it fails and its level, the environment it was found in, the steps to reproduce it, and an acceptance criterion your team can close the ticket against. I also write accessibility statements and cognitive accessibility recommendations.</p>
+        </div>
+      </Seccion>
+      <Seccion numero="02" titulo="I also teach">
+        <div className="prose">
+          <p>I teach digital accessibility at the DALAT Foundation, and I taught the accessibility module at XAcademy. Teaching forced me to explain technical barriers to people who don't write code, and that changed how I write reports: if a content owner can't understand the finding, the finding doesn't get fixed.</p>
+        </div>
+      </Seccion>
+      <Seccion numero="03" titulo="Certifications">
+        <div className="prose">
+          <ul>
+            <li>A11Y Development Knowledge Badge — IAAP, the International Association of Accessibility Professionals, January 2026. Earned by scoring above 85% on their accessibility knowledge test for developers. <a href="https://www.credly.com/badges/b1386a4d-61cc-4c64-a4c4-a399475a6e42">Verify on Credly</a>.</li>
+            <li>Digital Accessibility Specialist, WCAG 2.2 Level AA — <span lang="es">Instituto de Accesibilidad</span> and DALAT, certified by <span lang="es">Universidad Nacional de Tres de Febrero</span>. October 2025.</li>
+            <li>ARIA from Scratch for Developers and Designers — WeAAAre, July 2025.</li>
+            <li>Digital Accessibility — <span lang="es">Universidad Tecnológica Nacional</span>, 2020.</li>
+          </ul>
+        </div>
+      </Seccion>
+      <Seccion numero="04" titulo="Your report goes through two readings">
+        <div className="prose">
+          <DatosEstructurados datos={persona} />
+          <p>I do the auditing. I don't get the last word on the report. Before it goes out, another person at tuaccesible reads it, checks the prioritization and pushes back on the criteria I applied. The pushback is real: sometimes I drop a finding from critical to high because I can't defend it. That's the point. What reaches your team has already survived an argument.</p>
+        </div>
+      </Seccion>
+      <Banda titulo="Let's talk">
         <p>If you have a product to audit, tell me where it stands and on what timeline. I'll tell you where to start.</p>
         <p><a href="/en/contact/">Email me</a>, or write straight to <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
-      </div>
+      </Banda>
     </>
   );
 }

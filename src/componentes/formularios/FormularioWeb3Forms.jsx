@@ -64,7 +64,7 @@ export function FormularioWeb3Forms({ idioma, asunto, children }) {
   // es Web3Forms, desde su propio servidor, despues de recibir el envio.
   const paginaDeConfirmacion = `${sitio.url}${en ? "/en/thank-you/" : "/gracias/"}`;
   return (
-    <form action={destino} method="POST">
+    <form className="formulario" action={destino} method="POST">
       <input type="hidden" name="access_key" value={claveDeAcceso} />
       <input type="hidden" name="subject" value={asunto} />
       <input type="hidden" name="from_name" value={remitente} />

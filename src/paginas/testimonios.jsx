@@ -1,4 +1,6 @@
 import { Aviso } from "../componentes/Aviso.jsx";
+import { Seccion } from "../componentes/Seccion.jsx";
+import { Banda } from "../componentes/Banda.jsx";
 
 export const pagina = {
   idioma: "es",
@@ -12,16 +14,14 @@ export default function Testimonios() {
     <>
       <h1>Casos y prueba de trabajo</h1>
       <p className="lede">No publicamos el nombre de ningún cliente sin su autorización expresa, y hoy no la tenemos. Así que en lugar de nombres, aquí está el trabajo.</p>
-      <section>
-        <h2>Un trabajo reciente</h2>
+      <Seccion numero="01" titulo="Un trabajo reciente">
         <div className="prose">
           <p>Auditoría integral de un producto web y de su extensión de navegador, en entornos web y Windows 11. Evaluación manual con NVDA y navegación por teclado contra WCAG 2.2 nivel AA, EN 301 549 y la Ley Europea de Accesibilidad. La hicieron dos personas del equipo.</p>
           <p>El hallazgo principal no fue una lista larga de problemas distintos: fue el mismo, repetido en pantalla tras pantalla, en un componente reutilizado en todo el producto. Eso cambia por completo el trabajo del cliente, porque no son cien correcciones sino una bien hecha. Contar incidencias habría dado una cifra alarmante y una idea equivocada del esfuerzo real.</p>
           <p>La entrega fue un informe de 29 páginas con las incidencias priorizadas por severidad, recomendaciones de accesibilidad cognitiva y un borrador de declaración de accesibilidad en español e inglés.</p>
         </div>
-      </section>
-      <section>
-        <h2>Qué recibes exactamente</h2>
+      </Seccion>
+      <Seccion numero="02" titulo="Qué recibes exactamente">
         <div className="prose">
           <p>Un informe de accesibilidad no es una lista de errores volcada desde una herramienta. Esto es lo que lleva cualquiera que salga de aquí:</p>
           <ul>
@@ -33,23 +33,20 @@ export default function Testimonios() {
           </ul>
           <p>El <a href="/servicios/">detalle de cada servicio</a> explica cuál incluye qué, y en qué formato puede entregarse.</p>
         </div>
-      </section>
-      <section>
-        <h2>Este sitio también se puede auditar</h2>
+      </Seccion>
+      <Seccion numero="03" titulo="Este sitio también se puede auditar">
         <div className="prose">
           <p>Es la prueba más fácil de comprobar y no depende de que nos creas: recorre esta web con el teclado, con un lector de pantalla o con el zoom al 400 % y mira si aguanta. Nuestra <a href="/declaracion-accesibilidad/">declaración de accesibilidad</a> dice qué cumplimos, cómo lo probamos y qué no declaramos.</p>
         </div>
-      </section>
-      <section>
-        <h2>Reseñas de clientes</h2>
+      </Seccion>
+      <Seccion numero="04" titulo="Reseñas de clientes">
         <Aviso><strong>Todavía no hay reseñas publicadas.</strong> Las reseñas se revisan antes de publicarse y solo aparecen con autorización de quien las escribe, así que esta sección va a empezar a llenarse a medida que terminemos los primeros proyectos bajo esta marca.</Aviso>
         <p>¿Ya has trabajado con tuaccesible? <a href="/dejar-una-resena/">Déjanos tu reseña</a>.</p>
-      </section>
-      <div className="prose">
-        <h2>Antes de contratar nada</h2>
+      </Seccion>
+      <Banda titulo="Antes de contratar nada">
         <p>Cuéntanos qué producto tienes que auditar y en qué plazo. Te decimos por dónde conviene empezar, aunque no termines contratando nada.</p>
         <p><a href="/contacto/">Escribir a tuaccesible</a> o ver el <a href="/servicios/">detalle de servicios</a>.</p>
-      </div>
+      </Banda>
     </>
   );
 }

@@ -144,6 +144,11 @@ test("Banda: un div comun, sin rol ni nombre", () => {
   assert.equal(html, '<div class="banda"><p><a href="/contacto/">Escribir</a> o leer.</p></div>');
 });
 
+test("Banda: con titulo, el titulo va como h2 al principio", () => {
+  const html = dibujar(h(m.Banda, { titulo: "Hablemos" }, h("p", null, "Texto.")));
+  assert.equal(html, '<div class="banda"><h2 class="banda__titulo">Hablemos</h2><p>Texto.</p></div>');
+});
+
 test("Encabezado: el aviso de idioma queda dentro de la cabecera", () => {
   const html = dibujar(h(m.Encabezado, { idioma: "en", ruta: "/en/services/", rutaAlternativa: "/servicios/" }));
   assert.match(html, /^<header class="site-header"><div class="lang-banner" id="lang-banner">/);
