@@ -1,0 +1,76 @@
+export const pagina = {
+  idioma: "es",
+  titulo: "Dejar una reseña",
+  descripcion: "Formulario de reseña para clientes de tuaccesible.",
+  rutaAlternativa: "/en/leave-a-review/",
+};
+
+export default function DejarUnaResena() {
+  return (
+    <>
+      <h1>Dejar una reseña</h1>
+      <p className="lede">Para clientes que ya trabajaron con tuaccesible. Las respuestas se revisan antes de publicarse — nada se publica de forma automática.</p>
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="9338efc0-195f-47b9-872f-4aca4a58b051" />
+        <input type="hidden" name="subject" value="Nueva reseña desde tuaccesible.com" />
+        <input type="hidden" name="from_name" value="Formulario de tuaccesible.com" />
+        <input type="hidden" name="redirect" value="https://tuaccesible.com/gracias/" />
+        <p className="hp">
+          <label htmlFor="botcheck">No completar este campo</label>{" "}
+          <input type="checkbox" id="botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
+        </p>
+        <p>
+          <label htmlFor="display-name">Nombre o iniciales para publicar (obligatorio)</label>
+          <br />
+          <input type="text" id="display-name" name="display_name" required />
+        </p>
+        <p>
+          <label htmlFor="service">Servicio contratado (obligatorio)</label>
+          <br />
+          <select id="service" name="service" required>
+            <option value="">Elige una opción</option>
+            <option value="Auditoría exprés">Auditoría exprés</option>
+            <option value="Auditoría de sitio">Auditoría de sitio</option>
+            <option value="Servicio integral">Servicio integral</option>
+            <option value="Taller corporativo">Taller corporativo</option>
+          </select>
+        </p>
+        <p>
+          <label htmlFor="clarity">¿Cómo calificarías la claridad del informe o la formación?</label>
+          <br />
+          <select id="clarity" name="clarity_rating">
+            <option value="">Elige una opción</option>
+            <option value="Excelente">Excelente</option>
+            <option value="Buena">Buena</option>
+            <option value="Regular">Regular</option>
+            <option value="Mala">Mala</option>
+          </select>
+        </p>
+        <p>
+          <label htmlFor="recommend">¿Nos recomendarías?</label>
+          <br />
+          <select id="recommend" name="would_recommend">
+            <option value="">Elige una opción</option>
+            <option value="Sí, sin dudarlo">Sí, sin dudarlo</option>
+            <option value="Sí, con algo para mejorar">Sí, con algo para mejorar</option>
+            <option value="No">No</option>
+          </select>
+        </p>
+        <p>
+          <label htmlFor="comment">¿Algo más que quieras contar? (opcional)</label>
+          <br />
+          <textarea id="comment" name="comment" rows={5}></textarea>
+        </p>
+        <p>
+          <input type="checkbox" id="consent" name="consent_publicacion" value="Sí" required />{" "}
+          <label htmlFor="consent">Autorizo a publicar esta reseña y el nombre que escribí arriba en tuaccesible.com (obligatorio)</label>
+        </p>
+        <div className="form-legal">
+          <p>Protección de datos, en corto: tuaccesible usa lo que escribes aquí para publicar tu reseña, siempre con tu autorización y después de revisarla.</p>
+          <p>El formulario lo procesa Web3Forms, un proveedor con servidores en Estados Unidos. Puedes retirar la autorización o pedir que borremos la reseña cuando quieras escribiendo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. El detalle completo está en la <a href="/privacidad/">política de privacidad</a>.</p>
+        </div>
+        <button type="submit">Enviar reseña</button>
+      </form>
+    </>
+  );
+}
