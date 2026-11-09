@@ -29,6 +29,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { build } from "vite";
 import { revisarSalida } from "./salida-segura.js";
+import { revisarBackend } from "./backend-seguro.js";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 
@@ -40,9 +41,13 @@ function opcion(nombre) {
 const salida = path.resolve(raiz, opcion("--salida") ?? "dist");
 
 // El paso 2 vacia la carpeta de salida: antes de llegar ahi, que no sea el
-// proyecto ni otra carpeta con cosas (ver scripts/salida-segura.js).
+// proyecto ni otra carpeta con cosas (ver scripts/salida-segura.js). Y que
+// un .env de esta computadora no afloje sin aviso la politica de seguridad
+// (ver scripts/backend-seguro.js); el aviso sale al final, donde se lee.
+let avisoDelBackend;
 try {
   revisarSalida(salida, raiz);
+  avisoDelBackend = revisarBackend(raiz);
 } catch (error) {
   console.error(`\nNo se pudo compilar el sitio.\n${error.message}\n`);
   process.exit(1);
@@ -126,6 +131,7 @@ try {
   const donde = path.relative(raiz, salida);
   const carpeta = !donde || donde.startsWith("..") ? salida : `${donde}/`;
   console.log(`Listo: ${resultados.length} paginas en ${carpeta}${islas} (${segundos} s).`);
+  if (avisoDelBackend) console.log(`\n${avisoDelBackend}\n`);
 } catch (error) {
   // Los errores que escribimos nosotros (una pagina sin titulo, dos paginas
   // que no se apuntan entre si) ya dicen que arreglar: se muestra solo el

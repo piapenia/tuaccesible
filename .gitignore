@@ -1,5 +1,7 @@
 node_modules/
 dist/
-# Valores propios de cada computadora (por ejemplo otro puerto del backend).
+# Valores propios de cada computadora. Otro puerto del backend va en
+# .env.development.local, que solo lee npm run dev: .env.local tambien lo
+# leeria la compilacion (ver scripts/backend-seguro.js).
 .env.local
 .env.*.local

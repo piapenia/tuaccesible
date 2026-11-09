@@ -91,6 +91,15 @@ el sitio**, y **el dominio**.
   lo vuelve a incluir. Está anotado junto a la acción en `deploy.yml`, y
   después de cada versión nueva hay que comprobar que
   `https://tuaccesible.com/.well-known/security.txt` siga respondiendo.
+- La compilación revisa `VITE_API_URL` antes de escribir nada
+  (`scripts/backend-seguro.js`). Una dirección `http://localhost` en la
+  política de seguridad sirve para probar lo compilado contra el backend
+  local, pero publicada dejaría conectarse por http y quitaría
+  `upgrade-insecure-requests`. Por eso, en GitHub Actions, una dirección que
+  no sea https corta el despliegue; en una computadora la compilación sigue,
+  pero avisa al final de qué archivo o variable salió la dirección. Lo que
+  se usa con `npm run dev` va en `.env.development` y
+  `.env.development.local`, que la compilación no lee.
 
 ## Avisos de npm
 

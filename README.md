@@ -90,7 +90,7 @@ Es a propósito. `npm run build` revisa cada página y se corta con un mensaje q
 - `npm run dev`: servidor local con recarga automática, en `http://localhost:5173/`. Con `npm run dev -- --host` también se abre desde otros equipos de tu red.
 - `npm run build`: compila el sitio en `dist/`, que es exactamente lo que se publica. Para compilar en otra carpeta: `node scripts/construir.js --salida otra-carpeta`. Como la compilación vacía esa carpeta antes de escribir, solo acepta `dist/`, una carpeta nueva o vacía, o una compilación anterior del sitio; cualquier otra la rechaza sin tocarla.
 - `npm run preview`: sirve lo compilado en `http://localhost:8080/`. Corre antes `npm run build`.
-- `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas y del control de la carpeta de salida.
+- `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas, del control de la carpeta de salida y del control de `VITE_API_URL` al compilar.
 - `npm run verificar:contraste`: el mismo control de contraste que se hace antes de publicar. Lee los colores de `public/css/global.css` y falla si algún par queda por debajo del mínimo.
 - `npm run generar:og`: regenera las dos tarjetas para redes sociales. Solo hace falta si cambian el lema o el logotipo, y necesita la fuente Century Gothic instalada.
 
@@ -244,7 +244,7 @@ Para trabajar con los dos a la vez:
 1. En una terminal, el backend, como diga el README de su repositorio.
 2. En otra, este sitio con `npm run dev`.
 
-No hace falta configurar nada más: `.env.development` ya fija `VITE_API_URL=http://localhost:3000`. Si tu backend usa otro puerto, no cambies ese archivo: crea `.env.development.local` (no se sube a GitHub) con tu valor, por ejemplo `VITE_API_URL=http://localhost:3001`.
+No hace falta configurar nada más: `.env.development` ya fija `VITE_API_URL=http://localhost:3000`. Si tu backend usa otro puerto, no cambies ese archivo: crea `.env.development.local` (no se sube a GitHub) con tu valor, por ejemplo `VITE_API_URL=http://localhost:3001`. No uses `.env.local` para esto: ese archivo también lo lee la compilación.
 
 La política de seguridad suma esa dirección a `connect-src` sola. En el sitio publicado no hay `VITE_API_URL` todavía: la política queda como siempre y el cliente informa que el servicio no está configurado, sin intentar ninguna conexión.
 
@@ -255,6 +255,8 @@ Cómo probar la versión compilada contra el backend local, los pedidos que exis
 Cada push a la rama `master` dispara `.github/workflows/deploy.yml`. En orden: instala con `npm ci`, corre las pruebas, el control de contraste, la compilación y `pa11y-ci` con WCAG 2 nivel AAA en las 25 direcciones de `.pa11yci.json`. Si todo pasa, publica `dist/` en tuaccesible.com. Si algo falla, no se publica nada. Para proponer un cambio sin publicarlo, trabaja en una rama propia y abre un pull request.
 
 En `deploy.yml`, `upload-pages-artifact` lleva `include-hidden-files: true`. No quites esa línea: sin ella, desde la versión 4 de esa acción, el sitio deja de publicar `.well-known/security.txt`. Cuando Dependabot proponga una versión nueva de la acción, comprueba después de publicar que `https://tuaccesible.com/.well-known/security.txt` siga respondiendo.
+
+La compilación también se corta en GitHub Actions si encuentra una `VITE_API_URL` que no sea https: el sitio publicado no puede hablar con un backend por http.
 
 ## Antes de tocar ciertas cosas
 

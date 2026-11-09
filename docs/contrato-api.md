@@ -161,6 +161,8 @@ npm run preview
 
 En PowerShell y en cmd la variable queda puesta hasta que cierres esa terminal: una compilación posterior en la misma ventana también la llevaría. No afecta al sitio publicado, que compila GitHub Actions sin esa variable.
 
+Al terminar, la compilación avisa que es solo para probar en esta computadora, porque su política de seguridad deja conectarse al backend por http. Es lo esperado. Si el aviso sale sin que hayas puesto la variable, la dirección viene de un `.env.local` o un `.env.production.local`, y el aviso nombra el archivo: si era para `npm run dev`, pasa esa línea a `.env.development.local`. En GitHub Actions, una dirección que no sea https corta el despliegue.
+
 ## Preguntas abiertas
 
 1. ¿`score` es la nota de 1 a 10 que pone la persona al final, o el puntaje de accesibilidad de su sitio? Este contrato supone lo primero.
