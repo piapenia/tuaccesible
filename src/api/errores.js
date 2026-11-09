@@ -17,11 +17,13 @@ export const codigosDeError = Object.freeze([
   "url-invalida",
   "puntaje-invalido",
   "comentario-invalido",
+  "mensaje-invalido", // la respuesta de la persona en la entrevista
   "id-invalido",
   "datos-invalidos", // cualquier otro dato mal armado
   // Respuestas del backend.
   "no-encontrada", // 404: esa sesion no existe
   "demasiados-pedidos", // 429: limite de pedidos
+  "sitio-inaccesible", // 422: el backend no pudo abrir la pagina para analizarla
   "servidor", // 500 o cualquier otro estado que no esta en el contrato
 ]);
 

@@ -142,9 +142,9 @@ export function generarSitemap() {
 
 export function generarRobots() {
   return `# tuaccesible.com
-# Todo el sitio es publico y se puede indexar. Las dos paginas de
-# confirmacion de formulario llevan noindex en su propio marcado y por eso
-# no aparecen en el sitemap.
+# Todo el sitio es publico y se puede indexar. Las paginas de confirmacion
+# de formulario y las del servicio de testing, que esta en preparacion,
+# llevan noindex en su propio marcado y por eso no aparecen en el sitemap.
 User-agent: *
 Allow: /
 

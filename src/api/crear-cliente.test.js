@@ -51,6 +51,9 @@ describe("sin backend configurado", () => {
       assert.deepEqual(await api.comprobarDisponibilidad(), { disponible: false, codigo: "no-configurado" });
       await assert.rejects(api.crearSesion({ analyzed_url: "misitio.com" }), conCodigo("no-configurado"));
       await assert.rejects(api.actualizarSesion(ID, { score: 8 }), conCodigo("no-configurado"));
+      await assert.rejects(api.analizarSesion(ID, { idioma: "es" }), conCodigo("no-configurado"));
+      await assert.rejects(api.entrevistar(ID, { idioma: "es", mensaje: null }), conCodigo("no-configurado"));
+      assert.throws(() => api.urlInforme(ID, "es"), conCodigo("no-configurado"));
       assert.equal(llamadas.length, 0);
     }
   });
@@ -239,6 +242,144 @@ describe("actualizarSesion", () => {
   test("404: la sesion no existe", async () => {
     const { fetch } = fetchFalso(() => json(404, { error: "no-encontrada" }));
     await assert.rejects(crearClienteApi({ urlBase: URL_BASE, fetch }).actualizarSesion(ID, { score: 8 }), conCodigo("no-encontrada"));
+  });
+});
+
+const ANALISIS = {
+  analyzed_url: "https://misitio.com/",
+  analyzed_at: "2026-11-14T15:05:00.000Z",
+  violations: [
+    {
+      rule_id: "image-alt",
+      impact: "critical",
+      help: "Las imagenes necesitan un texto alternativo",
+      wcag: ["1.1.1"],
+      nodes: 3,
+      examples: ['<img src="logo.png">'],
+    },
+  ],
+  passes: 38,
+  incomplete: 3,
+};
+
+describe("analizarSesion", () => {
+  test("POST /api/sessions/:id/analysis con el idioma, y devuelve una copia limpia", async () => {
+    const { fetch, llamadas } = fetchFalso(() => json(200, { ...ANALISIS, interno: "no viaja", violations: [{ ...ANALISIS.violations[0], html_completo: "x" }] }));
+    const analisis = await crearClienteApi({ urlBase: URL_BASE, fetch }).analizarSesion(ID.toUpperCase(), { idioma: "en" });
+    assert.deepEqual(analisis, ANALISIS);
+    const [llamada] = llamadas;
+    assert.equal(llamada.url, `${URL_BASE}/api/sessions/${ID}/analysis`);
+    assert.equal(llamada.method, "POST");
+    assert.equal(llamada.credentials, "omit");
+    assert.equal(llamada.body, '{"language":"en"}');
+  });
+
+  test("una respuesta que no tiene la forma acordada es respuesta-invalida", async () => {
+    const regla = ANALISIS.violations[0];
+    const casos = [
+      { ...ANALISIS, analyzed_at: "ayer" },
+      { ...ANALISIS, violations: "muchas" },
+      { ...ANALISIS, violations: Array.from({ length: 101 }, () => regla) },
+      { ...ANALISIS, passes: -1 },
+      { ...ANALISIS, violations: [{ ...regla, impact: "grave" }] },
+      { ...ANALISIS, violations: [{ ...regla, wcag: ["1.1"] }] },
+      { ...ANALISIS, violations: [{ ...regla, nodes: 0 }] },
+      { ...ANALISIS, violations: [{ ...regla, help: "x".repeat(501) }] },
+      { ...ANALISIS, violations: [{ ...regla, examples: Array(6).fill("<img>") }] },
+      [ANALISIS],
+    ];
+    for (const datos of casos) {
+      const { fetch } = fetchFalso(() => json(200, datos));
+      await assert.rejects(crearClienteApi({ urlBase: URL_BASE, fetch }).analizarSesion(ID, { idioma: "es" }), conCodigo("respuesta-invalida"), JSON.stringify(datos).slice(0, 80));
+    }
+  });
+
+  test("422 sitio-inaccesible y 404 llegan con su codigo", async () => {
+    const casos = [
+      [() => json(422, { error: "sitio-inaccesible" }), "sitio-inaccesible"],
+      [() => json(404, { error: "no-encontrada" }), "no-encontrada"],
+    ];
+    for (const [contestar, codigo] of casos) {
+      const { fetch } = fetchFalso(contestar);
+      await assert.rejects(crearClienteApi({ urlBase: URL_BASE, fetch }).analizarSesion(ID, { idioma: "es" }), conCodigo(codigo));
+    }
+  });
+
+  test("un id o un idioma invalidos no salen del navegador", async () => {
+    const { fetch, llamadas } = fetchFalso(() => json(200, ANALISIS));
+    const api = crearClienteApi({ urlBase: URL_BASE, fetch });
+    await assert.rejects(api.analizarSesion("../admin", { idioma: "es" }), conCodigo("id-invalido"));
+    await assert.rejects(api.analizarSesion(ID, { idioma: "fr" }), conCodigo("datos-invalidos"));
+    await assert.rejects(api.analizarSesion(ID), conCodigo("datos-invalidos"));
+    assert.equal(llamadas.length, 0);
+  });
+
+  test("espera el tiempo largo, no el comun", async () => {
+    const fetch = (url, { signal }) => hastaQueAborte(signal);
+    const api = crearClienteApi({ urlBase: URL_BASE, fetch, tiempoLimiteMs: 10, tiempoLimiteLargoMs: 80 });
+    const inicio = Date.now();
+    await assert.rejects(api.analizarSesion(ID, { idioma: "es" }), conCodigo("tiempo-agotado"));
+    assert.ok(Date.now() - inicio >= 70, "corto antes del tiempo largo");
+  });
+});
+
+describe("entrevistar", () => {
+  const TURNO = { reply: "Hola. Empecemos por las imagenes.", finished: false };
+
+  test("message null empieza la entrevista", async () => {
+    const { fetch, llamadas } = fetchFalso(() => json(200, TURNO));
+    const turno = await crearClienteApi({ urlBase: URL_BASE, fetch }).entrevistar(ID, { idioma: "es", mensaje: null });
+    assert.deepEqual(turno, TURNO);
+    const [llamada] = llamadas;
+    assert.equal(llamada.url, `${URL_BASE}/api/sessions/${ID}/interview`);
+    assert.equal(llamada.method, "POST");
+    assert.equal(llamada.body, '{"language":"es","message":null}');
+  });
+
+  test("el mensaje de la persona viaja ya limpio", async () => {
+    const { fetch, llamadas } = fetchFalso(() => json(200, { ...TURNO, finished: true }));
+    const turno = await crearClienteApi({ urlBase: URL_BASE, fetch }).entrevistar(ID, { idioma: "es", mensaje: "  Si, tiene\u0000 un formulario  " });
+    assert.equal(turno.finished, true);
+    assert.equal(llamadas[0].body, '{"language":"es","message":"Si, tiene un formulario"}');
+  });
+
+  test("un mensaje vacio, largo o perdido no sale del navegador", async () => {
+    const { fetch, llamadas } = fetchFalso(() => json(200, TURNO));
+    const api = crearClienteApi({ urlBase: URL_BASE, fetch });
+    for (const mensaje of ["", "   ", "x".repeat(1001), undefined, 42]) {
+      await assert.rejects(api.entrevistar(ID, { idioma: "es", mensaje }), conCodigo("mensaje-invalido"), String(mensaje).slice(0, 20));
+    }
+    assert.equal(llamadas.length, 0);
+  });
+
+  test("una respuesta rara es respuesta-invalida", async () => {
+    const casos = [{ reply: "Hola" }, { reply: "", finished: false }, { reply: "x".repeat(4001), finished: false }, { reply: 7, finished: true }];
+    for (const datos of casos) {
+      const { fetch } = fetchFalso(() => json(200, datos));
+      await assert.rejects(crearClienteApi({ urlBase: URL_BASE, fetch }).entrevistar(ID, { idioma: "es", mensaje: null }), conCodigo("respuesta-invalida"));
+    }
+  });
+
+  test("400 mensaje-invalido y 429 por el limite de mensajes", async () => {
+    const casos = [
+      [() => json(400, { error: "mensaje-invalido" }), "mensaje-invalido"],
+      [() => json(429, { error: "demasiados-pedidos" }), "demasiados-pedidos"],
+    ];
+    for (const [contestar, codigo] of casos) {
+      const { fetch } = fetchFalso(contestar);
+      await assert.rejects(crearClienteApi({ urlBase: URL_BASE, fetch }).entrevistar(ID, { idioma: "es", mensaje: "Hola" }), conCodigo(codigo));
+    }
+  });
+});
+
+describe("urlInforme", () => {
+  test("arma la direccion del PDF sin hacer ningun pedido", () => {
+    const { fetch, llamadas } = fetchFalso(() => json(200, {}));
+    const api = crearClienteApi({ urlBase: `${URL_BASE}/`, fetch });
+    assert.equal(api.urlInforme(ID.toUpperCase(), "en"), `${URL_BASE}/api/sessions/${ID}/report?language=en`);
+    assert.throws(() => api.urlInforme("1", "es"), conCodigo("id-invalido"));
+    assert.throws(() => api.urlInforme(ID, "es&x=1"), conCodigo("datos-invalidos"));
+    assert.equal(llamadas.length, 0);
   });
 });
 

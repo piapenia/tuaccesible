@@ -1,6 +1,6 @@
 # tuaccesible.com
 
-Código del sitio [tuaccesible.com](https://tuaccesible.com). Las páginas están escritas como componentes de [React](https://react.dev/) y [Vite](https://vite.dev/) las convierte en HTML estático al compilar. Lo que publica GitHub Pages son archivos HTML comunes: se leen sin JavaScript y ninguna página descarga React, salvo las que tengan una isla (hoy, ninguna).
+Código del sitio [tuaccesible.com](https://tuaccesible.com). Las páginas están escritas como componentes de [React](https://react.dev/) y [Vite](https://vite.dev/) las convierte en HTML estático al compilar. Lo que publica GitHub Pages son archivos HTML comunes: se leen sin JavaScript y ninguna página descarga React, salvo las que tengan una isla (hoy, solo las del servicio de testing, y solo si el sitio se compila con `VITE_API_URL`).
 
 Por qué así y no una aplicación React de una sola página: el sitio funciona completo sin JavaScript, su política de seguridad de contenido no deja correr script en línea y pasa pa11y en WCAG2AAA. Una aplicación de una sola página rompe esas tres cosas.
 
@@ -91,6 +91,7 @@ Es a propósito. `npm run build` revisa cada página y se corta con un mensaje q
 - `npm run build`: compila el sitio en `dist/`, que es exactamente lo que se publica. Para compilar en otra carpeta: `node scripts/construir.js --salida otra-carpeta`. Como la compilación vacía esa carpeta antes de escribir, solo acepta `dist/`, una carpeta nueva o vacía, o una compilación anterior del sitio; cualquier otra la rechaza sin tocarla.
 - `npm run preview`: sirve lo compilado en `http://localhost:8080/`. Corre antes `npm run build`.
 - `npm test`: corre las pruebas del cliente de la API (`src/api/`), de las islas, de los componentes (que cada uno dibuje el HTML que promete y ninguno escriba `style=`), del control de la carpeta de salida y del control de `VITE_API_URL` al compilar.
+- `npm run backend:simulado`: un backend de mentira en `http://localhost:3000` que cumple [el contrato](docs/contrato-api.md), para probar el servicio de testing sin el backend real.
 - `npm run verificar:contraste`: el mismo control de contraste que se hace antes de publicar. Lee los colores de `src/estilos/global.css` y falla si algún par queda por debajo del mínimo.
 - `npm run generar:og`: regenera las dos tarjetas para redes sociales. Solo hace falta si cambian el lema o el logotipo, y necesita la fuente Century Gothic instalada.
 
@@ -121,7 +122,7 @@ npx pa11y-ci --config .pa11yci-axe.cjs
     - `Boton.jsx`, `Tarjetas.jsx`, `Seccion.jsx`, `Banda.jsx`, `Credenciales.jsx`, `Campo.jsx`, `Aviso.jsx`, `Desplegable.jsx`, `Icono.jsx` y `DatosEstructurados.jsx`: piezas para usar dentro de las páginas (ver "Piezas que ya existen").
     - `formularios/`: `FormularioWeb3Forms.jsx` y `ProteccionDeDatos.jsx`, para los formularios de contacto y de reseñas.
     - `Isla.jsx`: marca una parte interactiva (ver "Partes interactivas: las islas").
-  - `islas/`: los componentes interactivos y su lista, `registro.js`. Hoy está vacía.
+  - `islas/`: los componentes interactivos y su lista, `registro.js`. Hoy tiene una: `analizador/`, el servicio de testing.
   - `estilos/`: la hoja de estilos, en tres archivos.
     - `global.css`: los colores (con el modo oscuro y el alto contraste), las fuentes, la escala de tamaños y lo que vale para todo el sitio, como el foco y los enlaces.
     - `componentes.css`: el estilo de cada componente de `componentes/`, en un bloque con su nombre.
@@ -228,13 +229,13 @@ Una isla es la única forma de que una página cargue React en el navegador. Sir
 
 Para crear una:
 
-1. Escribe el componente en `src/islas/`, por ejemplo `src/islas/Analizador.jsx`.
+1. Escribe el componente en `src/islas/`, por ejemplo `src/islas/Otra.jsx`.
 2. Agrégalo a la lista de `src/islas/registro.js`:
 
    ```js
-   import { Analizador } from "./Analizador.jsx";
+   import { Otra } from "./Otra.jsx";
 
-   export const islas = { Analizador };
+   export const islas = { Analizador, Otra };
    ```
 
 3. Úsalo en una página:
@@ -242,7 +243,7 @@ Para crear una:
    ```jsx
    import { Isla } from "../componentes/Isla.jsx";
 
-   <Isla nombre="Analizador" props={{ idioma: "es" }} />
+   <Isla nombre="Otra" props={{ idioma: "es" }} />
    ```
 
 Qué pasa al compilar: el componente se dibuja como el resto de la página, así que su contenido inicial está en el HTML aunque no cargue el JavaScript. Esa página, y solo esa, carga un archivo `/assets/cliente-....js`. En el navegador, React toma ese HTML ya dibujado y le conecta los eventos.
@@ -258,10 +259,12 @@ Dos cuidados:
 
 El backend del servicio de testing lo programa Fafa en su propio repositorio, con Node.js, Express y PostgreSQL. En local corre en `http://localhost:3000` y tiene que permitir, con CORS, los dos orígenes del sitio: `http://localhost:5173` (`npm run dev`) y `http://localhost:8080` (`npm run preview`).
 
+La pantalla del servicio está en `/analizar/` y `/en/analyze/`: dos páginas que no aparecen en el menú ni en el sitemap y que dicen que el servicio está en preparación. Sin `VITE_API_URL`, como en el sitio publicado, solo muestran ese aviso y mandan a contacto. Con la variable, dibujan la isla `Analizador` (`src/islas/analizador/`): dirección, resultados, entrevista, informe y opinión.
+
 Para trabajar con los dos a la vez:
 
-1. En una terminal, el backend, como diga el README de su repositorio.
-2. En otra, este sitio con `npm run dev`.
+1. En una terminal, el backend, como diga el README de su repositorio. Si todavía no está listo, `npm run backend:simulado` levanta en el mismo puerto uno de mentira que cumple el contrato, con respuestas fijas.
+2. En otra, este sitio con `npm run dev`, y abre `http://localhost:5173/analizar/`.
 
 No hace falta configurar nada más: `.env.development` ya fija `VITE_API_URL=http://localhost:3000`. Si tu backend usa otro puerto, no cambies ese archivo: crea `.env.development.local` (no se sube a GitHub) con tu valor, por ejemplo `VITE_API_URL=http://localhost:3001`. No uses `.env.local` para esto: ese archivo también lo lee la compilación.
 

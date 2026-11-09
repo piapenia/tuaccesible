@@ -793,6 +793,261 @@
 }
 
 
+/* ---- Analizador: src/islas/analizador/ -------------------------------- */
+
+/* La isla del servicio de testing. Lo que dice cada cosa esta en el texto
+   (el paso actual, la gravedad, quien habla, el error): los colores, los
+   bordes y los iconos lo refuerzan para la vista, nunca lo dicen solos. */
+.analizador { margin-top: 2.5rem; }
+.analizador__respaldo { max-width: var(--medida, 34em); }
+
+/* Pasos: lista numerada en una fila que se parte en el celular. */
+.analizador__pasos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0 0 2rem;
+  padding: 0 0 1rem;
+  list-style: none;
+  font-size: var(--step--1);
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.analizador__paso {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+.analizador__paso-numero {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  font-weight: 600;
+  border: 1px solid var(--text-muted);
+  border-radius: 50%;
+}
+.analizador__paso--hecho .analizador__paso-numero {
+  color: var(--brand);
+  border-color: var(--brand);
+}
+.analizador__paso--actual {
+  font-weight: 600;
+  color: var(--ink);
+}
+.analizador__paso--actual .analizador__paso-numero {
+  color: var(--bg);
+  background: var(--brand-strong);
+  border-color: var(--brand-strong);
+}
+
+.analizador__paso-contenido > h2 { margin-top: 0; }
+.analizador__paso-contenido h3 { margin-top: 2.5rem; }
+
+/* Region de estado: vacia no ocupa lugar. */
+.analizador__estado {
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+}
+.analizador__estado:empty { margin: 0; }
+
+/* Error general: el recuadro de Aviso, con el icono de error y, debajo del
+   texto, el boton que lo resuelve si lo hay. */
+.analizador__error .aviso__icono { color: var(--accent); }
+.analizador__error-cuerpo {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+}
+
+.boton[aria-disabled="true"] { cursor: progress; }
+
+.analizador__botones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 1.5rem 0;
+}
+.analizador__botones--final {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Resultados */
+.analizador__url { overflow-wrap: anywhere; }
+
+.analizador__conteos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+.analizador__conteo {
+  margin: 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.analizador__numero {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.analizador__reglas {
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+.analizador__reglas > li { margin: 0; }
+.analizador__reglas .desplegable { margin: 0 0 0.75rem; }
+
+/* La gravedad, en una etiqueta: rellena para las dos mas graves, con borde
+   para las otras dos. La palabra va siempre escrita. */
+.analizador__gravedad {
+  display: inline-block;
+  margin-inline-start: 0.25rem;
+  padding: 0 0.5rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+.analizador__gravedad--critical {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.analizador__gravedad--serious {
+  color: var(--bg);
+  background: var(--brand-strong);
+  border-color: var(--brand-strong);
+}
+.analizador__gravedad--moderate { color: var(--brand); }
+.analizador__gravedad--minor { color: var(--text); }
+
+.analizador__datos { margin: 0; }
+.analizador__datos dt {
+  font-weight: 600;
+  color: var(--ink);
+}
+.analizador__datos dd { margin: 0 0 0.75rem; }
+.analizador__datos dd:last-child { margin-bottom: 0; }
+.analizador__datos code { overflow-wrap: anywhere; }
+
+/* Entrevista: los mensajes de la persona, corridos a la derecha y con un
+   filete; los del asistente, sobre la superficie. Quien habla esta escrito
+   arriba de cada uno. */
+.analizador__conversacion { margin: 1.5rem 0; }
+.analizador__mensajes {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.analizador__mensaje {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.analizador__mensaje--tu {
+  margin-inline-start: 2rem;
+  background: var(--bg);
+  border-inline-start: 3px solid var(--brand);
+}
+.analizador__mensaje p {
+  margin: 0 0 0.75rem;
+  white-space: pre-line;
+}
+.analizador__mensaje p:last-child { margin-bottom: 0; }
+.analizador__mensaje .analizador__autor {
+  margin-bottom: 0.25rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Confirmaciones: reciben el foco cuando el boton que las pidio
+   desaparece. */
+.analizador__confirmacion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: var(--medida, 34em);
+  font-weight: 600;
+  color: var(--ink);
+}
+.analizador__confirmacion-icono {
+  flex: none;
+  font-size: 1.25em;
+  color: var(--brand);
+}
+
+/* Puntaje: diez opciones con un objetivo de 44 px como minimo (2.5.5). */
+.analizador__escala {
+  min-width: 0;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: 0;
+}
+.analizador__escala legend {
+  margin: 0 0 0.25rem;
+  padding: 0;
+  font-weight: 600;
+}
+.analizador__puntajes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.analizador__puntaje {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
+  background: var(--bg);
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.analizador__puntaje input {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  margin: 0;
+  accent-color: var(--brand);
+}
+.analizador__puntaje:has(input:checked) {
+  border-color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--brand);
+}
+.analizador__escala:has(.campo__error) .analizador__puntaje { border-color: var(--accent); }
+
+@keyframes analizador-girar {
+  to { transform: rotate(1turn); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .analizador__girando { animation: analizador-girar 1s linear infinite; }
+}
+
+
 /* ---- Contraste forzado de Windows -------------------------------------- */
 
 /* El sistema reemplaza la paleta entera; aca solo se cuida que nada pierda
@@ -812,5 +1067,15 @@
      tienen color propio y lo conservaban: la flecha salia en celeste palido
      sobre el blanco del contraste alto. Van a colores del sistema. */
   .tarjeta__flecha { color: LinkText; }
-  .aviso__icono, .campo__error-icono { color: CanvasText; }
+  .aviso__icono, .campo__error-icono, .analizador__confirmacion-icono { color: CanvasText; }
+  /* Analizador: el relleno petroleo del paso actual se pierde con los
+     colores del sistema; pasa a Highlight. */
+  .analizador__pasos, .analizador__botones--final { border-color: CanvasText; }
+  .analizador__paso-numero, .analizador__conteo, .analizador__mensaje, .analizador__puntaje, .analizador__gravedad { border-color: CanvasText; }
+  .analizador__paso--actual .analizador__paso-numero {
+    color: HighlightText;
+    background: Highlight;
+    border-color: Highlight;
+  }
+  .analizador__puntaje:has(input:checked) { box-shadow: inset 0 0 0 1px CanvasText; }
 }

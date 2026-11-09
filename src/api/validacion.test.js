@@ -6,11 +6,14 @@ import assert from "node:assert/strict";
 import { ErrorApi, codigosDeError } from "./errores.js";
 import {
   LARGO_MAXIMO_COMENTARIO,
+  LARGO_MAXIMO_MENSAJE,
   LARGO_MAXIMO_URL,
   limpiarComentario,
+  limpiarMensaje,
   limpiarUrl,
   validarCambios,
   validarId,
+  validarIdioma,
   validarPuntaje,
   validarSesionNueva,
 } from "./validacion.js";
@@ -113,6 +116,33 @@ describe("limpiarComentario", () => {
   test("rechaza lo que no es texto", () => {
     for (const valor of [42, {}, true, ["hola"]]) {
       assert.throws(() => limpiarComentario(valor), conCodigo("comentario-invalido"), String(valor));
+    }
+  });
+});
+
+describe("limpiarMensaje", () => {
+  test("null es el pedido para empezar, no un mensaje vacio", () => {
+    assert.equal(limpiarMensaje(null), null);
+  });
+
+  test("se limpia como el comentario", () => {
+    assert.equal(limpiarMensaje("  Si,\u0007 tiene\nun formulario  "), "Si, tiene\nun formulario");
+    assert.equal(limpiarMensaje(EMOJI.repeat(LARGO_MAXIMO_MENSAJE)), EMOJI.repeat(LARGO_MAXIMO_MENSAJE));
+  });
+
+  test("vacio, largo, perdido o que no es texto es mensaje-invalido", () => {
+    for (const valor of ["", "  \n ", "x".repeat(LARGO_MAXIMO_MENSAJE + 1), undefined, 42, {}]) {
+      assert.throws(() => limpiarMensaje(valor), conCodigo("mensaje-invalido"), String(valor).slice(0, 20));
+    }
+  });
+});
+
+describe("validarIdioma", () => {
+  test("solo es o en", () => {
+    assert.equal(validarIdioma("es"), "es");
+    assert.equal(validarIdioma("en"), "en");
+    for (const valor of ["ES", "es-AR", "fr", "", null, undefined]) {
+      assert.throws(() => validarIdioma(valor), conCodigo("datos-invalidos"), String(valor));
     }
   });
 });

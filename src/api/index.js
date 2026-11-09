@@ -21,4 +21,5 @@ import { crearClienteApi } from "./crear-cliente.js";
 export const api = crearClienteApi({ urlBase: urlApi });
 
 export { ErrorApi, codigosDeError } from "./errores.js";
-export { LARGO_MAXIMO_COMENTARIO, PUNTAJE_MAXIMO, PUNTAJE_MINIMO, limpiarUrl } from "./validacion.js";
+export { LARGO_MAXIMO_COMENTARIO, LARGO_MAXIMO_MENSAJE, PUNTAJE_MAXIMO, PUNTAJE_MINIMO, limpiarMensaje, limpiarUrl } from "./validacion.js";
+export { IMPACTOS } from "./respuestas.js";

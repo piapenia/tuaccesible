@@ -13,6 +13,7 @@
     "build": "node scripts/construir.js",
     "preview": "http-server dist -p 8080",
     "test": "node --test",
+    "backend:simulado": "node tools/backend-simulado.js",
     "verificar:contraste": "node tools/verificar-contraste.js",
     "generar:og": "node tools/generar-og.js"
   },

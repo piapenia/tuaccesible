@@ -13,8 +13,11 @@ import { ErrorApi } from "./errores.js";
 
 export const LARGO_MAXIMO_URL = 2048;
 export const LARGO_MAXIMO_COMENTARIO = 1000;
+export const LARGO_MAXIMO_MENSAJE = 1000;
 export const PUNTAJE_MINIMO = 1;
 export const PUNTAJE_MAXIMO = 10;
+// Los dos idiomas del sitio: el del analisis de axe y el de la entrevista.
+export const IDIOMAS = Object.freeze(["es", "en"]);
 
 const FORMA_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -69,15 +72,36 @@ export function validarPuntaje(valor) {
    El largo se cuenta en caracteres, como char_length de PostgreSQL, y no
    con .length de JavaScript, que cuenta un emoji como dos. */
 export function limpiarComentario(valor) {
+  return limpiarTexto(valor, LARGO_MAXIMO_COMENTARIO, "comentario-invalido");
+}
+
+/* Lo que la persona le contesta al asistente en la entrevista. Se limpia
+   igual que el comentario, pero no puede quedar vacio. null no es un
+   mensaje vacio: es el pedido para empezar la entrevista. */
+export function limpiarMensaje(valor) {
+  if (valor === null) return null;
+  const limpio = limpiarTexto(valor, LARGO_MAXIMO_MENSAJE, "mensaje-invalido");
+  if (limpio === null) throw new ErrorApi("mensaje-invalido");
+  return limpio;
+}
+
+function limpiarTexto(valor, largoMaximo, codigo) {
   if (valor === null || valor === undefined) return null;
-  if (typeof valor !== "string") throw new ErrorApi("comentario-invalido");
+  if (typeof valor !== "string") throw new ErrorApi(codigo);
   const limpio = valor
     .normalize("NFC")
     .replace(/\p{Cc}/gu, (caracter) => (caracter === "\n" || caracter === "\t" ? caracter : ""))
     .trim();
   if (!limpio) return null;
-  if ([...limpio].length > LARGO_MAXIMO_COMENTARIO) throw new ErrorApi("comentario-invalido");
+  if ([...limpio].length > largoMaximo) throw new ErrorApi(codigo);
   return limpio;
+}
+
+/* "es" o "en". Otra cosa es un error de programacion de la isla, asi que
+   es datos-invalidos y no tiene mensaje propio. */
+export function validarIdioma(valor) {
+  if (!IDIOMAS.includes(valor)) throw new ErrorApi("datos-invalidos");
+  return valor;
 }
 
 export function esUuid(valor) {

@@ -33,6 +33,8 @@
     "http://localhost:8080/en/thank-you/",
     "http://localhost:8080/404.html",
     "http://localhost:8080/certificado-accesibilidad-web/",
-    "http://localhost:8080/en/web-accessibility-certificate/"
+    "http://localhost:8080/en/web-accessibility-certificate/",
+    "http://localhost:8080/analizar/",
+    "http://localhost:8080/en/analyze/"
   ]
 }
