@@ -18,7 +18,7 @@
     "generar:og": "node tools/generar-og.js"
   },
   "dependencies": {
-    "lucide-react": "1.61.0",
+    "lucide-react": "1.70.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
