@@ -178,3 +178,20 @@ test("Sitio: nada visible fuera de las regiones", () => {
   assert.ok(html.indexOf('id="lang-banner"') > html.indexOf("<header"));
   assert.match(html, /<main id="contenido-principal"><div class="wrap"><h1>Inicio<\/h1><\/div><\/main><footer class="site-footer">/);
 });
+
+test("FormularioWeb3Forms: vuelve a la pagina de confirmacion pedida, del mismo idioma", async () => {
+  const { FormularioWeb3Forms } = await vite.ssrLoadModule("/src/componentes/formularios/FormularioWeb3Forms.jsx");
+  const { sitio } = await vite.ssrLoadModule("/src/sitio.js");
+  const html = dibujar(h(FormularioWeb3Forms, { idioma: "es", asunto: "Prueba", confirmacion: "/gracias-por-tu-resena/" }));
+  assert.match(html, new RegExp(`<input type="hidden" name="redirect" value="${sitio.url}/gracias-por-tu-resena/"/>`));
+  assert.throws(() => renderToStaticMarkup(h(FormularioWeb3Forms, { idioma: "es", asunto: "Prueba" })), /confirmacion/);
+  assert.throws(() => renderToStaticMarkup(h(FormularioWeb3Forms, { idioma: "en", asunto: "Prueba", confirmacion: "/gracias/" })), /idioma/);
+});
+
+test("Politica de seguridad: los formularios pueden volver al propio sitio", async () => {
+  const { politicaDeSeguridad } = await vite.ssrLoadModule("/src/seguridad.js");
+  for (const desarrollo of [false, true]) {
+    // Sin 'self', Chrome y Edge bloquean la vuelta de Web3Forms a /gracias/.
+    assert.match(politicaDeSeguridad({ desarrollo, origenApi: undefined }), /form-action 'self' https:\/\/api\.web3forms\.com(;|$)/);
+  }
+});

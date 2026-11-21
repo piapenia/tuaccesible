@@ -18,7 +18,7 @@ export default function Contacto() {
           <h1>Contáctanos</h1>
           <p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
         </div>
-        <FormularioWeb3Forms idioma="es" asunto="Nueva consulta desde tuaccesible.com">
+        <FormularioWeb3Forms idioma="es" asunto="Nueva consulta desde tuaccesible.com" confirmacion="/gracias/">
           <Campo etiqueta="Nombre (obligatorio)">
             <input type="text" id="name" name="name" autoComplete="name" required />
           </Campo>

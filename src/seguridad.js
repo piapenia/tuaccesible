@@ -13,6 +13,14 @@
      <meta>, asi que seria una falsa tranquilidad.
    - connect-src suma el backend solo si hay VITE_API_URL (ver
      src/configuracion.js).
+   - form-action lleva 'self' ademas de Web3Forms. El formulario se envia a
+     Web3Forms, y Web3Forms devuelve a la persona a la pagina de
+     confirmacion de este mismo sitio (/gracias/ y las demas). Chrome y
+     Edge aplican form-action tambien a esa vuelta: sin 'self' bloquean la
+     pagina de confirmacion, la persona se queda en el formulario sin
+     ningun aviso y el lector de pantalla no anuncia nada, aunque el
+     mensaje si haya llegado. Un formulario inyectado sigue sin poder
+     mandar datos a otro dominio: 'self' es solo tuaccesible.com.
 
    Solo en desarrollo ("npm run dev") cambian dos cosas, y el sitio publicado
    no se entera porque el despliegue compila con "npm run build":
@@ -42,7 +50,7 @@ export function politicaDeSeguridad({ desarrollo, origenApi }) {
     "style-src 'self'",
     "img-src 'self' data: https://tuaccesible.goatcounter.com",
     "font-src 'self'",
-    "form-action https://api.web3forms.com",
+    "form-action 'self' https://api.web3forms.com",
   ];
   if (!desarrollo && !esOrigenLocal(origenApi)) directivas.push("upgrade-insecure-requests");
   return directivas.join("; ");

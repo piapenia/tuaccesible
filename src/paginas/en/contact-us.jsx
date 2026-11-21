@@ -18,7 +18,7 @@ export default function ContactUs() {
           <h1>Contact us</h1>
           <p>Write to us at <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
         </div>
-        <FormularioWeb3Forms idioma="en" asunto="New inquiry from tuaccesible.com">
+        <FormularioWeb3Forms idioma="en" asunto="New inquiry from tuaccesible.com" confirmacion="/en/thank-you/">
           <Campo etiqueta="Name (required)">
             <input type="text" id="name" name="name" autoComplete="name" required />
           </Campo>

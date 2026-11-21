@@ -15,7 +15,7 @@ export default function DejarUnaResena() {
     <>
       <h1>Dejar una reseña</h1>
       <p className="lede">Para clientes que ya trabajaron con tuaccesible. Las respuestas se revisan antes de publicarse — nada se publica de forma automática.</p>
-      <FormularioWeb3Forms idioma="es" asunto="Nueva reseña desde tuaccesible.com">
+      <FormularioWeb3Forms idioma="es" asunto="Nueva reseña desde tuaccesible.com" confirmacion="/gracias-por-tu-resena/">
         <Campo etiqueta="Nombre o iniciales para publicar (obligatorio)">
           <input type="text" id="display-name" name="display_name" required />
         </Campo>

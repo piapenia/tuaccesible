@@ -10,7 +10,7 @@ import { sitio } from "../../sitio.js";
    pagina, y se dibuja a continuacion en el mismo orden: los campos
    visibles, el aviso de proteccion de datos y el boton de envio.
 
-     <FormularioWeb3Forms idioma="en" asunto="New inquiry from tuaccesible.com">
+     <FormularioWeb3Forms idioma="en" asunto="New inquiry from tuaccesible.com" confirmacion="/en/thank-you/">
        <Campo etiqueta="Name (required)">
          <input type="text" id="name" name="name" autoComplete="name" required />
        </Campo>
@@ -20,8 +20,14 @@ import { sitio } from "../../sitio.js";
 
    - asunto: el asunto del correo que llega al buzon.
    - idioma: "es" o "en". Decide el nombre de remitente con que llega ese
-     correo, la pagina de confirmacion a la que vuelve la persona despues
-     de enviar y el texto de la trampa antispam.
+     correo y el texto de la trampa antispam.
+   - confirmacion: la ruta de la pagina a la que vuelve la persona despues
+     de enviar, en el mismo idioma que el formulario. Hoy son /gracias/ y
+     /en/thank-you/ para contacto, y /gracias-por-tu-resena/ y
+     /en/thanks-for-your-review/ para resenas. Es lo que le confirma que el
+     envio salio bien: al cargar la pagina nueva, el lector de pantalla lee
+     el titulo y el contenido. Para que el navegador deje pasar esa vuelta,
+     form-action en src/seguridad.js lleva 'self'.
 
    La trampa antispam es el parrafo .hp con la casilla botcheck. Las
    personas no la ven: la clase hp la oculta con display:none
@@ -36,8 +42,8 @@ import { sitio } from "../../sitio.js";
 
 /* Direccion a la que se envia el formulario. Si algun dia cambia, hay que
    cambiar tambien form-action en src/seguridad.js: la politica de seguridad
-   solo deja enviar formularios a https://api.web3forms.com, y el navegador
-   bloquearia el envio a cualquier otro lado. */
+   solo deja enviar formularios a https://api.web3forms.com y al propio
+   sitio, y el navegador bloquearia el envio a cualquier otro lado. */
 const destino = "https://api.web3forms.com/submit";
 
 /* Clave de acceso de Web3Forms. Va a la vista en el HTML a proposito: esta
@@ -50,19 +56,27 @@ const destino = "https://api.web3forms.com/submit";
    una consultora de accesibilidad. */
 const claveDeAcceso = "9338efc0-195f-47b9-872f-4aca4a58b051";
 
-export function FormularioWeb3Forms({ idioma, asunto, children }) {
+export function FormularioWeb3Forms({ idioma, asunto, confirmacion, children }) {
   if (idioma !== "es" && idioma !== "en") {
     throw new Error(`FormularioWeb3Forms: idioma tiene que ser "es" o "en", no "${idioma}"`);
   }
   if (!asunto) {
     throw new Error("FormularioWeb3Forms: falta asunto, el asunto del correo que llega al buzon");
   }
+  if (!/^\/([a-z0-9-]+\/)+$/.test(confirmacion ?? "")) {
+    throw new Error(`FormularioWeb3Forms: confirmacion tiene que ser una ruta del sitio como "/gracias/", no "${confirmacion}"`);
+  }
+  if ((idioma === "en") !== confirmacion.startsWith("/en/")) {
+    throw new Error(`FormularioWeb3Forms: la pagina de confirmacion "${confirmacion}" no es del idioma del formulario (${idioma})`);
+  }
   const en = idioma === "en";
   // El nombre de remitente con que aparece el correo en el buzon.
   const remitente = en ? "tuaccesible.com form" : "Formulario de tuaccesible.com";
   // Va con el dominio completo porque quien lleva a la persona a esta pagina
   // es Web3Forms, desde su propio servidor, despues de recibir el envio.
-  const paginaDeConfirmacion = `${sitio.url}${en ? "/en/thank-you/" : "/gracias/"}`;
+  // Web3Forms, en el plan gratuito, solo devuelve a paginas del mismo
+  // dominio que el formulario.
+  const paginaDeConfirmacion = `${sitio.url}${confirmacion}`;
   return (
     <form className="formulario" action={destino} method="POST">
       <input type="hidden" name="access_key" value={claveDeAcceso} />

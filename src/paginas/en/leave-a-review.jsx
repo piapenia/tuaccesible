@@ -15,7 +15,7 @@ export default function LeaveAReview() {
     <>
       <h1>Leave a review</h1>
       <p className="lede">If we've worked together, a few lines from you do more for the next client than anything we can say about ourselves. We read every review and check it before we publish it, and nothing goes up without your permission.</p>
-      <FormularioWeb3Forms idioma="en" asunto="New review from tuaccesible.com">
+      <FormularioWeb3Forms idioma="en" asunto="New review from tuaccesible.com" confirmacion="/en/thanks-for-your-review/">
         <Campo etiqueta="The name or initials you want shown (required)">
           <input type="text" id="display-name" name="display_name" required />
         </Campo>
