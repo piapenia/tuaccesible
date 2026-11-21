@@ -16,7 +16,7 @@ export default function WebAccessibilityCertificate() {
       <Seccion numero="01" titulo="What the law asks for is not called a certificate">
         <div className="prose">
           <p>Neither European nor US accessibility law sets up a body that certifies websites, or an official seal you have to display. What they require is that your product conforms, and that you can show it. In Europe, that document has a name of its own: the <strong>accessibility statement</strong>. It says how far your site conforms, which standard it was evaluated against, what doesn't conform yet and why, and how someone can complain if they hit a barrier. In the United States, what procurement asks for is an <strong>ACR</strong>. Neither one is a certificate.</p>
-          <p>If you want to know which framework covers you and since when, we explain it in <a href="/en/regulations/">which accessibility law applies to you</a>.</p>
+          <p>If you want to know which framework covers you and since when, we explain it in <a href="/en/legal-requirements/">which accessibility law applies to you</a>.</p>
         </div>
       </Seccion>
       <Seccion numero="02" titulo="So are the certificates being sold worthless?">
@@ -60,7 +60,7 @@ export default function WebAccessibilityCertificate() {
       </Seccion>
       <Banda titulo="Before you hire anyone">
         <p>Tell us what you need audited and on what timeline. We'll tell you which document your case actually needs, even if you don't end up hiring anyone.</p>
-        <p><a href="/en/contact/">Email us</a> or see the <a href="/en/services/">full service details</a>.</p>
+        <p><a href="/en/contact-us/">Email us</a> or see the <a href="/en/services/">full service details</a>.</p>
       </Banda>
     </>
   );

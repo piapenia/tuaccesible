@@ -3,20 +3,20 @@ import { Banda } from "../componentes/Banda.jsx";
 
 export const pagina = {
   idioma: "es",
-  titulo: "Quién audita tu sitio",
+  titulo: "Nuestros auditores",
   descripcion: "María Pía Peña Foissac, auditora de accesibilidad. Usa un lector de pantalla desde hace más de trece años. Certificaciones, herramientas y trayectoria.",
-  rutaAlternativa: "/en/team/",
+  rutaAlternativa: "/en/our-auditors/",
 };
 
 export default function Equipo() {
   return (
     <>
-      <h1>Quién audita tu sitio</h1>
-      <p className="lede">Soy María Pía Peña Foissac y hago las auditorías de tuaccesible.</p>
+      <h1>Nuestros auditores</h1>
+      <p className="lede">María Pía Peña Foissac, auditora jefe.</p>
       <div className="perfil">
         <img className="portrait" src="/img/maria-pia.jpg" width="1458" height="1534" alt="" />
         <div className="prose perfil__texto">
-          <p>Uso un lector de pantalla desde hace más de trece años. No es una herramienta que abro para trabajar: es mi forma principal de acceder a todo lo digital, todos los días, dentro y fuera de esta consultora. Cuando pruebo tu producto con NVDA, lo estoy usando como lo uso todo lo demás.</p>
+          <p>Soy ciega total, uso un lector de pantalla desde hace más de trece años. No es una herramienta que abro para trabajar: es mi forma principal de acceder a todo lo digital, todos los días, dentro y fuera de esta consultora. Cuando pruebo tu producto con NVDA, lo estoy usando como uso todo lo demás.</p>
           <p>Trabajo con NVDA, JAWS, el Narrador de Windows y TalkBack en Android, y con navegación exclusivamente por teclado. Esa es la parte del trabajo donde aparecen las barreras que ninguna herramienta automática marca.</p>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default function Equipo() {
       </Seccion>
       <Banda titulo="Hablemos">
         <p>Si tienes un producto que auditar, cuéntame en qué situación está y con qué plazo. Te digo por dónde empezar.</p>
-        <p><a href="/contacto/">Escribir a tuaccesible</a></p>
+        <p><a href="/contactanos/">Escribir a tuaccesible</a></p>
       </Banda>
     </>
   );

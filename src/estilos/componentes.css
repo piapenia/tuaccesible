@@ -120,7 +120,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.75rem 2rem;
+  gap: 0.75rem 1.5rem;
   padding-block: 1rem;
 }
 
@@ -155,11 +155,15 @@
 .logo-symbol .logo-letter { stroke: var(--brand); }
 .logo-symbol .logo-rule { fill: var(--accent); }
 
+/* Los espacios de la cabecera y del menu estan medidos para que marca, menu
+   e idioma entren en una sola fila en escritorio (1152 px utiles) con los
+   nombres actuales del menu. Si se alargan, el boton de idioma baja a una
+   segunda fila: no se rompe nada, pero queda suelto debajo de la marca. */
 .main-nav ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0 1.5rem;
+  gap: 0 1rem;
   margin: 0;
   padding: 0;
 }
@@ -481,7 +485,7 @@
 }
 
 
-/* ---- Perfil con foto: src/paginas/equipo.jsx y en/team.jsx -------------- */
+/* ---- Perfil con foto: src/paginas/nuestros-auditores.jsx y en/our-auditors.jsx */
 
 /* En el celular, la foto arriba y el texto debajo. Desde 64rem, la foto en
    las primeras cuatro columnas y el texto en las otras ocho, alineado con
@@ -524,7 +528,7 @@
 }
 
 
-/* ---- Contacto: src/paginas/contacto.jsx y en/contact.jsx ---------------- */
+/* ---- Contacto: src/paginas/contactanos.jsx y en/contact-us.jsx ---------- */
 
 /* Desde 64rem, el titulo y la presentacion a la izquierda y el formulario a
    la derecha. El orden de lectura y el visual son el mismo. */
@@ -736,6 +740,10 @@
   border-left: 4px solid var(--accent);
   border-radius: 8px;
 }
+/* El titulo "Proteccion de datos" del formulario de contacto: es un h2
+   para que NVDA lo encuentre con la H, pero al tamano del texto del
+   recuadro, que es una nota y no una seccion de la pagina. */
+.form-legal h2 { font-size: var(--step-0); margin: 0 0 0.5rem; }
 .form-legal p { margin: 0 0 0.5rem; }
 .form-legal p:last-child { margin-bottom: 0; }
 

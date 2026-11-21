@@ -16,7 +16,7 @@ export default function CertificadoAccesibilidadWeb() {
       <Seccion numero="01" titulo="Lo que la ley te pide no se llama certificado">
         <div className="prose">
           <p>La normativa europea de accesibilidad no crea ningún organismo que certifique sitios web, ni un sello oficial que haya que exhibir. Lo que exige es dos cosas: que tu producto cumpla, y que lo declares. El documento con nombre propio es la <strong>declaración de accesibilidad</strong>, no un certificado.</p>
-          <p>Esa declaración dice en qué grado cumple tu sitio, con qué norma se evaluó, qué partes no cumplen todavía y por qué, y cómo puede alguien reclamar si se encuentra una barrera. Si quieres saber qué marco te aplica a ti y desde cuándo, lo explicamos en <a href="/normativa/">qué ley de accesibilidad te obliga</a>.</p>
+          <p>Esa declaración dice en qué grado cumple tu sitio, con qué norma se evaluó, qué partes no cumplen todavía y por qué, y cómo puede alguien reclamar si se encuentra una barrera. Si quieres saber qué marco te aplica a ti y desde cuándo, lo explicamos en <a href="/normativa-legal/">qué ley de accesibilidad te obliga</a>.</p>
         </div>
       </Seccion>
       <Seccion numero="02" titulo="Entonces, ¿los certificados que se venden no valen?">
@@ -54,7 +54,7 @@ export default function CertificadoAccesibilidadWeb() {
       </Seccion>
       <Banda titulo="Empezar no cuesta nada">
         <p>Cuéntanos qué producto tienes que auditar y en qué plazo. Te decimos qué documento necesitas de verdad para tu caso, aunque no termines contratando nada.</p>
-        <p><a href="/contacto/">Escribir a tuaccesible</a> o ver el <a href="/servicios/">detalle de servicios</a>.</p>
+        <p><a href="/contactanos/">Escribir a tuaccesible</a> o ver el <a href="/servicios/">detalle de servicios</a>.</p>
       </Banda>
     </>
   );

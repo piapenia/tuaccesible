@@ -113,8 +113,16 @@ async function atender(req, res) {
     return responder(res, 200, "text/html; charset=utf-8", html);
   }
 
-  // Igual que GitHub Pages: /servicios lleva a /servicios/.
-  if (!pathname.endsWith("/") && r.buscarPagina(`${ruta}/`)) {
+  // Una direccion vieja (src/redirecciones.js): la misma pagina minima que
+  // escribe la compilacion, que lleva a la nueva.
+  const vieja = r.buscarRedireccion(ruta);
+  if (vieja) {
+    return responder(res, 200, "text/html; charset=utf-8", r.renderizarRedireccion(vieja).html);
+  }
+
+  // Igual que GitHub Pages: /servicios lleva a /servicios/, y /contacto a
+  // /contacto/, que a su vez lleva a /contactanos/.
+  if (!pathname.endsWith("/") && (r.buscarPagina(`${ruta}/`) || r.buscarRedireccion(`${ruta}/`))) {
     return responder(res, 301, "text/plain; charset=utf-8", "", { Location: `${pathname}/` });
   }
 

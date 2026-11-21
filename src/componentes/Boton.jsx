@@ -8,7 +8,7 @@ import { Icono } from "./Icono.jsx";
    un <button> de verdad, para enviar un formulario o para lo que haga un
    script.
 
-     <Boton href="/contacto/">Escribir a tuaccesible</Boton>
+     <Boton href="/contactanos/">Escribir a tuaccesible</Boton>
      <Boton href="/servicios/" variante="secundario">Ver servicios</Boton>
      <Boton tipo="submit">Enviar</Boton>
 

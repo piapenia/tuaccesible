@@ -15,11 +15,11 @@ export default function PaginaNoEncontrada() {
     <>
       <h1>No encontramos esta página</h1>
       <p className="lede">El enlace puede estar roto o la página puede haberse movido.</p>
-      <p><a href="/">Volver al inicio</a> o ir directo a <a href="/servicios/">Servicios</a> o <a href="/contacto/">Contacto</a>.</p>
+      <p><a href="/">Volver al inicio</a> o ir directo a <a href="/servicios/">Servicios</a> o <a href="/contactanos/">Contáctanos</a>.</p>
       <div className="prose" lang="en">
         <h2>Page not found</h2>
         <p>The link may be broken, or the page may have moved.</p>
-        <p><a href="/en/">Go to the English home page</a>, or straight to <a href="/en/services/">Services</a> or <a href="/en/contact/">Contact</a>.</p>
+        <p><a href="/en/">Go to the English home page</a>, or straight to <a href="/en/services/">Services</a> or <a href="/en/contact-us/">Contact us</a>.</p>
       </div>
     </>
   );

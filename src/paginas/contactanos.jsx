@@ -5,9 +5,9 @@ import { Campo } from "../componentes/Campo.jsx";
 
 export const pagina = {
   idioma: "es",
-  titulo: "Contacto",
+  titulo: "Contáctanos",
   descripcion: "Escríbenos por correo o completa el formulario.",
-  rutaAlternativa: "/en/contact/",
+  rutaAlternativa: "/en/contact-us/",
 };
 
 export default function Contacto() {
@@ -15,8 +15,7 @@ export default function Contacto() {
     <>
       <div className="contacto">
         <div className="contacto__intro">
-          <h1>Contacto</h1>
-          <p className="lede">Como prefieras: un correo directo o el formulario de esta página.</p>
+          <h1>Contáctanos</h1>
           <p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
         </div>
         <FormularioWeb3Forms idioma="es" asunto="Nueva consulta desde tuaccesible.com">
@@ -28,7 +27,7 @@ export default function Contacto() {
           </Campo>
           <Campo etiqueta="Servicio de interés">
             <select id="service" name="service">
-              <option value="Todavía no lo sé">Todavía no lo sé, ayúdame a elegir</option>
+              <option value="No lo sé">No lo sé, ayúdame a elegir</option>
               <option value="Auditoría exprés">Auditoría exprés</option>
               <option value="Auditoría de sitio">Auditoría de sitio</option>
               <option value="Servicio integral">Servicio integral</option>
@@ -40,7 +39,8 @@ export default function Contacto() {
             <textarea id="message" name="message" rows={6} required></textarea>
           </Campo>
           <ProteccionDeDatos>
-            <p>Protección de datos, en corto: tuaccesible usa tu nombre, tu correo y tu mensaje solo para responderte, y los conserva mientras dure la conversación.</p>
+            <h2>Protección de datos</h2>
+            <p>tuaccesible utiliza tu nombre, tu correo y tu mensaje solo para responderte, y los conserva únicamente mientras dure la conversación.</p>
             <p>El formulario lo procesa Web3Forms, un proveedor con servidores en Estados Unidos, y el mensaje llega a nuestro buzón. Puedes pedir acceso, rectificación o supresión escribiendo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. El detalle completo está en la <a href="/privacidad/">política de privacidad</a>.</p>
           </ProteccionDeDatos>
           <Boton tipo="submit">Enviar</Boton>

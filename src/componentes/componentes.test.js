@@ -49,8 +49,8 @@ test("Icono: oculto al lector de pantalla y del color del texto", () => {
 });
 
 test("Boton: enlace con href, boton sin href", () => {
-  const enlace = dibujar(h(m.Boton, { href: "/contacto/" }, "Escribir"));
-  assert.equal(enlace, '<a href="/contacto/" class="boton boton--primario">Escribir</a>');
+  const enlace = dibujar(h(m.Boton, { href: "/contactanos/" }, "Escribir"));
+  assert.equal(enlace, '<a href="/contactanos/" class="boton boton--primario">Escribir</a>');
 
   const boton = dibujar(h(m.Boton, { variante: "secundario", chico: true, id: "x" }, "Cambiar"));
   assert.equal(boton, '<button type="button" class="boton boton--secundario boton--chico" id="x">Cambiar</button>');
@@ -140,8 +140,8 @@ test("Seccion: section sin nombre, h2 y numero oculto al lector", () => {
 });
 
 test("Banda: un div comun, sin rol ni nombre", () => {
-  const html = dibujar(h(m.Banda, null, h("p", null, h("a", { href: "/contacto/" }, "Escribir"), " o leer.")));
-  assert.equal(html, '<div class="banda"><p><a href="/contacto/">Escribir</a> o leer.</p></div>');
+  const html = dibujar(h(m.Banda, null, h("p", null, h("a", { href: "/contactanos/" }, "Escribir"), " o leer.")));
+  assert.equal(html, '<div class="banda"><p><a href="/contactanos/">Escribir</a> o leer.</p></div>');
 });
 
 test("Banda: con titulo, el titulo va como h2 al principio", () => {

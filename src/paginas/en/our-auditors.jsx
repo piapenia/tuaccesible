@@ -5,12 +5,12 @@ import { Banda } from "../../componentes/Banda.jsx";
 
 export const pagina = {
   idioma: "en",
-  titulo: "Who audits your site",
-  descripcion: "María Pía Peña Foissac audits at tuaccesible: 13 years using a screen reader every day, IAAP certified. Tools, track record and certifications.",
-  rutaAlternativa: "/equipo/",
+  titulo: "Our auditors",
+  descripcion: "María Pía Peña Foissac, lead accessibility auditor. More than thirteen years using a screen reader. Certifications, tools and track record.",
+  rutaAlternativa: "/nuestros-auditores/",
 };
 
-export default function Team({ ruta }) {
+export default function OurAuditors({ ruta }) {
   /* Datos estructurados (schema.org) de la persona que audita, para los
      buscadores. sameAs lleva el unico perfil externo verificable que existe
      hoy; si algun dia hay LinkedIn propio, va en esta misma lista.
@@ -21,26 +21,26 @@ export default function Team({ ruta }) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "María Pía Peña Foissac",
-    jobTitle: "Accessibility auditor",
+    jobTitle: "Lead accessibility auditor",
     worksFor: { "@type": "Organization", name: "tuaccesible" },
     url: `${sitio.url}${ruta}`,
     sameAs: ["https://www.credly.com/badges/b1386a4d-61cc-4c64-a4c4-a399475a6e42"],
   };
   return (
     <>
-      <h1>Who audits your site</h1>
-      <p className="lede">I'm María Pía Peña Foissac, and I do the audits at tuaccesible.</p>
+      <h1>Our auditors</h1>
+      <p className="lede">María Pía Peña Foissac, lead auditor.</p>
       <div className="perfil">
         <img className="portrait" src="/img/maria-pia.jpg" width="1458" height="1534" alt="" />
         <div className="prose perfil__texto">
-          <p>I've used a screen reader for 13 years. It isn't a tool I open to work: it's how I use a computer. All of it, every day, at work and away from it. When I test your product with NVDA, I'm using it the same way I use everything else, at the same speed.</p>
-          <p>I work with NVDA, JAWS, Windows Narrator, and TalkBack on Android, and with keyboard-only navigation. That's the part of the job where the barriers no automated tool flags actually show up.</p>
+          <p>I'm totally blind, and I've used a screen reader for more than thirteen years. It isn't a tool I open to work: it's my main way of accessing everything digital, every day, inside and outside this consultancy. When I test your product with NVDA, I'm using it the way I use everything else.</p>
+          <p>I work with NVDA, JAWS, Windows Narrator and TalkBack on Android, and with keyboard-only navigation. That's the part of the job where the barriers no automated tool flags show up.</p>
         </div>
       </div>
       <Seccion numero="01" titulo="What I audit, and since when">
         <div className="prose">
-          <p>I've audited accessibility professionally since 2021, across websites, mobile apps, documents, and desktop software, against WCAG 2.2, EN 301 549, and the European Accessibility Act.</p>
-          <p>I came to accessibility from software QA, and that's the part that shows in the deliverable. A finding doesn't reach your team as an observation. It reaches them with the WCAG criterion it fails and its level, the environment it was found in, the steps to reproduce it, and an acceptance criterion your team can close the ticket against. I also write accessibility statements and cognitive accessibility recommendations.</p>
+          <p>I've audited accessibility professionally since 2021: more than four years evaluating websites, mobile apps, documents and desktop software against WCAG 2.2, EN 301 549 and the European Accessibility Act.</p>
+          <p>I write accessibility review reports with findings prioritized by severity, accessibility statements, and cognitive accessibility recommendations. My background is in software quality assurance. That's why a finding reaches your team with steps to reproduce it and an acceptance criterion, not as a loose observation.</p>
         </div>
       </Seccion>
       <Seccion numero="02" titulo="I also teach">
@@ -65,8 +65,8 @@ export default function Team({ ruta }) {
         </div>
       </Seccion>
       <Banda titulo="Let's talk">
-        <p>If you have a product to audit, tell me where it stands and on what timeline. I'll tell you where to start.</p>
-        <p><a href="/en/contact/">Email me</a>, or write straight to <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
+        <p>If you have a product to audit, tell me where it stands and what timeline you have. I'll tell you where to start.</p>
+        <p><a href="/en/contact-us/">Write to tuaccesible</a></p>
       </Banda>
     </>
   );

@@ -12,7 +12,7 @@
 
    El valor va arriba, en la letra de los titulos, y la explicacion abajo.
    No es un titulo (no lleva <hN>): son datos, no secciones. Solo datos que
-   se puedan verificar en /equipo/; nada de logos ni de sellos. */
+   se puedan verificar en /nuestros-auditores/; nada de logos ni de sellos. */
 export function Credenciales({ children }) {
   return (
     <ul className="credenciales" role="list">

@@ -35,7 +35,7 @@ export default function Analizar() {
       ) : (
         <Aviso>
           <strong>Este servicio está en preparación.</strong> Todavía no se puede usar desde esta página. Mientras tanto, puedes pedir una
-          revisión de tu sitio desde la <a href="/contacto/">página de contacto</a>.
+          revisión de tu sitio desde la <a href="/contactanos/">página de contacto</a>.
         </Aviso>
       )}
 

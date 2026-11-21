@@ -27,7 +27,7 @@ export default function Analyze() {
       ) : (
         <Aviso>
           <strong>This service is in preparation.</strong> It can't be used from this page yet. In the meantime, you can ask us to review your
-          site from the <a href="/en/contact/">contact page</a>.
+          site from the <a href="/en/contact-us/">contact page</a>.
         </Aviso>
       )}
 

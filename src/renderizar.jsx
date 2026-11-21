@@ -11,7 +11,11 @@
      src/paginas/en/services.jsx     ->  /en/services/
      src/paginas/404.jsx             ->  /404.html
    Para crear una pagina nueva alcanza con crear el archivo: aparece sola en
-   el sitio, en el sitemap y en la compilacion. */
+   el sitio, en el sitemap y en la compilacion.
+
+   Si se renombra una pagina, la direccion vieja se suma a
+   src/redirecciones.js: la compilacion escribe ahi una pagina minima que
+   lleva a la nueva (ver renderizarRedireccion mas abajo). */
 
 import { renderToStaticMarkup } from "react-dom/server";
 import { Sitio } from "./componentes/Sitio.jsx";
@@ -19,6 +23,10 @@ import { ContextoIslas } from "./componentes/Isla.jsx";
 import { documentoHtml } from "./documento.js";
 import { origenApi } from "./configuracion.js";
 import { sitio } from "./sitio.js";
+import { redirecciones } from "./redirecciones.js";
+import { escapar } from "./utilidades/escapar.js";
+
+export { redirecciones };
 
 const modulos = import.meta.glob("./paginas/**/*.jsx", { eager: true });
 
@@ -73,6 +81,71 @@ for (const pagina of paginas) {
 
 export function buscarPagina(ruta) {
   return paginas.find((p) => p.ruta === ruta || p.archivo === ruta) ?? null;
+}
+
+/* Cada direccion vieja tiene que llevar a una pagina que exista, y no puede
+   coincidir con una pagina: si alguien vuelve a crear una pagina ahi, la
+   redireccion la taparia en la compilacion. */
+for (const [desde, hacia] of Object.entries(redirecciones)) {
+  for (const ruta of [desde, hacia]) {
+    if (!ruta.startsWith("/") || !ruta.endsWith("/")) {
+      throw new Error(`src/redirecciones.js: "${ruta}" tiene que empezar y terminar con /`);
+    }
+  }
+  if (buscarPagina(desde)) {
+    throw new Error(`src/redirecciones.js: ${desde} ya es una pagina. Quita esa linea o cambia el nombre de la pagina`);
+  }
+  if (!buscarPagina(hacia)) {
+    throw new Error(`src/redirecciones.js: ${desde} lleva a ${hacia}, y esa pagina no existe`);
+  }
+}
+
+/* Devuelve la direccion vieja si la ruta pedida es una de ellas, con o sin
+   index.html al final, igual que buscarPagina. */
+export function buscarRedireccion(ruta) {
+  const desde = ruta.endsWith("/index.html") ? ruta.slice(0, -"index.html".length) : ruta;
+  return Object.hasOwn(redirecciones, desde) ? desde : null;
+}
+
+/* La pagina minima que queda en una direccion vieja. GitHub Pages no deja
+   configurar redirecciones del servidor; lo que mas se le parece es esto:
+     - meta refresh en 0 segundos: el navegador pasa a la pagina nueva sin
+       mostrar esta, y Google lo trata como una redireccion permanente;
+     - el enlace canonico, que les dice a los buscadores cual es la direccion
+       que vale;
+     - un parrafo con el enlace, para el caso raro en que el navegador no
+       siga la redireccion.
+   Con la espera en 0 no hay nada que leer ni que detener, asi que cumple
+   los criterios 2.2.1 y 3.2.5 de WCAG (tecnica G110 del W3C). Por la misma
+   razon queda fuera de las pruebas de pa11y, que marcan cualquier meta
+   refresh. Lleva el idioma de la pagina nueva y no tiene estilos ni
+   scripts: la politica de seguridad no deja cargar nada. No lleva noindex,
+   porque Google recomienda no combinarlo con una redireccion. */
+export function renderizarRedireccion(desde) {
+  const destino = buscarPagina(redirecciones[desde]);
+  const en = destino.idioma === "en";
+  const enlace = `<a href="${escapar(destino.ruta)}">${escapar(destino.titulo)}</a>`;
+  const html = [
+    "<!doctype html>",
+    `<html lang="${escapar(destino.idioma)}">`,
+    "<head>",
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'">`,
+    '<meta name="referrer" content="strict-origin-when-cross-origin">',
+    `<title>${escapar(`${destino.titulo} · tuaccesible.com`)}</title>`,
+    `<link rel="canonical" href="${escapar(sitio.url + destino.ruta)}">`,
+    `<meta http-equiv="refresh" content="0; url=${escapar(destino.ruta)}">`,
+    "</head>",
+    "<body>",
+    en
+      ? `<p>This page has moved to ${enlace}.</p>`
+      : `<p>Esta página cambió de dirección: ahora está en ${enlace}.</p>`,
+    "</body>",
+    "</html>",
+    "",
+  ].join("\n");
+  return { archivo: `${desde}index.html`, html };
 }
 
 /* React 19 agrega por su cuenta un <link rel="preload" as="image"> por cada

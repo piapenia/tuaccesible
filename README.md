@@ -152,21 +152,21 @@ El nombre del archivo es la dirección de la página:
 - `src/paginas/en/services.jsx` es `/en/services/`.
 - `src/paginas/404.jsx` es `/404.html`, la página que GitHub Pages muestra cuando una dirección no existe.
 
-Cada archivo tiene dos partes: los datos de la página y su contenido. Por ejemplo, el principio de `src/paginas/contacto.jsx`:
+Cada archivo tiene dos partes: los datos de la página y su contenido. Por ejemplo, el principio de `src/paginas/contactanos.jsx`:
 
 ```jsx
 export const pagina = {
   idioma: "es",
-  titulo: "Contacto",
+  titulo: "Contáctanos",
   descripcion: "Escríbenos por correo o completa el formulario.",
-  rutaAlternativa: "/en/contact/",
+  rutaAlternativa: "/en/contact-us/",
 };
 
 export default function Contacto() {
   return (
     <>
-      <h1>Contacto</h1>
-      <p className="lede">Como prefieras: un correo directo o el formulario de aquí abajo.</p>
+      <h1>Contáctanos</h1>
+      <p>Escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>.</p>
     </>
   );
 }
@@ -206,10 +206,10 @@ El contenido es JSX, que se parece mucho a HTML. Las diferencias que aparecen en
 
 ### Piezas que ya existen
 
-- `<Boton href="/contacto/">Pedir presupuesto</Boton>`: un enlace con forma de botón. Sin `href` es un `<button>` de verdad, y con `tipo="submit"`, el de enviar un formulario. `variante="secundario"` lo dibuja con borde y sin relleno, `chico` lo achica y `icono={ArrowRight}` le suma un ícono después del texto. La regla para elegir: si lleva a otra página, enlace (`href`); si hace algo en esta, botón.
+- `<Boton href="/contactanos/">Pedir presupuesto</Boton>`: un enlace con forma de botón. Sin `href` es un `<button>` de verdad, y con `tipo="submit"`, el de enviar un formulario. `variante="secundario"` lo dibuja con borde y sin relleno, `chico` lo achica y `icono={ArrowRight}` le suma un ícono después del texto. La regla para elegir: si lleva a otra página, enlace (`href`); si hace algo en esta, botón.
 - `<Tarjetas>` con `<Tarjeta titulo="Auditoría exprés" href="/servicios/#auditoria-expres" icono={Zap}>Un diagnóstico rápido.</Tarjeta>` adentro: una lista de tarjetas. Cada tarjeta tiene un solo enlace, en su título, y toda la tarjeta responde al clic; el lector de pantalla la anuncia como un elemento de lista con un título y un enlace. El título es un `<h3>`; con `nivel={2}` pasa a `<h2>`, para cuando la lista no está debajo de otro título.
 - `<Seccion numero="01" titulo="Cuatro formas de empezar">...</Seccion>`: una sección de página con su `<h2>`. En pantalla ancha el título va a un costado y el contenido al lado, como en un informe impreso; arriba lleva un filete con una barra corta terracota. El número es decorativo y el lector de pantalla no lo lee, así que no puede decir nada que no diga el título. `numero` e `id` son opcionales; `titulo`, no.
-- `<Banda titulo="Empezar no cuesta nada"><p><a href="/contacto/">Escribir a tuaccesible</a> o ...</p></Banda>`: el recuadro petróleo del final de una página, con la invitación a escribir. Una por página, como mucho, y al final. El lector de pantalla lo lee como un párrafo más. `titulo` es opcional: si está, sale como `<h2>` y la banda se alcanza con la tecla H como cualquier otra sección. Una aclaración legal que va después de la banda queda separada sola, sin clase.
+- `<Banda titulo="Empezar no cuesta nada"><p><a href="/contactanos/">Escribir a tuaccesible</a> o ...</p></Banda>`: el recuadro petróleo del final de una página, con la invitación a escribir. Una por página, como mucho, y al final. El lector de pantalla lo lee como un párrafo más. `titulo` es opcional: si está, sale como `<h2>` y la banda se alcanza con la tecla H como cualquier otra sección. Una aclaración legal que va después de la banda queda separada sola, sin clase.
 - `<Credenciales>` con `<Credencial valor="Desde 2021">Auditorías profesionales de sitios, apps, documentos y software</Credencial>` adentro: la franja de datos cortos del pie de la primera franja de la portada. Es una lista; el valor va arriba en la letra de los títulos y la explicación abajo. Solo datos que se puedan comprobar en la página del equipo.
 - `<ol className="pasos">`: pasos numerados, como los de "Cómo empieza" en la portada. Es una lista ordenada común; el número lo pone el navegador (en petróleo y en la letra de los títulos), así que el lector de pantalla lo anuncia sin texto extra. No se escribe "1." a mano.
 - `<Campo etiqueta="Correo (obligatorio)" ayuda="Te respondemos ahí."><input type="email" id="email" ... /></Campo>`: la etiqueta, el texto de ayuda y el mensaje de error de un campo, ya unidos al control con `htmlFor` y `aria-describedby`. El control tiene que llevar `id`. Con `error="..."` marca el campo como inválido, y con `casilla` pone la casilla antes de su texto.

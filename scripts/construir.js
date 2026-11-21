@@ -16,7 +16,9 @@
  *   3. Vite compila la hoja de estilos (src/estilos/sitio.css, con Tailwind)
  *      en dist/assets/, con un hash en el nombre del archivo.
  *   4. Se dibuja cada pagina con React, enlazando esa hoja, y se escribe como
- *      index.html en su carpeta, mas 404.html, sitemap.xml y robots.txt.
+ *      index.html en su carpeta, mas 404.html, sitemap.xml y robots.txt. En
+ *      cada direccion vieja de src/redirecciones.js se escribe la pagina
+ *      minima que lleva a la nueva.
  *   5. Solo si alguna pagina usa una <Isla>, Vite compila el JavaScript del
  *      navegador (src/cliente.jsx) en dist/assets/ y esas paginas se vuelven
  *      a dibujar con su <script>. Si ninguna la usa, no se publica nada de
@@ -113,7 +115,7 @@ try {
   });
   const compilado = fs.readdirSync(temporal).find((f) => /^renderizar\.(m?js)$/.test(f));
   if (!compilado) throw new Error(`Vite no genero renderizar.js en ${temporal}`);
-  const { paginas, renderizarPagina, generarSitemap, generarRobots } = await import(
+  const { paginas, renderizarPagina, generarSitemap, generarRobots, redirecciones, renderizarRedireccion } = await import(
     pathToFileURL(path.join(temporal, compilado)).href
   );
 
@@ -135,6 +137,11 @@ try {
   }
 
   for (const r of resultados) escribir(r.archivo, r.html);
+  const viejas = Object.keys(redirecciones);
+  for (const desde of viejas) {
+    const r = renderizarRedireccion(desde);
+    escribir(r.archivo, r.html);
+  }
   escribir("sitemap.xml", generarSitemap());
   escribir("robots.txt", generarRobots());
 
@@ -142,7 +149,8 @@ try {
   const islas = conIslas > 0 ? `, ${conIslas} con islas de React` : ", ninguna con JavaScript propio";
   const donde = path.relative(raiz, salida);
   const carpeta = !donde || donde.startsWith("..") ? salida : `${donde}/`;
-  console.log(`Listo: ${resultados.length} paginas en ${carpeta}${islas} (${segundos} s).`);
+  const extra = viejas.length > 0 ? ` y ${viejas.length} redirecciones desde direcciones viejas` : "";
+  console.log(`Listo: ${resultados.length} paginas${extra} en ${carpeta}${islas} (${segundos} s).`);
   if (avisoDelBackend) console.log(`\n${avisoDelBackend}\n`);
 } catch (error) {
   // Los errores que escribimos nosotros (una pagina sin titulo, dos paginas

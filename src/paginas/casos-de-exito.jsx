@@ -6,14 +6,15 @@ export const pagina = {
   idioma: "es",
   titulo: "Casos y prueba de trabajo",
   descripcion: "Qué auditamos, qué entregamos y cómo puedes comprobarlo tú. Sin nombres de clientes, porque no publicamos ninguno sin autorización expresa.",
-  rutaAlternativa: "/en/testimonials/",
+  rutaAlternativa: "/en/success-stories/",
 };
 
 export default function Testimonios() {
   return (
     <>
       <h1>Casos y prueba de trabajo</h1>
-      <p className="lede">No publicamos el nombre de ningún cliente sin su autorización expresa, y hoy no la tenemos. Así que en lugar de nombres, aquí está el trabajo.</p>
+      <p className="lede">No publicamos el nombre de ningún cliente sin su autorización expresa.</p>
+      <p>En caso de no contar con ella, nos limitamos a contar nuestro trabajo.</p>
       <Seccion numero="01" titulo="Un trabajo reciente">
         <div className="prose">
           <p>Auditoría integral de un producto web y de su extensión de navegador, en entornos web y Windows 11. Evaluación manual con NVDA y navegación por teclado contra WCAG 2.2 nivel AA, EN 301 549 y la Ley Europea de Accesibilidad. La hicieron dos personas del equipo.</p>
@@ -36,16 +37,15 @@ export default function Testimonios() {
       </Seccion>
       <Seccion numero="03" titulo="Este sitio también se puede auditar">
         <div className="prose">
-          <p>Es la prueba más fácil de comprobar y no depende de que nos creas: recorre esta web con el teclado, con un lector de pantalla o con el zoom al 400 % y mira si aguanta. Nuestra <a href="/declaracion-accesibilidad/">declaración de accesibilidad</a> dice qué cumplimos, cómo lo probamos y qué no declaramos.</p>
+          <p>Es la prueba más fácil de comprobar y no depende de que nos creas: recorre esta web con el teclado, con un lector de pantalla o con el zoom al 400 % y comprueba por cuenta propia. Nuestra <a href="/declaracion-accesibilidad/">declaración de accesibilidad</a> informa qué cumplimos, cómo lo probamos y qué no declaramos.</p>
         </div>
       </Seccion>
       <Seccion numero="04" titulo="Reseñas de clientes">
-        <Aviso><strong>Todavía no hay reseñas publicadas.</strong> Las reseñas se revisan antes de publicarse y solo aparecen con autorización de quien las escribe, así que esta sección va a empezar a llenarse a medida que terminemos los primeros proyectos bajo esta marca.</Aviso>
+        <Aviso><strong>Aún no hay reseñas publicadas.</strong> Las reseñas se revisan antes de publicarse y solo aparecen con autorización de quien las escribe.</Aviso>
         <p>¿Ya has trabajado con tuaccesible? <a href="/dejar-una-resena/">Déjanos tu reseña</a>.</p>
       </Seccion>
-      <Banda titulo="Antes de contratar nada">
-        <p>Cuéntanos qué producto tienes que auditar y en qué plazo. Te decimos por dónde conviene empezar, aunque no termines contratando nada.</p>
-        <p><a href="/contacto/">Escribir a tuaccesible</a> o ver el <a href="/servicios/">detalle de servicios</a>.</p>
+      <Banda>
+        <p><a href="/contactanos/">Escribir a tuaccesible</a> o ver el <a href="/servicios/">detalle de servicios</a>.</p>
       </Banda>
     </>
   );
