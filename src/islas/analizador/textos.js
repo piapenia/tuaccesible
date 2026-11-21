@@ -10,7 +10,7 @@
 const es = {
   respaldo: "El servicio se está cargando. Necesita JavaScript: si este texto no cambia en unos segundos, escríbenos desde la",
   respaldoEnlace: "página de contacto",
-  contacto: "/contacto/",
+  contacto: "/contactanos/",
 
   pasos: {
     etiqueta: "Pasos del análisis",
@@ -125,7 +125,7 @@ const es = {
 const en = {
   respaldo: "The service is loading. It needs JavaScript: if this text doesn't change in a few seconds, write to us from the",
   respaldoEnlace: "contact page",
-  contacto: "/en/contact/",
+  contacto: "/en/contact-us/",
 
   pasos: {
     etiqueta: "Analysis steps",
