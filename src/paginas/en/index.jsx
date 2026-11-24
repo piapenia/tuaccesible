@@ -7,7 +7,7 @@ import { Tarjeta, Tarjetas } from "../../componentes/Tarjetas.jsx";
 
 export const pagina = {
   idioma: "en",
-  titulo: "Home",
+  titulo: "Digital accessibility consulting",
   descripcion: "Digital accessibility consulting. WCAG 2.2, EN 301 549, EAA and ADA audits, team training and support through remediation. Manual review with a screen reader.",
   rutaAlternativa: "/",
 };

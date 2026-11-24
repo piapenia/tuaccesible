@@ -62,6 +62,10 @@ export function documentoHtml({ pagina, cuerpoHtml, desarrollo, origenApi, hojaD
     '  <meta name="viewport" content="width=device-width, initial-scale=1">',
     `  <meta http-equiv="Content-Security-Policy" content="${escapar(politicaDeSeguridad({ desarrollo, origenApi }))}">`,
     '  <meta name="referrer" content="strict-origin-when-cross-origin">',
+    /* Verificacion de la propiedad https://tuaccesible.com/ en Google Search
+       Console (metodo de etiqueta HTML). No es secreta: Google la lee en la
+       portada publicada. Si se borra, la propiedad deja de estar verificada. */
+    '  <meta name="google-site-verification" content="ff5Bxg-ihaUUazRBkHnqCKqCVeApA-Brnkz7xcKq8UI">',
     "",
     `  <title>${escapar(tituloCompleto)}</title>`,
     `  <meta name="description" content="${escapar(descripcion)}">`,
