@@ -9,8 +9,8 @@
    Va en la capa "components" (ver sitio.css): le gana a global.css, que esta
    en "base", sin pelear por especificidad, y pierde contra una clase de
    Tailwind escrita en la pagina. Los colores salen siempre de las variables
-   de global.css; el unico hex suelto es el texto oscuro de los botones en
-   modo oscuro, el mismo que revisa tools/verificar-contraste.js.
+   de global.css, sin hex sueltos: asi tools/verificar-contraste.js, que lee
+   esas variables, revisa todo lo que se pinta.
 
    Movimiento: solo con CSS y solo dentro de
    @media (prefers-reduced-motion: no-preference). Quien pidio menos
@@ -56,15 +56,12 @@
 }
 
 .boton--primario {
-  color: var(--bg);
+  color: var(--sobre-marca);
   background: var(--brand-strong);
 }
 .boton--primario:hover {
   background: var(--brand);
   border-color: var(--brand);
-}
-@media (prefers-color-scheme: dark) {
-  .boton--primario { color: #0B0F11; }
 }
 
 .boton--secundario {
@@ -115,8 +112,38 @@
   border-top: 4px solid var(--brand);
   border-bottom: 1px solid var(--border);
 }
-/* Solo la fila de la cabecera, no la del aviso de idioma. */
-.site-header > .wrap {
+
+/* Franja de atajos: siempre visible, arriba de todo. Los dos atajos a la
+   izquierda y los ajustes (idioma) a la derecha. Cada enlace mide 44 px de
+   alto. Con la letra grande o en un telefono, los ajustes bajan a su propia
+   linea y se alinean a la izquierda, sin cambiar de orden. */
+.atajos {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.atajos__fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.5rem;
+  padding-block: 0.25rem;
+  font-size: var(--step--1);
+}
+.atajos__fila > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+.atajos__ajustes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-inline-start: auto;
+  padding-block: 0.25rem;
+}
+
+/* La fila de la marca y el menu. */
+.site-header__fila {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -155,10 +182,10 @@
 .logo-symbol .logo-letter { stroke: var(--brand); }
 .logo-symbol .logo-rule { fill: var(--accent); }
 
-/* Los espacios de la cabecera y del menu estan medidos para que marca, menu
-   e idioma entren en una sola fila en escritorio (1152 px utiles) con los
-   nombres actuales del menu. Si se alargan, el boton de idioma baja a una
-   segunda fila: no se rompe nada, pero queda suelto debajo de la marca. */
+/* Marca y menu entran en una sola fila en escritorio (1152 px utiles) con
+   los nombres actuales del menu. Si se alargan o se agranda la letra, el
+   menu baja a su propia fila: no se rompe nada. Cada enlace mide 44 px de
+   alto y de ancho como minimo, tambien el mas corto ("Home"). */
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -171,6 +198,7 @@
   display: flex;
   align-items: center;
   min-height: 2.75rem;
+  min-width: 2.75rem;
   color: var(--text);
   text-decoration: none;
 }
@@ -213,7 +241,9 @@
 .lang-switch .icono { font-size: 1.25em; }
 
 /* Pantalla chica: el menu ocupa su propia fila y se acomoda en una grilla
-   de casillas, todas de 44 px de alto como minimo. Sin hamburguesa. */
+   de casillas, todas de 44 px de alto como minimo. Sin hamburguesa. El
+   borde de cada casilla va en el color de los bordes de campo (3:1 o mas):
+   es lo que muestra donde termina la zona que se puede tocar. */
 @media (max-width: 47.99rem) {
   .main-nav { flex-basis: 100%; }
   .main-nav ul {
@@ -224,7 +254,7 @@
   .main-nav a {
     padding: 0.5rem 0.75rem;
     line-height: 1.25;
-    border: 1px solid var(--border);
+    border: 1px solid var(--text-muted);
     border-radius: 6px;
   }
   .main-nav a[aria-current="page"] { border-color: var(--brand); }
@@ -233,8 +263,10 @@
 
 /* ---- PieDePagina.jsx --------------------------------------------------- */
 
+/* Abajo lleva mas aire que arriba: es el lugar que ocupa "Volver arriba"
+   cuando la pagina llega al final, para que no tape el ultimo enlace. */
 .site-footer {
-  padding: 2.5rem 0;
+  padding: 2.5rem 0 5.25rem;
   color: var(--text-muted);
   font-size: var(--step--1);
   background: var(--surface);
@@ -253,14 +285,17 @@
 }
 .site-footer a { color: var(--text-muted); }
 .site-footer a:hover { color: var(--brand); }
-/* El sobre y la direccion no se separan: sin esto, el icono quedaba al final
-   de una linea y el correo empezaba la siguiente. La direccion, en cambio,
-   si se puede cortar, pero solo cuando no entra entera en una linea: con la
-   letra al 200 % en un telefono de 320 px empujaba la pagina 73 px hacia el
-   costado. */
-.site-footer__correo { white-space: nowrap; }
-.site-footer__direccion { white-space: normal; }
-.site-footer__correo .icono { margin-inline-end: 0.35em; }
+/* El correo es un bloque de 44 px de alto, como los enlaces legales. El
+   sobre y la direccion no se separan: el enlace entero baja a la linea
+   siguiente si no entra. La direccion si se puede cortar, pero solo cuando
+   no entra entera en una linea: con la letra al 200 % en un telefono de
+   320 px empujaba la pagina 73 px hacia el costado. */
+.site-footer__correo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  min-height: 2.75rem;
+}
 
 /* Enlaces legales. Objetivo tactil de 44 px y sin caracter separador entre
    ellos: se separan con hueco real. */
@@ -273,6 +308,60 @@
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
+}
+
+/* "Volver arriba": fijo abajo a la derecha, siempre a la vista, para quien
+   no puede desplazarse con la rueda ni con el teclado y tiene que bajar
+   la pagina de a pantallas.
+
+   Que no tape el foco (WCAG 2.4.11 y 2.4.12): el scroll-padding-block de
+   global.css reserva 5.25rem abajo, asi que todo lo que recibe el foco se
+   desplaza por encima del boton (tecnica C43 de WCAG). El pie lleva el
+   mismo aire abajo, para que el final de la pagina tambien pueda subir por
+   encima. Con poca altura (zoom grande, telefono acostado) un boton fijo
+   se comeria la pantalla: ahi deja de flotar y queda al final del pie.
+
+   El borde es del color del texto del boton: cuando pasa por encima de la
+   banda petroleo, que en modo claro es del mismo color que el boton, el
+   borde claro lo despega. Va con dos clases para ganarle a
+   ".site-footer a". */
+.site-footer .volver-arriba {
+  position: fixed;
+  inset-block-end: 1rem;
+  inset-inline-end: 1rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-block-size: 2.75rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--sobre-marca);
+  background: var(--brand-strong);
+  border: 2px solid var(--sobre-marca);
+  border-radius: 6px;
+  text-decoration: none;
+}
+.site-footer .volver-arriba:hover {
+  color: var(--sobre-marca);
+  background: var(--brand);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+.volver-arriba .icono { font-size: 1.25em; }
+
+@media (max-height: 30rem) {
+  html { scroll-padding-block: 1.5rem; }
+  .site-footer { padding-block-end: 2.5rem; }
+  .site-footer .volver-arriba { position: static; }
+}
+
+/* En papel no sirven ni los atajos ni el boton. */
+@media print {
+  .atajos,
+  .volver-arriba { display: none; }
 }
 
 
@@ -357,10 +446,11 @@
 .tarjeta:hover { border-color: var(--brand); }
 .tarjeta:hover .tarjeta__titulo a { text-decoration-thickness: 3px; }
 
+/* La tarjeta no se mueve al pasar el puntero: con un puntero de cabeza o
+   un temblor, un objetivo que se desplaza bajo el cursor es mas dificil de
+   acertar. Solo cambia el borde y avanza la flecha. */
 @media (prefers-reduced-motion: no-preference) {
-  .tarjeta { transition: transform 0.2s ease, border-color 0.2s ease; }
-  .tarjeta:hover,
-  .tarjeta:focus-within { transform: translateY(-2px); }
+  .tarjeta { transition: border-color 0.2s ease; }
   .tarjeta__flecha { transition: transform 0.2s ease; }
   .tarjeta:hover .tarjeta__flecha { transform: translateX(3px); }
 }
@@ -451,7 +541,13 @@
   line-height: 1.5;
 }
 .banda p + p { margin-top: 1rem; }
-.banda a { color: inherit; }
+/* Los enlaces de la banda son la llamada a la accion de la pagina: miden
+   44 px de alto aunque esten dentro de una frase. */
+.banda a {
+  display: inline-block;
+  padding-block: 0.5rem;
+  color: inherit;
+}
 .banda__titulo {
   margin: 0 0 1rem;
   color: var(--sobre-banda);
@@ -719,7 +815,7 @@
   gap: 0.25rem 0.75rem;
   max-width: 34rem;
 }
-.campo--casilla input { margin: 0.25rem 0 0; }
+.campo--casilla input { margin: 0.125rem 0 0; }
 .campo--casilla .campo__etiqueta {
   margin: 0;
   font-weight: 400;
@@ -798,6 +894,44 @@
   }
   .desplegable[open]::details-content { block-size: auto; }
   .desplegable__flecha { transition: transform 0.2s ease; }
+}
+
+
+/* ---- Indice.jsx -------------------------------------------------------- */
+
+/* Una lista comun de enlaces, con el filete terracota de las notas a la
+   izquierda. Cada enlace mide 44 px de alto: en una pagina larga es lo que
+   mas se usa con un pulsador o con control por voz. */
+.indice {
+  max-width: var(--medida, 34em);
+  margin: 2rem 0 0;
+  padding: 1rem 1.5rem;
+  border-inline-start: 3px solid var(--accent);
+}
+.indice__titulo {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+.indice ul {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+.indice li { margin: 0; }
+.indice a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+
+/* ---- Contraste forzado: atajos, pie e indice --------------------------- */
+
+/* El relleno de "Volver arriba" pasa a ser el fondo del sistema; el borde
+   en color de enlace es lo que lo sigue mostrando como boton. El filete del
+   indice es terracota y desapareceria. */
+@media (forced-colors: active) {
+  .site-footer .volver-arriba { border-color: LinkText; }
+  .indice { border-inline-start-color: CanvasText; }
 }
 
 

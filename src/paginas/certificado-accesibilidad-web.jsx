@@ -1,5 +1,6 @@
 import { Seccion } from "../componentes/Seccion.jsx";
 import { Banda } from "../componentes/Banda.jsx";
+import { Indice } from "../componentes/Indice.jsx";
 
 export const pagina = {
   idioma: "es",
@@ -13,26 +14,36 @@ export default function CertificadoAccesibilidadWeb() {
     <>
       <h1>Certificado de accesibilidad web</h1>
       <p className="lede">Es de las cosas que más nos preguntan. La respuesta corta: certificados hay varios, ninguno es obligatorio, y ninguno es exactamente lo que la ley te pide.</p>
-      <Seccion numero="01" titulo="Lo que la ley te pide no se llama certificado">
+      <Indice
+        idioma="es"
+        entradas={[
+          ["no-se-llama-certificado", "Lo que la ley te pide no se llama certificado"],
+          ["los-certificados-que-se-venden", "Entonces, ¿los certificados que se venden no valen?"],
+          ["una-evaluacion-que-aguanta", "Cómo es una evaluación que aguanta una revisión"],
+          ["que-documento-necesitas", "Qué documento necesitas según dónde vendas"],
+          ["que-entregamos", "Qué entregamos nosotros"],
+        ]}
+      />
+      <Seccion numero="01" titulo="Lo que la ley te pide no se llama certificado" id="no-se-llama-certificado">
         <div className="prose">
           <p>La normativa europea de accesibilidad no crea ningún organismo que certifique sitios web, ni un sello oficial que haya que exhibir. Lo que exige es dos cosas: que tu producto cumpla, y que lo declares. El documento con nombre propio es la <strong>declaración de accesibilidad</strong>, no un certificado.</p>
           <p>Esa declaración dice en qué grado cumple tu sitio, con qué norma se evaluó, qué partes no cumplen todavía y por qué, y cómo puede alguien reclamar si se encuentra una barrera. Si quieres saber qué marco te aplica a ti y desde cuándo, lo explicamos en <a href="/normativa-legal/">qué ley de accesibilidad te obliga</a>.</p>
         </div>
       </Seccion>
-      <Seccion numero="02" titulo="Entonces, ¿los certificados que se venden no valen?">
+      <Seccion numero="02" titulo="Entonces, ¿los certificados que se venden no valen?" id="los-certificados-que-se-venden">
         <div className="prose">
           <p>Sí valen, y conviene decirlo con precisión porque hay mucho ruido alrededor. En España existen esquemas de certificación privados y voluntarios que son serios. AENOR, por ejemplo, certifica accesibilidad web contra UNE-EN 301549 y las WCAG, en niveles AA y AAA, con revisión semestral para comprobar que el sitio sigue accesible con el tiempo.</p>
           <p>Lo que hay que entender es qué son: <strong>verificación voluntaria por un tercero</strong>. Son útiles como prueba ante un cliente o ante un concurso público, y no sustituyen la obligación legal, porque la obligación es cumplir y declarar.</p>
           <p>Y hay una diferencia que sí importa: <strong>lo que sostiene cualquier sello es la evaluación que tiene detrás</strong>. Un distintivo que se obtiene instalando un script en tu web y que aparece a los pocos minutos no ha evaluado nada. No hay forma de revisar automáticamente si el texto alternativo de una imagen describe lo que la imagen muestra, si el orden de tabulación tiene sentido, o si un mensaje de error se anuncia cuando aparece. Eso se comprueba a mano, con teclado y con lector de pantalla, o no se comprueba.</p>
         </div>
       </Seccion>
-      <Seccion numero="03" titulo="Cómo es una evaluación que aguanta una revisión">
+      <Seccion numero="03" titulo="Cómo es una evaluación que aguanta una revisión" id="una-evaluacion-que-aguanta">
         <div className="prose">
           <p>Hay una metodología publicada por el W3C para esto, la WCAG-EM. Define cómo elegir qué páginas se evalúan, cómo registrar cada criterio y cómo expresar el resultado, de modo que otra persona pueda repetir la evaluación y llegar a lo mismo. Es el estándar que se espera de un informe serio.</p>
           <p>La WCAG-EM trabaja sobre una muestra estructurada del sitio. En una auditoría de sitio de tuaccesible vamos más allá: revisamos página por página y enlace por enlace, no una muestra. La razón es simple: la muestra sirve para estimar el estado de un sitio; el sitio entero sirve para respaldar una declaración sin huecos.</p>
         </div>
       </Seccion>
-      <Seccion numero="04" titulo="Qué documento necesitas según dónde vendas">
+      <Seccion numero="04" titulo="Qué documento necesitas según dónde vendas" id="que-documento-necesitas">
         <div className="prose">
           <ul>
             <li><strong>Europa.</strong> Una declaración de accesibilidad respaldada por una evaluación contra las WCAG y la EN 301 549. Es lo que te va a pedir cualquiera que revise tu cumplimiento.</li>
@@ -41,7 +52,7 @@ export default function CertificadoAccesibilidadWeb() {
           </ul>
         </div>
       </Seccion>
-      <Seccion numero="05" titulo="Qué entregamos nosotros">
+      <Seccion numero="05" titulo="Qué entregamos nosotros" id="que-entregamos">
         <div className="prose">
           <p>No emitimos sellos. Entregamos la evaluación que hace falta para sostener cualquiera de esos documentos, y los documentos mismos:</p>
           <ul>

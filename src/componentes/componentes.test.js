@@ -24,7 +24,7 @@ before(async () => {
     server: { middlewareMode: true, hmr: false, watch: null },
     optimizeDeps: { noDiscovery: true, include: [] },
   });
-  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Credenciales", "Encabezado", "Sitio"]) {
+  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Credenciales", "Encabezado", "PieDePagina", "Indice", "Sitio"]) {
     Object.assign(m, await vite.ssrLoadModule(`/src/componentes/${nombre}.jsx`));
   }
   iconos = await import("lucide-react");
@@ -155,9 +155,14 @@ test("Credenciales: una lista con el valor y la explicacion de cada dato", () =>
   assert.throws(() => dibujar(h(m.Credencial, null, "sin valor")), /falta valor/);
 });
 
-test("Encabezado: el aviso de idioma queda dentro de la cabecera", () => {
+test("Encabezado: la franja de atajos va primero y el aviso de idioma queda dentro", () => {
   const html = dibujar(h(m.Encabezado, { idioma: "en", ruta: "/en/services/", rutaAlternativa: "/servicios/" }));
-  assert.match(html, /^<header class="site-header"><div class="lang-banner" id="lang-banner">/);
+  assert.match(
+    html,
+    /^<header class="site-header"><div class="atajos"><div class="wrap atajos__fila"><a href="#contenido-principal">Skip to main content<\/a> <a href="#pie">Skip to footer<\/a> <div class="atajos__ajustes"><a class="lang-switch"/
+  );
+  // El aviso va despues de la franja, todavia dentro de la cabecera.
+  assert.ok(html.indexOf('id="lang-banner"') > html.indexOf('class="atajos__ajustes"'));
   assert.match(html, /<\/header>$/);
   for (const id of ["lang-banner-text", "lang-banner-switch", "lang-banner-dismiss", "lang-switch-link"]) {
     assert.match(html, new RegExp(`id="${id}"`), `lang.js busca #${id}`);
@@ -172,12 +177,88 @@ test("Encabezado: el aviso de idioma queda dentro de la cabecera", () => {
 test("Sitio: nada visible fuera de las regiones", () => {
   const pagina = { idioma: "es", ruta: "/", rutaAlternativa: "/en/" };
   const html = dibujar(h(m.Sitio, { pagina }, h("h1", null, "Inicio")));
-  // Lo unico antes de la cabecera es el enlace de salto, que es la primera
-  // parada del tabulador y lleva al contenido.
-  assert.match(html, /^<a class="skip-link" href="#contenido-principal">Saltar al contenido principal<\/a><header /);
+  // Lo primero es la cabecera, y lo primero de la cabecera es el atajo al
+  // contenido: sigue siendo la primera parada del tabulador.
+  assert.match(html, /^<header class="site-header"><div class="atajos"><div class="wrap atajos__fila"><a href="#contenido-principal">Ir al contenido principal<\/a> <a href="#pie">Ir al pie de página<\/a>/);
+  assert.doesNotMatch(html, /skip-link/);
   assert.ok(html.indexOf('id="lang-banner"') > html.indexOf("<header"));
-  assert.match(html, /<main id="contenido-principal"><div class="wrap"><h1>Inicio<\/h1><\/div><\/main><footer class="site-footer">/);
+  assert.match(html, /<main id="contenido-principal"><div class="wrap"><h1>Inicio<\/h1><\/div><\/main><footer class="site-footer" id="pie">/);
+  // Los destinos de los dos atajos existen.
+  for (const id of ["contenido-principal", "pie"]) {
+    assert.equal(html.match(new RegExp(`id="${id}"`, "g")).length, 1, `un solo #${id}`);
+  }
 });
+
+test("PieDePagina: Volver arriba es un enlace al body y lo ultimo del pie", () => {
+  for (const [idioma, texto] of [["es", "Volver arriba"], ["en", "Back to top"]]) {
+    const html = dibujar(h(m.PieDePagina, { idioma }));
+    assert.match(html, /^<footer class="site-footer" id="pie">/);
+    assert.match(
+      html,
+      new RegExp(`<a class="volver-arriba" href="#arriba"><svg[^>]*class="lucide lucide-arrow-up icono"[^>]*aria-hidden="true"[^>]*>.*</svg>${texto}</a></div></footer>$`)
+    );
+  }
+});
+
+test("Documento: el body es el destino de Volver arriba", async () => {
+  const { documentoHtml } = await vite.ssrLoadModule("/src/documento.js");
+  const pagina = { idioma: "es", titulo: "Inicio", descripcion: "x", ruta: "/", rutaAlternativa: "/en/" };
+  const html = documentoHtml({ pagina, cuerpoHtml: "<main></main>", desarrollo: false, hojaDeEstilos: "/estilos.css" });
+  assert.equal(html.match(/<body[^>]*>/g).join(), '<body id="arriba">');
+  assert.equal(html.match(/id="arriba"/g).length, 1);
+});
+
+test("Indice: nav con el nombre del titulo visible y un enlace por entrada", () => {
+  const html = dibujar(h(m.Indice, { idioma: "es", entradas: [["uno", "Primero"], ["dos", "Segundo"]] }));
+  assert.equal(
+    html,
+    '<nav class="indice" aria-labelledby="indice-titulo"><p class="indice__titulo" id="indice-titulo">En esta página</p><ul><li><a href="#uno">Primero</a></li><li><a href="#dos">Segundo</a></li></ul></nav>'
+  );
+  assert.match(dibujar(h(m.Indice, { idioma: "en", entradas: [["a", "A"]] })), />On this page</);
+  assert.throws(() => dibujar(h(m.Indice, { idioma: "es", entradas: [] })), /faltan entradas/);
+});
+
+/* Cada pagina con indice: cada enlace tiene destino, y el texto del enlace
+   es el del titulo al que lleva. Si alguien cambia un titulo y no el
+   indice (o al reves), esta prueba lo dice. */
+const PAGINAS_CON_INDICE = [
+  "privacidad", "en/privacy",
+  "declaracion-accesibilidad", "en/accessibility-statement",
+  "certificado-accesibilidad-web", "en/web-accessibility-certificate",
+  "servicios", "en/services",
+  "normativa-legal", "en/legal-requirements",
+  "nuestros-auditores", "en/our-auditors",
+];
+
+const textoPlano = (html) =>
+  html
+    .replace(/<[^>]+>/g, "")
+    .replace(/&#x27;|&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
+    .trim();
+
+for (const nombre of PAGINAS_CON_INDICE) {
+  test(`Indice de ${nombre}: cada enlace lleva a su titulo`, async () => {
+    const modulo = await vite.ssrLoadModule(`/src/paginas/${nombre}.jsx`);
+    const html = dibujar(h(modulo.default));
+    const indice = html.match(/<nav class="indice"[^>]*>.*?<\/nav>/s);
+    assert.ok(indice, "la pagina tiene indice");
+    assert.equal(html.match(/<nav class="indice"/g).length, 1, "un solo indice");
+    const enlaces = [...indice[0].matchAll(/<a href="#([^"]+)">(.*?)<\/a>/g)];
+    assert.ok(enlaces.length >= 4, "al menos cuatro entradas");
+    for (const [, id, texto] of enlaces) {
+      assert.equal(html.match(new RegExp(`id="${id}"`, "g"))?.length, 1, `#${id} existe una sola vez`);
+      // El destino es un h2 con ese id, o una seccion con ese id que tiene
+      // el h2 adentro.
+      const h2 =
+        html.match(new RegExp(`<h2[^>]* id="${id}"[^>]*>(.*?)</h2>`)) ||
+        html.match(new RegExp(`<section[^>]* id="${id}"[^>]*>.*?<h2[^>]*>(.*?)</h2>`, "s"));
+      assert.ok(h2, `#${id} es un h2 o una seccion con h2`);
+      assert.equal(textoPlano(texto), textoPlano(h2[1]), `el enlace a #${id} dice lo mismo que su titulo`);
+    }
+  });
+}
 
 test("FormularioWeb3Forms: vuelve a la pagina de confirmacion pedida, del mismo idioma", async () => {
   const { FormularioWeb3Forms } = await vite.ssrLoadModule("/src/componentes/formularios/FormularioWeb3Forms.jsx");

@@ -29,6 +29,10 @@
      encandila sobre la pagina oscura. */
   --banda: #08333D;
   --sobre-banda: #FFFFFF;
+  /* Texto sobre un relleno de --brand-strong (boton primario, "Volver
+     arriba", la seleccion de texto): blanco en claro, casi negro en oscuro,
+     donde la marca es celeste. */
+  --sobre-marca: #FFFFFF;
 
   /* Las dos fuentes se alojan en el sitio (ver sitio.css). Detras van las
      del sistema, que se ven mientras baja el archivo o si no llega. */
@@ -65,6 +69,7 @@
     --accent: #F0A868;
     --focus: #FFFFFF;
     --sobre-banda: #E9EFF1;
+    --sobre-marca: #0B0F11;
   }
 }
 
@@ -106,28 +111,7 @@ body {
 
 ::selection {
   background: var(--brand-strong);
-  color: var(--bg);
-}
-@media (prefers-color-scheme: dark) {
-  ::selection { color: #0B0F11; }
-}
-
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  max-width: calc(100% - 2rem);
-  top: -3rem;
-  background: var(--brand-strong);
-  color: var(--bg);
-  padding: 0.6rem 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
-  z-index: 20;
-}
-.skip-link:focus { top: 1rem; }
-@media (prefers-color-scheme: dark) {
-  .skip-link { color: #0B0F11; }
+  color: var(--sobre-marca);
 }
 
 /* El color nunca es el unico indicador: los enlaces de contenido van
@@ -212,12 +196,13 @@ main .prose p { margin: 0 0 1.1rem; }
    que estaba fuera de la ventana, el navegador lo desplaza justo hasta el
    borde y el contorno de foco (3px, mas 3px de separacion) queda cortado.
    Este margen deja aire arriba y abajo. Sirve tambien para los enlaces a un
-   #ancla: el titulo no queda pegado al borde de arriba. */
-html { scroll-padding-block: 1.5rem; }
+   #ancla: el titulo no queda pegado al borde de arriba. Abajo el margen es
+   mayor porque ahi flota "Volver arriba" (componentes.css): asi lo que
+   recibe el foco nunca queda debajo del boton. */
+html { scroll-padding-block: 1.5rem 5.25rem; }
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
-  .skip-link { transition: top 0.15s ease; }
 }
 
 /* Formularios: los controles por defecto venian en 13px, de ancho fijo y
@@ -254,10 +239,13 @@ select:focus,
 textarea:focus { border-color: var(--brand); }
 
 /* Casilla de autorizacion: control nativo, coloreado con accent-color
-   para que siga siendo el checkbox del sistema y no un dibujo propio. */
+   para que siga siendo el checkbox del sistema y no un dibujo propio. De
+   24 px como minimo (WCAG 2.5.8) aunque la etiqueta tambien la marque: no
+   todo el mundo sabe que se puede hacer clic en el texto, y con un puntero
+   de cabeza un cuadrado de 18 px es dificil de acertar. */
 input[type="checkbox"] {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.5rem;
+  height: 1.5rem;
   accent-color: var(--brand);
 }
 

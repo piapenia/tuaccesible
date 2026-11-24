@@ -1,5 +1,6 @@
 import { Seccion } from "../../componentes/Seccion.jsx";
 import { Banda } from "../../componentes/Banda.jsx";
+import { Indice } from "../../componentes/Indice.jsx";
 
 export const pagina = {
   idioma: "en",
@@ -13,31 +14,42 @@ export default function WebAccessibilityCertificate() {
     <>
       <h1>Do you need a web accessibility certificate?</h1>
       <p className="lede">It's one of the most common questions we get. The short answer: certificates do exist, none of them is required, and none of them is exactly what the law asks you for.</p>
-      <Seccion numero="01" titulo="What the law asks for is not called a certificate">
+      <Indice
+        idioma="en"
+        entradas={[
+          ["not-called-a-certificate", "What the law asks for is not called a certificate"],
+          ["certificates-being-sold", "So are the certificates being sold worthless?"],
+          ["overlays-are-not-compliance", "Why an accessibility overlay is not compliance"],
+          ["an-evaluation-that-holds-up", "What an evaluation that holds up looks like"],
+          ["which-document-you-need", "Which document you need, depending on where you sell"],
+          ["what-we-deliver", "What we deliver"],
+        ]}
+      />
+      <Seccion numero="01" titulo="What the law asks for is not called a certificate" id="not-called-a-certificate">
         <div className="prose">
           <p>Neither European nor US accessibility law sets up a body that certifies websites, or an official seal you have to display. What they require is that your product conforms, and that you can show it. In Europe, that document has a name of its own: the <strong>accessibility statement</strong>. It says how far your site conforms, which standard it was evaluated against, what doesn't conform yet and why, and how someone can complain if they hit a barrier. In the United States, what procurement asks for is an <strong>ACR</strong>. Neither one is a certificate.</p>
           <p>If you want to know which framework covers you and since when, we explain it in <a href="/en/legal-requirements/">which accessibility law applies to you</a>.</p>
         </div>
       </Seccion>
-      <Seccion numero="02" titulo="So are the certificates being sold worthless?">
+      <Seccion numero="02" titulo="So are the certificates being sold worthless?" id="certificates-being-sold">
         <div className="prose">
           <p>No, and it's worth being precise here, because there's a lot of noise around this. Serious voluntary certification programs do exist. In Spain, AENOR certifies web accessibility against UNE-EN 301549 and WCAG at Levels AA and AAA, and re-checks the site every six months to confirm it's still accessible over time.</p>
           <p>Here's what those programs actually are: <strong>voluntary third-party verification</strong>. They're useful as proof to a client or in a public tender, and they don't replace the legal obligation, because the obligation is to conform and to document it.</p>
         </div>
       </Seccion>
-      <Seccion numero="03" titulo="Why an accessibility overlay is not compliance">
+      <Seccion numero="03" titulo="Why an accessibility overlay is not compliance" id="overlays-are-not-compliance">
         <div className="prose">
           <p>One difference does matter: <strong>what holds any seal up is the evaluation behind it</strong>. A badge that shows up minutes after you paste a script into your site has evaluated nothing. Nothing automated can tell you whether an image's alt text describes what the image shows, whether the tab order makes sense, or whether an error message is announced when it appears. Those get checked by hand, with a keyboard and a screen reader, or they don't get checked.</p>
         </div>
       </Seccion>
-      <Seccion numero="04" titulo="What an evaluation that holds up looks like">
+      <Seccion numero="04" titulo="What an evaluation that holds up looks like" id="an-evaluation-that-holds-up">
         <div className="prose">
           <p>The W3C publishes a methodology for this, WCAG-EM. It sets out how to choose which pages get evaluated, how to record each criterion, and how to state the result, so that someone else can repeat the evaluation and reach the same conclusion. A serious report follows it.</p>
           <p>WCAG-EM includes a sampling procedure, and that's what almost every audit in this market runs on. What gets quoted less often is the order the methodology puts it in: its own first recommendation is to evaluate the entire digital product, and to skip the sampling procedure wherever that's feasible. Sampling is the fallback.</p>
           <p>A tuaccesible site audit does the first one. We review page by page and link by link. A sample is enough to estimate the state of a site. The whole site is what backs a statement, or an ACR, with no gaps in it.</p>
         </div>
       </Seccion>
-      <Seccion numero="05" titulo="Which document you need, depending on where you sell">
+      <Seccion numero="05" titulo="Which document you need, depending on where you sell" id="which-document-you-need">
         <div className="prose">
           <ul>
             <li><strong>United States.</strong> An <strong>ACR</strong>, short for Accessibility Conformance Report. It's the <strong>VPAT</strong> template completed for your product: criterion by criterion, marked Supports, Partially Supports, Does Not Support, or Not Applicable, with remarks. It's a self-disclosure, signed off by the vendor, and it's what government procurement teams and large enterprise buyers ask for before they buy software.</li>
@@ -46,7 +58,7 @@ export default function WebAccessibilityCertificate() {
           </ul>
         </div>
       </Seccion>
-      <Seccion numero="06" titulo="What we deliver">
+      <Seccion numero="06" titulo="What we deliver" id="what-we-deliver">
         <div className="prose">
           <p>We don't issue seals. We deliver the evaluation any of those documents rests on, and the documents themselves:</p>
           <ul>

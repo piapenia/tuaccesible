@@ -2,6 +2,7 @@ import { DatosEstructurados } from "../../componentes/DatosEstructurados.jsx";
 import { sitio } from "../../sitio.js";
 import { Seccion } from "../../componentes/Seccion.jsx";
 import { Banda } from "../../componentes/Banda.jsx";
+import { Indice } from "../../componentes/Indice.jsx";
 
 export const pagina = {
   idioma: "en",
@@ -30,6 +31,15 @@ export default function OurAuditors({ ruta }) {
     <>
       <h1>Our auditors</h1>
       <p className="lede">María Pía Peña Foissac, lead auditor.</p>
+      <Indice
+        idioma="en"
+        entradas={[
+          ["what-i-audit", "What I audit, and since when"],
+          ["i-also-teach", "I also teach"],
+          ["certifications", "Certifications"],
+          ["two-readings", "Your report goes through two readings"],
+        ]}
+      />
       <div className="perfil">
         <img className="portrait" src="/img/maria-pia.jpg" width="1458" height="1534" alt="" />
         <div className="prose perfil__texto">
@@ -37,18 +47,18 @@ export default function OurAuditors({ ruta }) {
           <p>I work with NVDA, JAWS, Windows Narrator and TalkBack on Android, and with keyboard-only navigation. That's the part of the job where the barriers no automated tool flags show up.</p>
         </div>
       </div>
-      <Seccion numero="01" titulo="What I audit, and since when">
+      <Seccion numero="01" titulo="What I audit, and since when" id="what-i-audit">
         <div className="prose">
           <p>I've audited accessibility professionally since 2021: more than four years evaluating websites, mobile apps, documents and desktop software against WCAG 2.2, EN 301 549 and the European Accessibility Act.</p>
           <p>I write accessibility review reports with findings prioritized by severity, accessibility statements, and cognitive accessibility recommendations. My background is in software quality assurance. That's why a finding reaches your team with steps to reproduce it and an acceptance criterion, not as a loose observation.</p>
         </div>
       </Seccion>
-      <Seccion numero="02" titulo="I also teach">
+      <Seccion numero="02" titulo="I also teach" id="i-also-teach">
         <div className="prose">
           <p>I teach digital accessibility at the DALAT Foundation, and I taught the accessibility module at XAcademy. Teaching forced me to explain technical barriers to people who don't write code, and that changed how I write reports: if a content owner can't understand the finding, the finding doesn't get fixed.</p>
         </div>
       </Seccion>
-      <Seccion numero="03" titulo="Certifications">
+      <Seccion numero="03" titulo="Certifications" id="certifications">
         <div className="prose">
           <ul>
             <li>A11Y Development Knowledge Badge — IAAP, the International Association of Accessibility Professionals, January 2026. Earned by scoring above 85% on their accessibility knowledge test for developers. <a href="https://www.credly.com/badges/b1386a4d-61cc-4c64-a4c4-a399475a6e42">Verify on Credly</a>.</li>
@@ -58,7 +68,7 @@ export default function OurAuditors({ ruta }) {
           </ul>
         </div>
       </Seccion>
-      <Seccion numero="04" titulo="Your report goes through two readings">
+      <Seccion numero="04" titulo="Your report goes through two readings" id="two-readings">
         <div className="prose">
           <DatosEstructurados datos={persona} />
           <p>I do the auditing. I don't get the last word on the report. Before it goes out, another person at tuaccesible reads it, checks the prioritization and pushes back on the criteria I applied. The pushback is real: sometimes I drop a finding from critical to high because I can't defend it. That's the point. What reaches your team has already survived an argument.</p>

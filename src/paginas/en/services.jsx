@@ -2,6 +2,7 @@ import { Desplegable } from "../../componentes/Desplegable.jsx";
 import { Seccion } from "../../componentes/Seccion.jsx";
 import { Banda } from "../../componentes/Banda.jsx";
 import { Boton } from "../../componentes/Boton.jsx";
+import { Indice } from "../../componentes/Indice.jsx";
 
 export const pagina = {
   idioma: "en",
@@ -15,6 +16,18 @@ export default function Services() {
     <>
       <h1>Web accessibility audits and training</h1>
       <p className="lede">Four ways to work with tuaccesible, depending on where your product stands today and the timeline you're working with.</p>
+      <Indice
+        idioma="en"
+        entradas={[
+          ["express-audit", "Express audit"],
+          ["site-audit", "Site audit"],
+          ["full-package", "Full package"],
+          ["corporate-workshop", "Corporate workshop"],
+          ["extras", "Extras"],
+          ["how-we-audit", "How we audit web accessibility"],
+          ["working-terms", "Working terms"],
+        ]}
+      />
       <p>Manual testing is carried out by a team of native screen reader users. We do a thorough technical review, focused on what a native, everyday user of this technology would experience and pay attention to.</p>
       <p><strong>Quoting costs nothing.</strong> With the site's address, the number and variety of templates, the journeys to review and details about any private areas, we give you a fixed scope, price and timeline within a week, in writing and before we start.</p>
       <p>We don't publish a price list, because no two sites are alike.</p>
@@ -86,12 +99,12 @@ export default function Services() {
           <p><Boton href="/en/contact-us/" variante="secundario">Ask about a workshop</Boton></p>
         </div>
       </Seccion>
-      <Seccion numero="05" titulo="Extras">
+      <Seccion numero="05" titulo="Extras" id="extras">
         <div className="prose">
           <p>The accessibility statement and the ACR can be ordered separately, based on an audit already done. If you're asked for a certificate, before you hire anyone it's worth reading up on <a href="/en/web-accessibility-certificate/">the web accessibility certificates that exist</a> and which one you need depending on where you sell.</p>
         </div>
       </Seccion>
-      <Seccion numero="06" titulo="How we audit web accessibility">
+      <Seccion numero="06" titulo="How we audit web accessibility" id="how-we-audit">
         <div className="prose">
           <p>We combine automated tools with manual review using screen readers: NVDA, JAWS, Windows Narrator and TalkBack for Android.</p>
           <p>We work from WCAG 2.2 as the common baseline. From there we evaluate against the relevant framework: EN 301 549 and the European Accessibility Act, the EAA, in Europe; ADA and Section 508 in the United States; or the applicable national regulation in Latin America. To make sure which law you have to comply with, check <a href="/en/legal-requirements/">which accessibility law applies to you</a>.</p>
@@ -105,7 +118,7 @@ export default function Services() {
           </ul>
         </div>
       </Seccion>
-      <Seccion numero="07" titulo="Working terms">
+      <Seccion numero="07" titulo="Working terms" id="working-terms">
         <div className="prose">
           <p>We work with individual clients and with agencies, and prefer to deal directly. On the Site audit, the Full package and the workshop, 50% is paid when the contract is closed, in writing or after a video call, and the rest on delivery.</p>
           <p>The Express audit is paid in full when you hire it.</p>

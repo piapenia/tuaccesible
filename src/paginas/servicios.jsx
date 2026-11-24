@@ -2,6 +2,7 @@ import { Desplegable } from "../componentes/Desplegable.jsx";
 import { Seccion } from "../componentes/Seccion.jsx";
 import { Banda } from "../componentes/Banda.jsx";
 import { Boton } from "../componentes/Boton.jsx";
+import { Indice } from "../componentes/Indice.jsx";
 
 export const pagina = {
   idioma: "es",
@@ -15,6 +16,18 @@ export default function Servicios() {
     <>
       <h1>Auditoría de accesibilidad web y formación</h1>
       <p className="lede">Cuatro formas de trabajar con tuaccesible, según el estado actual de tu producto y el plazo con el que cuentes.</p>
+      <Indice
+        idioma="es"
+        entradas={[
+          ["auditoria-expres", "Auditoría exprés"],
+          ["auditoria-de-sitio", "Auditoría de sitio"],
+          ["servicio-integral", "Servicio integral"],
+          ["taller-corporativo", "Taller corporativo"],
+          ["extras", "Extras"],
+          ["como-auditamos", "Cómo auditamos la accesibilidad web"],
+          ["condiciones-de-trabajo", "Condiciones de trabajo"],
+        ]}
+      />
       <p>Las pruebas manuales están a cargo de un equipo de usuarios nativos de lector de pantalla. Realizamos una revisión técnica a fondo, enfocándonos en lo que experimentaría y tomaría en cuenta un usuario nativo y habitual de esta tecnología.</p>
       <p><strong>Presupuestar no cuesta nada.</strong> Con la dirección del sitio web, número y variedad de plantillas, recorridos a revisar y especificaciones sobre áreas privadas, te informamos alcance, precio y plazo cerrados en una semana, por escrito y antes de empezar.</p>
       <p>No manejamos tarifario público, entendiendo que no existen dos sitios iguales.</p>
@@ -86,12 +99,12 @@ export default function Servicios() {
           <p><Boton href="/contactanos/" variante="secundario">Consultar por un taller</Boton></p>
         </div>
       </Seccion>
-      <Seccion numero="05" titulo="Extras">
+      <Seccion numero="05" titulo="Extras" id="extras">
         <div className="prose">
           <p>La declaración de accesibilidad y el ACR se pueden contratar por separado, sobre una auditoría ya hecha. Si te solicitan un certificado, antes de contratar es conveniente informarse sobre <a href="/certificado-accesibilidad-web/">los certificados de accesibilidad web existentes</a> y cuál se necesita según dónde se venda.</p>
         </div>
       </Seccion>
-      <Seccion numero="06" titulo="Cómo auditamos la accesibilidad web">
+      <Seccion numero="06" titulo="Cómo auditamos la accesibilidad web" id="como-auditamos">
         <div className="prose">
           <p>Combinamos herramientas automáticas con revisión manual usando lectores de pantalla: NVDA, JAWS, el Narrador de Windows y TalkBack para Android.</p>
           <p>Trabajamos sobre WCAG 2.2 como base común. Desde ahí evaluamos contra el marco pertinente: EN 301 549 y la Ley Europea de Accesibilidad, la EAA, en Europa; ADA y Section 508 en Estados Unidos; o la normativa nacional que corresponda en América Latina. Para asegurarte de qué ley debes acatar, consúltalo en <a href="/normativa-legal/">qué ley de accesibilidad te obliga</a>.</p>
@@ -105,7 +118,7 @@ export default function Servicios() {
           </ul>
         </div>
       </Seccion>
-      <Seccion numero="07" titulo="Condiciones de trabajo">
+      <Seccion numero="07" titulo="Condiciones de trabajo" id="condiciones-de-trabajo">
         <div className="prose">
           <p>Trabajamos con particulares y con agencias, con preferencia por el trato directo. En la auditoría de sitio, el servicio integral y el taller se abona el 50 % al cerrar el contrato, por escrito o después de una videollamada, y el resto contra entrega.</p>
           <p>La auditoría exprés se abona íntegra al contratarla.</p>

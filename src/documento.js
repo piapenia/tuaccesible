@@ -97,7 +97,8 @@ export function documentoHtml({ pagina, cuerpoHtml, desarrollo, origenApi, hojaD
     serializarJsonLd(organizacion),
     "  </script>",
     "</head>",
-    "<body>",
+    /* El id es el destino de "Volver arriba" (PieDePagina.jsx). */
+    '<body id="arriba">',
     cuerpoHtml,
     "",
     '  <script src="/js/lang.js" defer></script>',

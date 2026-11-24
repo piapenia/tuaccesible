@@ -1,6 +1,7 @@
 import { Desplegable } from "../componentes/Desplegable.jsx";
 import { Seccion } from "../componentes/Seccion.jsx";
 import { Banda } from "../componentes/Banda.jsx";
+import { Indice } from "../componentes/Indice.jsx";
 
 export const pagina = {
   idioma: "es",
@@ -14,7 +15,16 @@ export default function Normativa() {
     <>
       <h1>Qué ley de accesibilidad impera en tu zona, y desde cuándo</h1>
       <p className="lede">Importante tener en cuenta: la ley que se debe acatar es la imperante y vigente en el lugar en el que se vende, no en el lugar desde el que se opera. Una empresa argentina que vende a consumidores europeos debe cumplir la norma europea.</p>
-      <Seccion numero="01" titulo="Si vendes a consumidores en la Unión Europea">
+      <Indice
+        idioma="es"
+        entradas={[
+          ["union-europea", "Si vendes a consumidores en la Unión Europea"],
+          ["espana", "Operar en España"],
+          ["estados-unidos", "Operar en Estados Unidos"],
+          ["argentina", "Trabajando con el Estado argentino"],
+        ]}
+      />
+      <Seccion numero="01" titulo="Si vendes a consumidores en la Unión Europea" id="union-europea">
         <div className="prose">
           <p>Aplica la <strong>Ley Europea de Accesibilidad</strong>, la Directiva (UE) 2019/882. Es <strong>exigible desde el 28 de junio de 2025</strong>.</p>
           <p>Obliga sin distinguir el lugar desde el que opera la sede de la empresa.</p>
@@ -37,13 +47,13 @@ export default function Normativa() {
           <p>El EAA obliga a marcado CE y declaración de conformidad para los <strong>productos</strong> cubiertos. Para los <strong>servicios</strong> no existe ningún certificado oficial. Lo explicamos en <a href="/certificado-accesibilidad-web/">qué certificados de accesibilidad web existen</a>.</p>
         </div>
       </Seccion>
-      <Seccion numero="02" titulo="Operar en España">
+      <Seccion numero="02" titulo="Operar en España" id="espana">
         <div className="prose">
           <p>La ley española que traslada el EAA al derecho interno, su transposición, es la <strong>Ley 11/2023</strong>. El régimen sancionador es el del Real Decreto Legislativo 1/2013, la ley general de derechos de las personas con discapacidad, con tres niveles de infracción y multas que van de 301 € a 1.000.000 €.</p>
           <p>El <strong>Real Decreto 193/2023</strong> estipula que se verá complementado por la norma que transponga el EAA, por lo que no lo transpone. Desarrolla el Real Decreto Legislativo 1/2013 y <strong>aplica a cualquiera que ofrezca bienes o servicios al público</strong>.</p>
         </div>
       </Seccion>
-      <Seccion numero="03" titulo="Operar en Estados Unidos">
+      <Seccion numero="03" titulo="Operar en Estados Unidos" id="estados-unidos">
         <div className="prose">
           <p>El <strong>ADA</strong> no fija un estándar técnico en su texto, pero los tribunales resuelven usando <strong>WCAG 2.1 nivel AA</strong> como referencia de hecho.</p>
           <p>Las sanciones se mueven por vía judicial: quien reclama es un particular ante un tribunal, comenzando la mayoría de las veces con una carta de reclamación.</p>
@@ -57,7 +67,7 @@ export default function Normativa() {
           <p>Un abogado solicitará un informe de auditoría con fecha y tabla de criterios.</p>
         </div>
       </Seccion>
-      <Seccion numero="04" titulo="Trabajando con el Estado argentino">
+      <Seccion numero="04" titulo="Trabajando con el Estado argentino" id="argentina">
         <div className="prose">
           <p>Aplica la <strong>Ley 26.653</strong>, de accesibilidad de la información en las páginas web, vigente desde 2010. Los estándares técnicos los fija la Oficina Nacional de Tecnologías de la Información (ONTI).</p>
           <p><strong>No suele aplicar a la empresa privada argentina en general.</strong> Preferimos informarlo antes de consultar a un abogado.</p>

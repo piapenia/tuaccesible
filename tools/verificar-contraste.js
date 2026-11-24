@@ -87,13 +87,18 @@ function leerPaletas(css) {
   };
 }
 
-// Texto sobre fondo oscuro que el CSS fija a mano (boton, salto de contenido
-// y seleccion en modo oscuro), para que el chequeo cubra tambien esos casos.
-const TEXTO_SOBRE_CLARO_EN_OSCURO = "#0B0F11";
+// "Volver arriba" flota por encima de todo, tambien de la banda de cierre.
+// Ahi lo despega su relleno o, si el relleno es del mismo color que la
+// banda (modo claro), su borde, que es del color del texto del boton. Se
+// mide el mejor de los dos.
+function despegueSobreBanda(p) {
+  const relleno = contraste(p["brand-strong"], p.banda);
+  const borde = contraste(p["sobre-marca"], p.banda);
+  return relleno >= borde ? p["brand-strong"] : p["sobre-marca"];
+}
 
-function pares(p, modo) {
-  const esOscuro = modo.indexOf("oscuro") === 0;
-  const textoBoton = esOscuro ? TEXTO_SOBRE_CLARO_EN_OSCURO : p.bg;
+function pares(p) {
+  const textoBoton = p["sobre-marca"];
   return [
     ["Texto de cuerpo sobre el fondo", p.text, p.bg, 7],
     ["Texto de cuerpo sobre tarjeta", p.text, p.surface, 7],
@@ -105,7 +110,12 @@ function pares(p, modo) {
     ["Enlaces sobre tarjeta", p.brand, p.surface, 7],
     ["Texto del boton sobre el boton", textoBoton, p["brand-strong"], 7],
     ["Texto del boton primario al pasar el mouse", textoBoton, p.brand, 7],
-    ["Texto del salto al contenido sobre su fondo", textoBoton, p["brand-strong"], 7],
+    ["Texto de Volver arriba y de la seleccion sobre su fondo", textoBoton, p["brand-strong"], 7],
+    ["Volver arriba: relleno sobre el fondo", p["brand-strong"], p.bg, 3],
+    ["Volver arriba: relleno sobre el pie", p["brand-strong"], p.surface, 3],
+    ["Volver arriba sobre la banda de cierre (relleno o borde)", despegueSobreBanda(p), p.banda, 3],
+    ["Enlaces de la franja de atajos sobre su fondo", p.brand, p.surface, 7],
+    ["Borde de las casillas del menu en pantalla chica", p["text-muted"], p.bg, 3],
     ["Texto y enlaces de la banda de cierre sobre su fondo", p["sobre-banda"], p.banda, 7],
     ["Indicador de foco dentro de la banda de cierre", p["sobre-banda"], p.banda, 3],
     ["Indicador de foco: contorno sobre el anillo interior", p.focus, p.bg, 3],
@@ -131,7 +141,7 @@ function main() {
 
   Object.keys(paletas).forEach(function (modo) {
     console.log("\n== Modo " + modo + " ==");
-    pares(paletas[modo], modo).forEach(function (fila) {
+    pares(paletas[modo]).forEach(function (fila) {
       const desc = fila[0], fg = fila[1], bg = fila[2], min = fila[3];
       const r = contraste(fg, bg);
       const ok = r >= min;

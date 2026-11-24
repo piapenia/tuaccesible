@@ -1,3 +1,5 @@
+import { Indice } from "../componentes/Indice.jsx";
+
 export const pagina = {
   idioma: "es",
   titulo: "Declaración de accesibilidad",
@@ -10,12 +12,23 @@ export default function DeclaracionAccesibilidad() {
     <>
       <h1>Declaración de accesibilidad</h1>
       <p className="lede">Este sitio se propone cumplir el nivel AA de las WCAG 2.2 sin excepciones, y el nivel AAA en todo lo que sea razonablemente alcanzable. Esta declaración documenta el estado real, no un titular.</p>
+      <Indice
+        idioma="es"
+        entradas={[
+          ["estado-de-conformidad", "Estado de conformidad"],
+          ["como-se-prueba", "Cómo se prueba"],
+          ["donde-se-aplica-aaa", "Dónde se aplica AAA"],
+          ["limitaciones-conocidas", "Limitaciones conocidas"],
+          ["reportar-un-problema", "Reportar un problema"],
+          ["fecha", "Fecha"],
+        ]}
+      />
       <div className="prose">
-        <h2>Estado de conformidad</h2>
+        <h2 id="estado-de-conformidad">Estado de conformidad</h2>
         <p>tuaccesible.com está en desarrollo activo. El objetivo es AA completo desde el lanzamiento, con AAA aplicado de forma creciente y documentado criterio por criterio a medida que cada sección se termina y se prueba. Antes de considerar cerrada la fase de lanzamiento, el sitio pasa por una auditoría formal propia — el mismo proceso que se le ofrece a cualquier cliente.</p>
-        <h2>Cómo se prueba</h2>
+        <h2 id="como-se-prueba">Cómo se prueba</h2>
         <p>Cada cambio se revisa de forma automática (axe-core o pa11y, estándar WCAG2AAA) antes de publicarse. Eso cubre una parte de los problemas, no todos. Se complementa con navegación manual completa por teclado y con NVDA, y con revisión de lenguaje claro sobre el contenido real.</p>
-        <h2>Dónde se aplica AAA</h2>
+        <h2 id="donde-se-aplica-aaa">Dónde se aplica AAA</h2>
         <ul>
           <li>Contraste de texto de 7:1 en todo el contenido, salvo el texto que forma parte del logo o la marca, que WCAG exime explícitamente de este requisito.</li>
           <li>Ningún límite de tiempo en ningún contenido ni formulario.</li>
@@ -23,12 +36,12 @@ export default function DeclaracionAccesibilidad() {
           <li>Texto de enlace que tiene sentido leído fuera de contexto, sin depender del texto que lo rodea.</li>
           <li>Sin cambios de contexto automáticos: la sugerencia de idioma según el navegador se muestra una sola vez, nunca redirige sin que la persona lo pida, y se puede descartar.</li>
         </ul>
-        <h2>Limitaciones conocidas</h2>
+        <h2 id="limitaciones-conocidas">Limitaciones conocidas</h2>
         <p>A la fecha de esta declaración no conocemos ninguna barrera pendiente de nivel AA en este sitio. Sí conviene decir con claridad que no se declara conformidad con todos los criterios AAA: el AAA se aplica donde es razonablemente alcanzable, criterio por criterio, y el propio W3C desaconseja exigirlo como política general de un sitio completo.</p>
         <p>Este sitio no incrusta video, ni audio, ni contenido de terceros de ningún tipo. Los materiales que se entregan a un cliente dentro de un encargo (informes, grabaciones de sesiones) viajan como archivos y no forman parte de este sitio.</p>
-        <h2>Reportar un problema</h2>
+        <h2 id="reportar-un-problema">Reportar un problema</h2>
         <p>Si encuentras una barrera de accesibilidad en este sitio, escríbenos a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>. Como consultora de accesibilidad, un reporte tuyo sobre nuestro propio sitio se atiende con prioridad.</p>
-        <h2>Fecha</h2>
+        <h2 id="fecha">Fecha</h2>
         <p>Declaración publicada en agosto de 2026. Es un documento vivo: se actualiza con cada revisión real del sitio, no en una fecha fija predeterminada.</p>
       </div>
     </>

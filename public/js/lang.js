@@ -61,9 +61,14 @@
     window.location.href = altUrl;
   });
 
+  /* Al cerrar el aviso, el boton desaparece. Si el foco se quedara en el,
+     el navegador lo devuelve al principio del documento y el siguiente Tab
+     arranca de cero. Se lleva al conmutador de idioma, que esta justo
+     arriba del aviso y hace lo mismo que el boton que no se eligio. */
   dismissBtn.addEventListener("click", function () {
     try { localStorage.setItem(STORAGE_KEY, currentLang); } catch (e) {}
     banner.classList.remove("is-visible");
+    switchLink.focus();
   });
 
   banner.classList.add("is-visible");
