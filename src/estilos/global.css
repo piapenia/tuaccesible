@@ -40,20 +40,22 @@
   --font-body: "Atkinson Hyperlegible Next Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* ESCALA TIPOGRAFICA
-     Razon 1.25 a partir de 1rem, siempre en rem y sin unidades de viewport
-     (vw): asi todo crece con el zoom y con el tamano de letra que elija cada
-     persona en su navegador (WCAG 1.4.4). Las pantallas anchas suben un
-     escalon los titulos grandes con una media query, mas abajo.
-     --step--1 es el texto chico (pie, avisos, el boton de idioma): no baja
-     de 14px con la configuracion por defecto. */
-  --step--1: 0.875rem;
-  --step-0: 1rem;
-  --step-1: 1.25rem;
-  --step-2: 1.5625rem;
-  --step-3: 1.953rem;
-  --step-4: 2.441rem;
+     El texto corrido va en 1.125rem (18 px con la configuracion por
+     defecto) y la escala sube con razon 1.2. Siempre en rem y sin unidades
+     de viewport (vw): asi todo crece con el zoom y con el tamano de letra
+     que elija cada persona en su navegador (WCAG 1.4.4). Las pantallas
+     anchas suben un escalon los titulos grandes con una media query, mas
+     abajo.
+     --step--1 es el texto chico (pie, avisos, el boton de idioma) y es el
+     piso: 16 px. Nada del sitio se escribe mas chico que esto. */
+  --step--1: 1rem;
+  --step-0: 1.125rem;
+  --step-1: 1.35rem;
+  --step-2: 1.62rem;
+  --step-3: 1.944rem;
+  --step-4: 2.333rem;
   /* Solo para el titulo de la portada en pantalla ancha. */
-  --step-5: 3.052rem;
+  --step-5: 2.8rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -177,10 +179,13 @@ main p, main li { max-width: var(--medida); }
 
 /* Letra chica: el escalon --step--1 en vez del "smaller" del navegador. El
    parrafo que es todo letra chica (los avisos legales de normativa) se mide
-   con ese tamano y no con el del parrafo, o le entrarian 90 caracteres. */
+   con ese tamano y no con el del parrafo, o le entrarian 90 caracteres:
+   16/18 es la proporcion entre --step--1 y --step-0. */
 small { font-size: var(--step--1); }
-main p:has(> small:only-child) { max-width: calc(var(--medida) * 0.875); }
-main .prose p { margin: 0 0 1.1rem; }
+main p:has(> small:only-child) { max-width: calc(var(--medida) * 16 / 18); }
+/* Separacion entre parrafos en em, para que crezca con la letra que elija
+   cada persona y no quede apretada al ampliar. */
+main .prose p { margin: 0 0 1.5em; }
 
 .portrait {
   display: block;

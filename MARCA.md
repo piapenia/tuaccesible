@@ -97,21 +97,23 @@ de caracteres y el navegador baja solo el latino: **59,8 KB por página**
 entre las dos, medidos el 9 de noviembre de 2026. Una página con texto en
 cursiva suma 37 KB más.
 
-**Escala.** Razón 1,25 a partir de 1rem, siempre en `rem` y nunca en unidades
-de pantalla (`vw`), para que la ampliación de texto del navegador agrande
-todo por igual (criterio 1.4.4). Desde 48rem de ancho, h1 y h2 suben un
-escalón, y desde 64rem el título de la portada sube uno más. Los tamaños son variables de `src/estilos/global.css`; no se escribe
-un tamaño suelto fuera de ellas.
+**Escala.** El texto corrido va en 1,125rem (18 px con la configuración por
+defecto del navegador) y la escala sube con razón 1,2. Siempre en `rem` y
+nunca en unidades de pantalla (`vw`), para que la ampliación de texto del
+navegador agrande todo por igual (criterio 1.4.4). Desde 48rem de ancho, h1 y
+h2 suben un escalón, y desde 64rem el título de la portada sube uno más. Los
+tamaños son variables de `src/estilos/global.css`; no se escribe un tamaño
+suelto fuera de ellas.
 
 | Variable | Tamaño | Dónde |
 | --- | --- | --- |
-| `--step--1` | 0,875rem (14 px) | Letra chica: pie, avisos legales, selector y aviso de idioma. No se baja de aquí. |
-| `--step-0` | 1rem (16 px) | Texto y h4. |
-| `--step-1` | 1,25rem (20 px) | h3 y entradillas (`.lede`). |
-| `--step-2` | 1,5625rem (25 px) | h2 en pantalla chica. |
-| `--step-3` | 1,953rem (31 px) | h1 en pantalla chica, h2 desde 48rem. |
-| `--step-4` | 2,441rem (39 px) | h1 desde 48rem. |
-| `--step-5` | 3,052rem (49 px) | Solo el h1 de la portada, desde 64rem. |
+| `--step--1` | 1rem (16 px) | Letra chica: pie, avisos legales, ayudas de los campos, franja de atajos, selector y aviso de idioma. Es el piso: nada se escribe más chico. |
+| `--step-0` | 1,125rem (18 px) | Texto y h4. |
+| `--step-1` | 1,35rem (22 px) | h3 y entradillas (`.lede`). |
+| `--step-2` | 1,62rem (26 px) | h2 en pantalla chica. |
+| `--step-3` | 1,944rem (31 px) | h1 en pantalla chica, h2 desde 48rem. |
+| `--step-4` | 2,333rem (37 px) | h1 desde 48rem. |
+| `--step-5` | 2,8rem (45 px) | Solo el h1 de la portada, desde 64rem. |
 
 **Medida.** El texto del contenido no pasa de 34em de ancho (`--medida`):
 unos 67 caracteres por línea de promedio, y ningún párrafo pasa de 80, que es
