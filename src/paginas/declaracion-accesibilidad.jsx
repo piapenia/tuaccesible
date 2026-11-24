@@ -18,6 +18,7 @@ export default function DeclaracionAccesibilidad() {
           ["estado-de-conformidad", "Estado de conformidad"],
           ["como-se-prueba", "Cómo se prueba"],
           ["donde-se-aplica-aaa", "Dónde se aplica AAA"],
+          ["preferencias-de-visualizacion", "Preferencias de visualización"],
           ["limitaciones-conocidas", "Limitaciones conocidas"],
           ["reportar-un-problema", "Reportar un problema"],
           ["fecha", "Fecha"],
@@ -36,6 +37,8 @@ export default function DeclaracionAccesibilidad() {
           <li>Texto de enlace que tiene sentido leído fuera de contexto, sin depender del texto que lo rodea.</li>
           <li>Sin cambios de contexto automáticos: la sugerencia de idioma según el navegador se muestra una sola vez, nunca redirige sin que la persona lo pida, y se puede descartar.</li>
         </ul>
+        <h2 id="preferencias-de-visualizacion">Preferencias de visualización</h2>
+        <p>Sin que tengas que hacer nada, el sitio sigue el modo oscuro, la opción de más contraste y los temas de contraste de Windows que tengas configurados. Además, en la página de <a href="/preferencias/">preferencias de visualización</a> puedes elegir tema claro u oscuro, más contraste, texto más grande o escala de grises solo para este sitio. Es una página común con controles del navegador, no un complemento superpuesto, y lo que elijas se guarda en tu navegador, sin cookies.</p>
         <h2 id="limitaciones-conocidas">Limitaciones conocidas</h2>
         <p>A la fecha de esta declaración no conocemos ninguna barrera pendiente de nivel AA en este sitio. Sí conviene decir con claridad que no se declara conformidad con todos los criterios AAA: el AAA se aplica donde es razonablemente alcanzable, criterio por criterio, y el propio W3C desaconseja exigirlo como política general de un sitio completo.</p>
         <p>Este sitio no incrusta video, ni audio, ni contenido de terceros de ningún tipo. Los materiales que se entregan a un cliente dentro de un encargo (informes, grabaciones de sesiones) viajan como archivos y no forman parte de este sitio.</p>

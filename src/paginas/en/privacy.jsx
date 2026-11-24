@@ -11,7 +11,7 @@ export default function Privacy() {
   return (
     <>
       <h1>Privacy policy</h1>
-      <p className="lede">Last updated: August 19, 2026.</p>
+      <p className="lede">Last updated: November 24, 2026.</p>
       <Indice
         idioma="en"
         entradas={[
@@ -22,7 +22,7 @@ export default function Privacy() {
           ["how-long-we-keep-it", "How long we keep it"],
           ["how-we-count-visits", "How we count visits"],
           ["what-we-dont-do", "What we don't do"],
-          ["in-your-browser", "The one thing stored in your browser"],
+          ["in-your-browser", "What is stored in your browser"],
           ["your-rights", "Your rights"],
           ["changes", "Changes to this policy"],
         ]}
@@ -52,8 +52,10 @@ export default function Privacy() {
         <p>The file that does the counting is served from this domain, not from anyone else's server. The only thing that leaves is the visit notification, which reaches GoatCounter's servers in Finland and Germany, inside the European Union: there is no international transfer.</p>
         <h2 id="what-we-dont-do">What we don't do</h2>
         <p>We use no Google Analytics and no tool that builds advertising profiles. We use no cookies, first-party or third-party. We don't sell or pass on your data for advertising. We don't profile anyone or make automated decisions about anyone.</p>
-        <h2 id="in-your-browser">The one thing stored in your browser</h2>
-        <p>If you pick a language, the site saves that preference in your own browser local storage, under the key <code>tuaccesible-lang-choice</code>. It is not a cookie, it never travels to any server, it identifies nobody, and its only effect is that we will not suggest a language change you already turned down. You can clear it from your browser settings and the site carries on working the same.</p>
+        <h2 id="in-your-browser">What is stored in your browser</h2>
+        <p>If you pick a language, the site saves that preference in your own browser's local storage, under the key <code>tuaccesible-lang-choice</code>. Its only effect is that we won't suggest a language change you already turned down.</p>
+        <p>If you change anything in the <a href="/en/preferences/">display preferences</a>, the site saves what you chose (theme, contrast, text size and grayscale) under the key <code>tuaccesible-visualizacion</code>, so it applies on every page. The button on that page that goes back to your system settings deletes it.</p>
+        <p>Neither one is a cookie, neither travels to any server, and neither identifies anyone. You can clear them from your browser settings and the site carries on working the same.</p>
         <h2 id="your-rights">Your rights</h2>
         <p>You can exercise any of these at any time:</p>
         <ul>

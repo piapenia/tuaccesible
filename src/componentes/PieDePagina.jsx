@@ -2,7 +2,8 @@ import { ArrowUp, Mail } from "lucide-react";
 import { Icono } from "./Icono.jsx";
 import { sitio } from "../sitio.js";
 
-/* Pie: quien es, el correo, los dos enlaces legales y "Volver arriba".
+/* Pie: quien es, el correo, los dos enlaces legales, las preferencias de
+   visualizacion y "Volver arriba".
 
    El id="pie" es el destino del atajo "Ir al pie de pagina" de la cabecera.
 
@@ -37,7 +38,8 @@ export function PieDePagina({ idioma }) {
           <a href={en ? "/en/privacy/" : "/privacidad/"}>{en ? "Privacy policy" : "Política de privacidad"}</a>{" "}
           <a href={en ? "/en/accessibility-statement/" : "/declaracion-accesibilidad/"}>
             {en ? "Accessibility statement" : "Declaración de accesibilidad"}
-          </a>
+          </a>{" "}
+          <a href={en ? "/en/preferences/" : "/preferencias/"}>{en ? "Display preferences" : "Preferencias de visualización"}</a>
         </p>{" "}
         <a className="volver-arriba" href="#arriba">
           <Icono de={ArrowUp} />

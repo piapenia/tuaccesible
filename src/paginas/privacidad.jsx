@@ -11,7 +11,7 @@ export default function Privacidad() {
   return (
     <>
       <h1>Política de privacidad</h1>
-      <p className="lede">Última actualización: 19 de agosto de 2026.</p>
+      <p className="lede">Última actualización: 24 de noviembre de 2026.</p>
       <Indice
         idioma="es"
         entradas={[
@@ -22,7 +22,7 @@ export default function Privacidad() {
           ["cuanto-tiempo-los-guardamos", "Cuánto tiempo los guardamos"],
           ["como-contamos-las-visitas", "Cómo contamos las visitas"],
           ["que-no-hacemos", "Qué no hacemos"],
-          ["en-tu-navegador", "Lo único que se guarda en tu navegador"],
+          ["en-tu-navegador", "Lo que se guarda en tu navegador"],
           ["tus-derechos", "Tus derechos"],
           ["cambios", "Cambios en esta política"],
         ]}
@@ -52,8 +52,10 @@ export default function Privacidad() {
         <p>El archivo que hace la cuenta se sirve desde este mismo dominio, no desde un servidor ajeno. Lo único que sale hacia fuera es el aviso de la visita, que llega a los servidores de GoatCounter, alojados en Finlandia y Alemania, o sea dentro de la Unión Europea: no hay transferencia internacional de datos.</p>
         <h2 id="que-no-hacemos">Qué no hacemos</h2>
         <p>No usamos Google Analytics ni ninguna herramienta que arme perfiles publicitarios. No usamos cookies, ni propias ni de terceros. No vendemos ni cedemos tus datos con fines publicitarios. No hacemos perfilado ni decisiones automatizadas sobre nadie.</p>
-        <h2 id="en-tu-navegador">Lo único que se guarda en tu navegador</h2>
-        <p>Si eliges idioma, el sitio guarda esa preferencia en el almacenamiento local de tu propio navegador, con la clave <code>tuaccesible-lang-choice</code>. No es una cookie, no viaja a ningún servidor, no identifica a nadie y su único efecto es que no volvamos a sugerirte un cambio de idioma que ya rechazaste. Puedes borrarla desde las opciones de tu navegador, y el sitio sigue funcionando igual.</p>
+        <h2 id="en-tu-navegador">Lo que se guarda en tu navegador</h2>
+        <p>Si eliges idioma, el sitio guarda esa preferencia en el almacenamiento local de tu propio navegador, con la clave <code>tuaccesible-lang-choice</code>. Su único efecto es que no volvamos a sugerirte un cambio de idioma que ya rechazaste.</p>
+        <p>Si cambias algo en las <a href="/preferencias/">preferencias de visualización</a>, el sitio guarda lo que elegiste (tema, contraste, tamaño del texto y escala de grises) con la clave <code>tuaccesible-visualizacion</code>, para aplicarlo en todas las páginas. El botón de esa página que vuelve a los ajustes del sistema la borra.</p>
+        <p>Ninguna de las dos es una cookie, no viajan a ningún servidor y no identifican a nadie. Puedes borrarlas desde las opciones de tu navegador, y el sitio sigue funcionando igual.</p>
         <h2 id="tus-derechos">Tus derechos</h2>
         <p>Puedes pedir acceso a tus datos, su rectificación o su supresión; puedes limitar u oponerte a que los tratemos, pedir que te los entreguemos en un formato que puedas llevarte, y retirar el consentimiento que hayas dado. Se ejerce todo escribiendo a <a href="mailto:contacto@tuaccesible.com">contacto@tuaccesible.com</a>, y respondemos en el plazo máximo de un mes.</p>
         <p>Si crees que no tratamos bien tus datos, puedes reclamar ante la autoridad de control de tu país. En España es la Agencia Española de Protección de Datos.</p>

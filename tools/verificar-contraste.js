@@ -12,17 +12,31 @@
  *   - Elementos no textuales (bordes de campo, indicador de foco, marcas
  *     decorativas): 3:1, criterio 1.4.11.
  *
- * Comprueba las cuatro combinaciones que el sitio puede mostrar: claro,
- * oscuro, y las dos versiones de alto contraste del sistema operativo.
+ * Comprueba las cuatro paletas que el sitio puede mostrar: claro, oscuro, y
+ * las dos versiones de mas contraste.
  *
- * Nota de mantenimiento: el analizador asume que cada bloque :root de
- * global.css no tiene llaves anidadas y que, si esta dentro de un @media, es
- * el @media inmediatamente anterior. Si se reordena esa parte del CSS, hay
- * que revisar esta funcion.
+ * Cada paleta se puede pedir desde el sistema operativo o desde la pagina
+ * /preferencias/ (atributos data-tema y data-contraste en <html>), asi que
+ * global.css la repite en varios bloques. Para no depender de que alguien
+ * copie bien, el verificador no busca los bloques por su texto: simula las
+ * 24 combinaciones posibles (sistema claro u oscuro, con o sin mas
+ * contraste, y lo que se haya elegido en la pagina), aplica las reglas
+ * :root en el orden de la cascada y exige dos cosas:
+ *   - que cada combinacion de exactamente la misma paleta que el sistema
+ *     daria por si solo para ese tema y ese contraste;
+ *   - que color-scheme coincida con el tema, para que los controles nativos
+ *     y las barras de desplazamiento no salgan claros en una pagina oscura.
+ *
+ * Nota de mantenimiento: el lector entiende @media con screen,
+ * prefers-color-scheme y prefers-contrast unidos con "and", y selectores
+ * hechos de :root, [atributo="valor"], :where() y :not(). Si una regla :root
+ * con colores usa otra cosa, el verificador falla y dice cual: hay que
+ * ensenarle la sintaxis nueva antes de publicar.
  */
 
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const CSS = path.join(import.meta.dirname, "..", "src", "estilos", "global.css");
 
@@ -48,43 +62,225 @@ function contraste(a, b) {
   return (alto + 0.05) / (bajo + 0.05);
 }
 
-function leerPaletas(css) {
-  const bloques = [];
-  const re = /:root\s*\{([^}]*)\}/g;
-  let m;
-  while ((m = re.exec(css)) !== null) {
-    const antes = css.slice(0, m.index);
-    const i = antes.lastIndexOf("@media");
-    const consulta = i === -1 ? "" : antes.slice(i, antes.indexOf("{", i));
-    const vars = {};
-    m[1].replace(/--([\w-]+)\s*:\s*(#[0-9A-Fa-f]{3,8})\s*;/g, function (_, k, v) {
-      vars[k] = v;
-      return "";
+// Devuelve la posicion del cierre que corresponde a la apertura que esta
+// justo antes de "desde".
+function cierre(texto, desde, abre, cierra) {
+  let nivel = 1;
+  let j = desde;
+  while (j < texto.length && nivel > 0) {
+    if (texto[j] === abre) nivel++;
+    else if (texto[j] === cierra) nivel--;
+    j++;
+  }
+  if (nivel > 0) throw new Error("Falta un \"" + cierra + "\" en global.css.");
+  return j - 1;
+}
+
+// Junta las reglas cuyo selector empieza con :root y que definen colores o
+// color-scheme, cada una con los @media que la envuelven.
+export function leerReglasRaiz(css) {
+  css = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const reglas = [];
+
+  function recorrer(texto, medios) {
+    let i = 0;
+    while (true) {
+      const abre = texto.indexOf("{", i);
+      if (abre === -1) return;
+      const fin = cierre(texto, abre + 1, "{", "}");
+      const preludio = texto.slice(i, abre).split(";").pop().trim();
+      const cuerpo = texto.slice(abre + 1, fin);
+      i = fin + 1;
+
+      if (/^@media\b/.test(preludio)) {
+        recorrer(cuerpo, medios.concat(preludio.slice(6).trim()));
+        continue;
+      }
+      if (preludio.startsWith("@")) {
+        if (/:root/.test(cuerpo) && /--[\w-]+\s*:\s*#|color-scheme/.test(cuerpo)) {
+          throw new Error("Hay colores de :root dentro de \"" + preludio + "\", que el verificador no sabe leer.");
+        }
+        continue;
+      }
+
+      const vars = {};
+      cuerpo.replace(/--([\w-]+)\s*:\s*(#[0-9A-Fa-f]{3,8})\s*;/g, function (_, k, v) {
+        vars[k] = v.toUpperCase();
+        return "";
+      });
+      const esquema = /(?:^|;)\s*color-scheme\s*:\s*([^;]+)/.exec(cuerpo);
+      if (!Object.keys(vars).length && !esquema) continue;
+
+      preludio.split(",").forEach(function (selector) {
+        selector = selector.trim();
+        if (!selector.startsWith(":root")) return;
+        reglas.push({
+          selector: selector,
+          medios: medios,
+          vars: vars,
+          esquema: esquema ? esquema[1].trim() : null
+        });
+      });
+    }
+  }
+
+  recorrer(css, []);
+  return reglas;
+}
+
+// Un escenario: lo que pide el sistema y lo que se eligio en la pagina.
+//   { esquema: "light" | "dark", contraste: "no-preference" | "more",
+//     atributos: { "data-tema": ..., "data-contraste": ... } }
+function cumpleMedio(consulta, s) {
+  if (consulta.includes(",")) {
+    throw new Error("@media " + consulta + ": el verificador no sabe evaluar listas con coma.");
+  }
+  return consulta.split(/\s+and\s+/).every(function (parte) {
+    parte = parte.trim();
+    if (parte === "screen" || parte === "all") return true;
+    if (parte === "print") return false;
+    let m = /^\(\s*prefers-color-scheme\s*:\s*(light|dark)\s*\)$/.exec(parte);
+    if (m) return s.esquema === m[1];
+    m = /^\(\s*prefers-contrast\s*:\s*([\w-]+)\s*\)$/.exec(parte);
+    if (m) return s.contraste === m[1];
+    throw new Error("@media " + consulta + ": el verificador no sabe evaluar \"" + parte + "\".");
+  });
+}
+
+// Evalua una secuencia de [atributo="valor"], :where(...) y :not(...).
+// Recorre todo el texto aunque ya sepa que no cumple, para que una sintaxis
+// desconocida falle siempre y no solo en algunos escenarios.
+function cumpleCompuesto(texto, s) {
+  let cumple = true;
+  let i = 0;
+  while (i < texto.length) {
+    const resto = texto.slice(i);
+    let m = /^\[\s*([\w-]+)\s*=\s*"([^"]*)"\s*\]/.exec(resto);
+    if (m) {
+      if (s.atributos[m[1]] !== m[2]) cumple = false;
+      i += m[0].length;
+      continue;
+    }
+    m = /^:(where|not)\(/.exec(resto);
+    if (m) {
+      const fin = cierre(resto, m[0].length, "(", ")");
+      const dentro = cumpleCompuesto(resto.slice(m[0].length, fin), s);
+      if (m[1] === "where" ? !dentro : dentro) cumple = false;
+      i += fin + 1;
+      continue;
+    }
+    throw new Error("Selector que el verificador no sabe evaluar: \"" + texto + "\".");
+  }
+  return cumple;
+}
+
+function cumpleSelector(selector, s) {
+  return cumpleCompuesto(selector.slice(":root".length), s);
+}
+
+// Especificidad de los selectores que entiende cumpleCompuesto: :root y
+// cada [atributo] suman 1; lo que esta dentro de :where() no suma.
+function especificidad(selector) {
+  let sinWhere = selector;
+  let k;
+  while ((k = sinWhere.indexOf(":where(")) !== -1) {
+    const fin = cierre(sinWhere, k + 7, "(", ")");
+    sinWhere = sinWhere.slice(0, k) + sinWhere.slice(fin + 1);
+  }
+  return 1 + (sinWhere.match(/\[/g) || []).length;
+}
+
+// Aplica las reglas como la cascada: primero por especificidad y, a igual
+// especificidad, en el orden del archivo. Todas estan en la misma capa y
+// ninguna usa !important.
+function calcular(reglas, s) {
+  const vars = {};
+  let esquema = "normal";
+  reglas
+    .map(function (r, i) { return { r: r, i: i, e: especificidad(r.selector) }; })
+    .sort(function (a, b) { return a.e - b.e || a.i - b.i; })
+    .forEach(function (x) {
+      if (!x.r.medios.every(function (m) { return cumpleMedio(m, s); })) return;
+      if (!cumpleSelector(x.r.selector, s)) return;
+      Object.assign(vars, x.r.vars);
+      if (x.r.esquema) esquema = x.r.esquema;
     });
-    bloques.push({ consulta: consulta, vars: vars });
-  }
+  return { vars: vars, esquema: esquema };
+}
 
-  function buscar(prueba) {
-    const b = bloques.find(function (x) { return prueba(x.consulta); });
-    return b ? b.vars : null;
-  }
+// El tema con el que el navegador dibuja los controles nativos.
+function esquemaUsado(valor, esquemaDelSistema) {
+  const v = valor.split(/\s+/);
+  if (v.includes("light") && v.includes("dark")) return esquemaDelSistema;
+  if (v.includes("dark")) return "dark";
+  return "light";
+}
 
-  const base = buscar(function (c) { return c === ""; });
-  const oscuro = buscar(function (c) { return /prefers-color-scheme:\s*dark/.test(c) && !/prefers-contrast/.test(c); });
-  const masContraste = buscar(function (c) { return /prefers-contrast:\s*more/.test(c) && !/color-scheme/.test(c); });
-  const oscuroMasContraste = buscar(function (c) { return /prefers-contrast:\s*more/.test(c) && /color-scheme:\s*dark/.test(c); });
+function nombrePaleta(tema, mas) {
+  return tema + (mas ? ", alto contraste" : "");
+}
 
-  if (!base || !oscuro || !masContraste || !oscuroMasContraste) {
-    console.error("No se pudieron leer las cuatro paletas de global.css.");
-    process.exit(1);
-  }
+// Las cuatro paletas, tal como las da el sistema sin nada elegido, y la
+// lista de combinaciones que no caen exactamente en una de ellas.
+export function leerPaletas(css) {
+  const reglas = leerReglasRaiz(css);
+  const paletas = {};
+  const incoherencias = [];
+  const escenarios = [];
 
-  return {
-    "claro": Object.assign({}, base),
-    "oscuro": Object.assign({}, base, oscuro),
-    "claro, alto contraste": Object.assign({}, base, masContraste),
-    "oscuro, alto contraste": Object.assign({}, base, oscuro, masContraste, oscuroMasContraste)
-  };
+  ["no-preference", "more"].forEach(function (contraste) {
+    ["light", "dark"].forEach(function (esquema) {
+      [undefined, "claro", "oscuro"].forEach(function (tema) {
+        [undefined, "mas"].forEach(function (masElegido) {
+          escenarios.push({
+            esquema: esquema,
+            contraste: contraste,
+            atributos: { "data-tema": tema, "data-contraste": masElegido }
+          });
+        });
+      });
+    });
+  });
+
+  // Primero los escenarios sin nada elegido: son la referencia.
+  escenarios.sort(function (a, b) {
+    const sa = a.atributos["data-tema"] || a.atributos["data-contraste"] ? 1 : 0;
+    const sb = b.atributos["data-tema"] || b.atributos["data-contraste"] ? 1 : 0;
+    return sa - sb;
+  });
+
+  escenarios.forEach(function (s) {
+    const tema = s.atributos["data-tema"] || (s.esquema === "dark" ? "oscuro" : "claro");
+    const mas = s.atributos["data-contraste"] === "mas" || s.contraste === "more";
+    const nombre = nombrePaleta(tema, mas);
+    const descripcion =
+      "sistema " + (s.esquema === "dark" ? "oscuro" : "claro") +
+      (s.contraste === "more" ? " con mas contraste" : "") +
+      ", elegido: tema " + (s.atributos["data-tema"] || "del sistema") +
+      ", contraste " + (s.atributos["data-contraste"] || "del sistema");
+    const r = calcular(reglas, s);
+
+    const usado = esquemaUsado(r.esquema, s.esquema);
+    if (usado !== (tema === "oscuro" ? "dark" : "light")) {
+      incoherencias.push(descripcion + ": color-scheme \"" + r.esquema + "\" dibuja los controles en " + usado + " y la paleta es " + nombre + ".");
+    }
+
+    if (!paletas[nombre]) {
+      paletas[nombre] = r.vars;
+      return;
+    }
+    const ref = paletas[nombre];
+    const claves = new Set(Object.keys(ref).concat(Object.keys(r.vars)));
+    const distintas = [...claves].filter(function (k) { return ref[k] !== r.vars[k]; });
+    if (distintas.length) {
+      incoherencias.push(
+        descripcion + ": deberia dar la paleta " + nombre + " y difiere en " +
+        distintas.map(function (k) { return "--" + k + " (" + r.vars[k] + " en vez de " + ref[k] + ")"; }).join(", ") + "."
+      );
+    }
+  });
+
+  return { paletas: paletas, incoherencias: incoherencias };
 }
 
 // "Volver arriba" flota por encima de todo, tambien de la banda de cierre.
@@ -136,13 +332,35 @@ const ICONO = [
 
 function main() {
   const css = fs.readFileSync(CSS, "utf8");
-  const paletas = leerPaletas(css);
+  let leido;
+  try {
+    leido = leerPaletas(css);
+  } catch (e) {
+    console.error("No se pudieron leer las paletas de global.css: " + e.message);
+    process.exit(1);
+  }
+  const paletas = leido.paletas;
   let fallos = 0;
 
-  Object.keys(paletas).forEach(function (modo) {
+  console.log("\n== Sistema y /preferencias/: 24 combinaciones ==");
+  if (leido.incoherencias.length) {
+    leido.incoherencias.forEach(function (texto) {
+      fallos++;
+      console.log("  FALLA  " + texto);
+    });
+  } else {
+    console.log("  ok     Cada combinacion da una de las cuatro paletas, con el color-scheme que le corresponde.");
+  }
+
+  ["claro", "oscuro", "claro, alto contraste", "oscuro, alto contraste"].forEach(function (modo) {
     console.log("\n== Modo " + modo + " ==");
     pares(paletas[modo]).forEach(function (fila) {
       const desc = fila[0], fg = fila[1], bg = fila[2], min = fila[3];
+      if (!fg || !bg) {
+        fallos++;
+        console.log("  FALLA  falta una variable de color para: " + desc);
+        return;
+      }
       const r = contraste(fg, bg);
       const ok = r >= min;
       if (!ok) fallos++;
@@ -168,4 +386,6 @@ function main() {
   console.log("\nTodos los pares cumplen. Texto en AAA (7:1), elementos no textuales en 3:1.");
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}

@@ -33,16 +33,20 @@ el sitio**, y **el dominio**.
   de modo que la política sigue admitiendo solo script propio. Lo único que
   sale hacia fuera es el aviso de la visita, y la política lo limita a ese
   destino y a ningún otro.
-- **Cero cookies.** Lo único que se guarda en el navegador es la preferencia
-  de idioma, en almacenamiento local, y está declarado en la política de
-  privacidad.
+- **Cero cookies.** Lo único que se guarda en el navegador son dos
+  preferencias, la de idioma y la de visualización (tema, contraste, tamaño
+  del texto, escala de grises), en almacenamiento local, y las dos están
+  declaradas en la política de privacidad.
 - **JavaScript solo aditivo.** El sitio entero funciona con el script
   desactivado. React se usa para escribir las páginas, pero corre al
   compilar, no en el navegador: hoy ninguna página carga React. Las partes
   que más adelante lo necesiten (las islas) se compilan como archivos del
   propio dominio, solo las cargan las páginas que las usan y su contenido
-  inicial también está en el HTML. El único script propio que corre en todas
-  las páginas sigue siendo el que sugiere idioma en la primera visita.
+  inicial también está en el HTML. Los únicos scripts propios que corren en
+  todas las páginas son el que sugiere idioma en la primera visita y el que
+  aplica las preferencias de visualización guardadas (`js/visualizacion.js`,
+  en el `<head>` para que no haya un parpadeo de colores). Sin JavaScript,
+  el sitio sigue las preferencias del sistema.
 - `Referrer-Policy` en `strict-origin-when-cross-origin`.
 - **HTTPS forzado** por GitHub Pages, con certificado de Let's Encrypt que
   cubre el dominio raíz y el `www`. Comprobado: `http://` y `www` responden
@@ -86,7 +90,7 @@ el sitio**, y **el dominio**.
   despliegue: las pruebas (`npm test`), el verificador de contraste sobre el
   CSS real, la compilación (que también se corta si una página no declara
   título, descripción, idioma o su versión en el otro idioma, o si dos
-  páginas no se apuntan entre sí) y `pa11y-ci` contra WCAG2AAA en las 25
+  páginas no se apuntan entre sí) y `pa11y-ci` contra WCAG2AAA en las 31
   páginas de `.pa11yci.json`.
 - `upload-pages-artifact` va en la v5 con `include-hidden-files: true`.
   Desde la v4, esa acción deja fuera del sitio publicado todo archivo cuyo

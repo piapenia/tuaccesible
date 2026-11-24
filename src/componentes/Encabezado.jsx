@@ -1,4 +1,4 @@
-import { Languages } from "lucide-react";
+import { Languages, SlidersHorizontal } from "lucide-react";
 import { AvisoIdioma } from "./AvisoIdioma.jsx";
 import { Icono } from "./Icono.jsx";
 import { Logo } from "./Logo.jsx";
@@ -9,8 +9,11 @@ import { navegacion } from "../navegacion.js";
    La franja de atajos va primero y esta siempre a la vista, no escondida
    hasta recibir el foco como el enlace de salto clasico. Lleva al contenido
    y al pie (donde estan el correo, los enlaces legales y "Volver arriba"),
-   y a la derecha el conmutador de idioma. Siempre visible porque no solo
-   la usa quien navega con el tabulador: con control por voz, con un
+   y a la derecha el enlace a las preferencias de visualizacion (tema,
+   contraste, tamano del texto, escala de grises: una pagina propia con
+   controles nativos, no un widget) y el conmutador de idioma. Siempre
+   visible porque no solo la usa quien navega con el tabulador: con
+   control por voz, con un
    pulsador o con un puntero de cabeza, un enlace que no se ve no se puede
    nombrar ni senalar. Con el enlace de salto oculto, ademas, la letra
    agrandada lo hacia asomar sobre el logotipo. Los dos atajos apuntan a
@@ -32,6 +35,7 @@ import { navegacion } from "../navegacion.js";
    recorre lo mismo que se ve. */
 export function Encabezado({ idioma, ruta, rutaAlternativa }) {
   const en = idioma === "en";
+  const preferencias = en ? "/en/preferences/" : "/preferencias/";
   return (
     <header className="site-header">
       <div className="atajos">
@@ -39,6 +43,10 @@ export function Encabezado({ idioma, ruta, rutaAlternativa }) {
           <a href="#contenido-principal">{en ? "Skip to main content" : "Ir al contenido principal"}</a>{" "}
           <a href="#pie">{en ? "Skip to footer" : "Ir al pie de página"}</a>{" "}
           <div className="atajos__ajustes">
+            <a className="atajos__preferencias" href={preferencias} aria-current={ruta === preferencias ? "page" : undefined}>
+              <Icono de={SlidersHorizontal} />
+              {en ? "Display preferences" : "Preferencias de visualización"}
+            </a>{" "}
             <a className="lang-switch" id="lang-switch-link" href={rutaAlternativa} lang={en ? "es" : "en"}>
               <Icono de={Languages} />
               {en ? "Español" : "English"}

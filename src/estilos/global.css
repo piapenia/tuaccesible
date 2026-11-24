@@ -58,8 +58,53 @@
   --step-5: 2.8rem;
 }
 
+/* PREFERENCIAS DE VISUALIZACION
+   Las paletas salen de lo que pide el sistema operativo y, encima, de lo
+   que cada persona elige en /preferencias/. Esa pagina guarda la eleccion
+   en el navegador y public/js/visualizacion.js la pone como atributos de
+   <html> antes de dibujar la pagina:
+     data-tema="claro" | "oscuro"      fuerza el tema
+     data-contraste="mas"              fuerza la version de mas contraste
+     data-texto="grande" | "muy-grande" agranda toda la escala
+     data-grises="si"                  pasa la pagina a escala de grises
+   Sin atributo manda el sistema, como siempre. Sin JavaScript tambien.
+
+   Por eso cada paleta aparece dos veces o cuatro: una vez para el sistema
+   y otra para el atributo. Las copias tienen que ser identicas; si no,
+   tools/verificar-contraste.js corta el despliegue, porque prueba las 24
+   combinaciones de sistema y preferencias y exige que cada una caiga en una
+   de las cuatro paletas. :where() no suma especificidad, asi que entre
+   estos bloques manda el orden: oscuro, despues mas contraste, despues las
+   dos cosas juntas.
+
+   Lo que fuerza el tema oscuro va dentro de @media screen: en papel no se
+   imprimen los fondos, y un tema oscuro forzado saldria en letra clara
+   sobre hoja blanca. */
+:root[data-tema="claro"] { color-scheme: light; }
+@media screen {
+  :root[data-tema="oscuro"] { color-scheme: dark; }
+}
+
+/* Oscuro: del sistema, salvo que la persona haya elegido el claro... */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:where(:not([data-tema="claro"])) {
+    --bg: #0B0F11;
+    --surface: #151C1F;
+    --text: #E9EFF1;
+    --text-muted: #AEBBC0;
+    --border: #2A3438;
+    --ink: #FFFFFF;
+    --brand: #8AD4E4;
+    --brand-strong: #8AD4E4;
+    --accent: #F0A868;
+    --focus: #FFFFFF;
+    --sobre-banda: #E9EFF1;
+    --sobre-marca: #0B0F11;
+  }
+}
+/* ...o elegido en /preferencias/. Copia identica del bloque anterior. */
+@media screen {
+  :root:where([data-tema="oscuro"]) {
     --bg: #0B0F11;
     --surface: #151C1F;
     --text: #E9EFF1;
@@ -75,8 +120,10 @@
   }
 }
 
-/* Quien pide mas contraste en el sistema operativo recibe la version
-   maxima de la marca, no la paleta media. */
+/* Quien pide mas contraste en el sistema operativo, o lo elige en
+   /preferencias/, recibe la version maxima de la marca, no la paleta
+   media. El sitio no ofrece "menos contraste": si el sistema pide mas,
+   siempre lo hay. */
 @media (prefers-contrast: more) {
   :root {
     --brand: #05333D;
@@ -87,14 +134,71 @@
     --banda: #05252C;
   }
 }
+:root:where([data-contraste="mas"]) {
+  --brand: #05333D;
+  --brand-strong: #05252C;
+  --accent: #7A3407;
+  --text-muted: #2B3236;
+  --border: #6B7A80;
+  --banda: #05252C;
+}
+
+/* Oscuro con mas contraste. Cuatro copias identicas, una por cada forma de
+   llegar: las dos cosas del sistema; contraste del sistema y oscuro
+   elegido; oscuro del sistema y contraste elegido; las dos elegidas. */
 @media (prefers-contrast: more) and (prefers-color-scheme: dark) {
-  :root {
+  :root:where(:not([data-tema="claro"])) {
     --brand: #BEE9F3;
     --brand-strong: #BEE9F3;
     --accent: #FFC894;
     --text-muted: #D8E1E4;
     --border: #8A989E;
   }
+}
+@media screen and (prefers-contrast: more) {
+  :root:where([data-tema="oscuro"]) {
+    --brand: #BEE9F3;
+    --brand-strong: #BEE9F3;
+    --accent: #FFC894;
+    --text-muted: #D8E1E4;
+    --border: #8A989E;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root:where([data-contraste="mas"]:not([data-tema="claro"])) {
+    --brand: #BEE9F3;
+    --brand-strong: #BEE9F3;
+    --accent: #FFC894;
+    --text-muted: #D8E1E4;
+    --border: #8A989E;
+  }
+}
+@media screen {
+  :root:where([data-tema="oscuro"][data-contraste="mas"]) {
+    --brand: #BEE9F3;
+    --brand-strong: #BEE9F3;
+    --accent: #FFC894;
+    --text-muted: #D8E1E4;
+    --border: #8A989E;
+  }
+}
+
+/* Tamano del texto elegido en /preferencias/. Toda la escala esta en rem,
+   asi que agrandar la raiz agranda todo junto: letra, espacios, botones y
+   el ancho de linea. Se multiplica con el zoom del navegador y con el
+   tamano de letra que la persona ya tenga configurado. */
+:root[data-texto="grande"] { font-size: 112.5%; }
+:root[data-texto="muy-grande"] { font-size: 125%; }
+
+/* Escala de grises elegida en /preferencias/. Va en <html> y no en <body>:
+   un filtro en <body> haria que "Volver arriba" deje de flotar, y en la
+   raiz no. En papel no se aplica, y con los colores forzados del sistema
+   tampoco, porque ahi la paleta ya la elige la persona en Windows. */
+@media screen {
+  :root[data-grises="si"] { filter: grayscale(1); }
+}
+@media (forced-colors: active) {
+  :root[data-grises="si"] { filter: none; }
 }
 
 * { box-sizing: border-box; }

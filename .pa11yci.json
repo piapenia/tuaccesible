@@ -37,6 +37,8 @@
     "http://localhost:8080/certificado-accesibilidad-web/",
     "http://localhost:8080/en/web-accessibility-certificate/",
     "http://localhost:8080/analizar/",
-    "http://localhost:8080/en/analyze/"
+    "http://localhost:8080/en/analyze/",
+    "http://localhost:8080/preferencias/",
+    "http://localhost:8080/en/preferences/"
   ]
 }

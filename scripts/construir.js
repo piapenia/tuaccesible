@@ -146,7 +146,7 @@ try {
   escribir("robots.txt", generarRobots());
 
   const segundos = ((Date.now() - inicio) / 1000).toFixed(1);
-  const islas = conIslas > 0 ? `, ${conIslas} con islas de React` : ", ninguna con JavaScript propio";
+  const islas = conIslas > 0 ? `, ${conIslas} con islas de React` : ", ninguna con islas de React";
   const donde = path.relative(raiz, salida);
   const carpeta = !donde || donde.startsWith("..") ? salida : `${donde}/`;
   const extra = viejas.length > 0 ? ` y ${viejas.length} redirecciones desde direcciones viejas` : "";

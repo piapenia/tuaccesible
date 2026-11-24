@@ -124,7 +124,7 @@ npx pa11y-ci --config .pa11yci-axe.cjs
     - `Isla.jsx`: marca una parte interactiva (ver "Partes interactivas: las islas").
   - `islas/`: los componentes interactivos y su lista, `registro.js`. Hoy tiene una: `analizador/`, el servicio de testing.
   - `estilos/`: la hoja de estilos, en tres archivos.
-    - `global.css`: los colores (con el modo oscuro y el alto contraste), las fuentes, la escala de tamaños y lo que vale para todo el sitio, como el foco y los enlaces.
+    - `global.css`: los colores (con el modo oscuro, el alto contraste y lo que se elige en las preferencias de visualización), las fuentes, la escala de tamaños y lo que vale para todo el sitio, como el foco y los enlaces.
     - `componentes.css`: el estilo de cada componente de `componentes/`, en un bloque con su nombre.
     - `sitio.css`: junta los dos con Tailwind y es la que compila Vite. Los ordena en capas: `componentes.css` le gana a `global.css`, y una clase de Tailwind escrita en una página les gana a los dos, sin pelear por especificidad. Una clase de Tailwind escrita en cualquier archivo de `src/` (`grid`, `md:flex`, `text-brand`) genera su CSS sola al compilar.
   - `api/`: el cliente que habla con el backend del servicio de testing.
@@ -136,7 +136,7 @@ npx pa11y-ci --config .pa11yci-axe.cjs
   - `renderizar.jsx`: convierte cada página en un documento HTML y arma el sitemap y el robots.txt.
   - `cliente.jsx`: el JavaScript que llega al navegador en las páginas con islas.
   - `utilidades/`: dos funciones chicas, una que escapa texto para el HTML y otra que escribe los datos para buscadores.
-- `public/`: se copia tal cual al sitio publicado: `img/`, `js/lang.js` (el aviso de idioma), `js/count.js` (GoatCounter), `CNAME` y `.well-known/security.txt`.
+- `public/`: se copia tal cual al sitio publicado: `img/`, `js/lang.js` (el aviso de idioma), `js/visualizacion.js` (las preferencias de visualización), `js/count.js` (GoatCounter), `CNAME` y `.well-known/security.txt`.
 - `scripts/`: `construir.js` (lo que corre `npm run build`) y `desarrollo.js` (lo que corre `npm run dev`).
 - `tools/`: el verificador de contraste y el generador de tarjetas sociales.
 - `docs/`: `contrato-api.md`, el contrato propuesto con el backend.
@@ -276,7 +276,7 @@ Cómo probar la versión compilada contra el backend local, los pedidos que exis
 
 ## Cómo se publica
 
-Cada push a la rama `master` dispara `.github/workflows/deploy.yml`. En orden: instala con `npm ci`, corre las pruebas, el control de contraste, la compilación y `pa11y-ci` en las 25 direcciones de `.pa11yci.json`, dos veces: con HTML_CodeSniffer en WCAG 2 nivel AAA y con axe-core, que suma WCAG 2.2. Si todo pasa, publica `dist/` en tuaccesible.com. Si algo falla, no se publica nada. Para proponer un cambio sin publicarlo, trabaja en una rama propia y abre un pull request.
+Cada push a la rama `master` dispara `.github/workflows/deploy.yml`. En orden: instala con `npm ci`, corre las pruebas, el control de contraste, la compilación y `pa11y-ci` en las 31 direcciones de `.pa11yci.json`, dos veces: con HTML_CodeSniffer en WCAG 2 nivel AAA y con axe-core, que suma WCAG 2.2. Si todo pasa, publica `dist/` en tuaccesible.com. Si algo falla, no se publica nada. Para proponer un cambio sin publicarlo, trabaja en una rama propia y abre un pull request.
 
 En `deploy.yml`, `upload-pages-artifact` lleva `include-hidden-files: true`. No quites esa línea: sin ella, desde la versión 4 de esa acción, el sitio deja de publicar `.well-known/security.txt`. Cuando Dependabot proponga una versión nueva de la acción, comprueba después de publicar que `https://tuaccesible.com/.well-known/security.txt` siga respondiendo.
 

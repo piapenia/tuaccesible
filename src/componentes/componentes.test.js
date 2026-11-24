@@ -24,7 +24,7 @@ before(async () => {
     server: { middlewareMode: true, hmr: false, watch: null },
     optimizeDeps: { noDiscovery: true, include: [] },
   });
-  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Credenciales", "Encabezado", "PieDePagina", "Indice", "Sitio"]) {
+  for (const nombre of ["Icono", "Boton", "Tarjetas", "Campo", "Aviso", "Desplegable", "Seccion", "Banda", "Credenciales", "Encabezado", "PieDePagina", "Indice", "Sitio", "PreferenciasVisualizacion"]) {
     Object.assign(m, await vite.ssrLoadModule(`/src/componentes/${nombre}.jsx`));
   }
   iconos = await import("lucide-react");
@@ -159,8 +159,12 @@ test("Encabezado: la franja de atajos va primero y el aviso de idioma queda dent
   const html = dibujar(h(m.Encabezado, { idioma: "en", ruta: "/en/services/", rutaAlternativa: "/servicios/" }));
   assert.match(
     html,
-    /^<header class="site-header"><div class="atajos"><div class="wrap atajos__fila"><a href="#contenido-principal">Skip to main content<\/a> <a href="#pie">Skip to footer<\/a> <div class="atajos__ajustes"><a class="lang-switch"/
+    /^<header class="site-header"><div class="atajos"><div class="wrap atajos__fila"><a href="#contenido-principal">Skip to main content<\/a> <a href="#pie">Skip to footer<\/a> <div class="atajos__ajustes"><a class="atajos__preferencias" href="\/en\/preferences\/"><svg[^>]*class="lucide lucide-sliders-horizontal icono"[^>]*aria-hidden="true"[^>]*>.*?<\/svg>Display preferences<\/a> <a class="lang-switch"/
   );
+  // Fuera de la pagina de preferencias, el enlace no es la pagina actual.
+  assert.doesNotMatch(html, /class="atajos__preferencias"[^>]*aria-current/);
+  const enPreferencias = dibujar(h(m.Encabezado, { idioma: "es", ruta: "/preferencias/", rutaAlternativa: "/en/preferences/" }));
+  assert.match(enPreferencias, /<a class="atajos__preferencias" href="\/preferencias\/" aria-current="page"><svg[^>]*>.*?<\/svg>Preferencias de visualización<\/a>/);
   // El aviso va despues de la franja, todavia dentro de la cabecera.
   assert.ok(html.indexOf('id="lang-banner"') > html.indexOf('class="atajos__ajustes"'));
   assert.match(html, /<\/header>$/);
@@ -198,6 +202,49 @@ test("PieDePagina: Volver arriba es un enlace al body y lo ultimo del pie", () =
       new RegExp(`<a class="volver-arriba" href="#arriba"><svg[^>]*class="lucide lucide-arrow-up icono"[^>]*aria-hidden="true"[^>]*>.*</svg>${texto}</a></div></footer>$`)
     );
   }
+  assert.match(dibujar(h(m.PieDePagina, { idioma: "es" })), /<p class="footer-links">.*<a href="\/preferencias\/">Preferencias de visualización<\/a><\/p>/);
+  assert.match(dibujar(h(m.PieDePagina, { idioma: "en" })), /<p class="footer-links">.*<a href="\/en\/preferences\/">Display preferences<\/a><\/p>/);
+});
+
+/* Los nombres y valores que admite public/js/visualizacion.js. Si alguien
+   agrega una opcion en el componente y no en el script (o al reves), la
+   opcion no haria nada: esta prueba lo dice. */
+test("PreferenciasVisualizacion: controles nativos ocultos hasta que el script los muestra", async () => {
+  const fs = await import("node:fs");
+  const script = fs.readFileSync(path.join(raiz, "public", "js", "visualizacion.js"), "utf8");
+  const bloque = script.match(/var VALORES = (\{[^}]*\});/);
+  assert.ok(bloque, "visualizacion.js define VALORES");
+  const VALORES = Function(`return ${bloque[1]}`)();
+  const SIN_ATRIBUTO = { tema: "sistema", contraste: "sistema", texto: "normal", grises: "no" };
+
+  for (const idioma of ["es", "en"]) {
+    const html = dibujar(h(m.PreferenciasVisualizacion, { idioma }));
+    // Oculto con hidden y sin rol inventado: sin JavaScript no se ve.
+    assert.match(html, /^<div id="preferencias-visualizacion" class="preferencias" hidden="">/);
+    assert.doesNotMatch(html, /role=|aria-hidden="false"|tabindex/);
+    // Un grupo con leyenda por atributo, en el orden del script.
+    const grupos = [...html.matchAll(/<fieldset class="preferencias__grupo"><legend class="preferencias__leyenda">[^<]+<\/legend>(.*?)<\/fieldset>/g)];
+    assert.equal(grupos.length, 4, "cuatro grupos");
+    const nombres = [];
+    for (const [, contenido] of grupos) {
+      const radios = [...contenido.matchAll(/<label class="preferencias__opcion" for="([^"]+)"><input type="radio" id="([^"]+)" name="([^"]+)" value="([^"]+)"\/>[^<]+<\/label>/g)];
+      assert.ok(radios.length >= 2, "cada grupo tiene al menos dos opciones");
+      const nombre = radios[0][3];
+      nombres.push(nombre);
+      const valores = radios.map((r) => {
+        assert.equal(r[1], r[2], "la etiqueta apunta a su boton");
+        assert.equal(r[3], nombre, "un solo name por grupo");
+        return r[4];
+      });
+      // La primera opcion es "sin atributo"; las demas, las del script.
+      assert.deepEqual(valores, [SIN_ATRIBUTO[nombre], ...VALORES[nombre]]);
+    }
+    assert.deepEqual(nombres, Object.keys(VALORES));
+    // Los mensajes estan en el HTML, en el idioma de la pagina.
+    assert.match(html, /<button type="button" class="boton boton--secundario" id="preferencias-restablecer">[^<]+<\/button>/);
+    assert.match(html, /<output id="preferencias-estado" class="preferencias__estado" data-guardado="[^"]+" data-sin-guardar="[^"]+" data-restablecido="[^"]+"><\/output><\/div><\/div>$/);
+  }
+  assert.throws(() => dibujar(h(m.PreferenciasVisualizacion, { idioma: "pt" })), /idioma/);
 });
 
 test("Documento: el body es el destino de Volver arriba", async () => {
@@ -206,6 +253,17 @@ test("Documento: el body es el destino de Volver arriba", async () => {
   const html = documentoHtml({ pagina, cuerpoHtml: "<main></main>", desarrollo: false, hojaDeEstilos: "/estilos.css" });
   assert.equal(html.match(/<body[^>]*>/g).join(), '<body id="arriba">');
   assert.equal(html.match(/id="arriba"/g).length, 1);
+});
+
+test("Documento: las preferencias de visualizacion se aplican antes de la primera pintada", async () => {
+  const { documentoHtml } = await vite.ssrLoadModule("/src/documento.js");
+  const pagina = { idioma: "es", titulo: "Inicio", descripcion: "x", ruta: "/", rutaAlternativa: "/en/" };
+  const html = documentoHtml({ pagina, cuerpoHtml: "<main></main>", desarrollo: false, hojaDeEstilos: "/estilos.css" });
+  const cabeza = html.slice(html.indexOf("<head>"), html.indexOf("</head>"));
+  // En el head, sin defer ni async, y antes de la hoja de estilos.
+  assert.match(cabeza, /<script src="\/js\/visualizacion\.js"><\/script>/);
+  assert.ok(cabeza.indexOf("/js/visualizacion.js") < cabeza.indexOf('rel="stylesheet"'));
+  assert.equal(html.match(/visualizacion\.js/g).length, 1);
 });
 
 test("Indice: nav con el nombre del titulo visible y un enlace por entrada", () => {
@@ -229,6 +287,19 @@ const PAGINAS_CON_INDICE = [
   "normativa-legal", "en/legal-requirements",
   "nuestros-auditores", "en/our-auditors",
 ];
+
+test("Paginas de preferencias: un h1, los controles y el aviso sin JavaScript", async () => {
+  for (const [nombre, idioma, privacidad] of [["preferencias", "es", "/privacidad/#en-tu-navegador"], ["en/preferences", "en", "/en/privacy/#in-your-browser"]]) {
+    const modulo = await vite.ssrLoadModule(`/src/paginas/${nombre}.jsx`);
+    assert.equal(modulo.pagina.idioma, idioma);
+    const html = dibujar(h(modulo.default));
+    assert.equal(html.match(/<h1>/g).length, 1);
+    assert.equal(html.match(/id="preferencias-visualizacion"/g).length, 1);
+    assert.match(html, /<noscript><p>[^<]+<\/p><\/noscript>/);
+    assert.ok(html.indexOf("<noscript>") < html.indexOf('id="preferencias-visualizacion"'), "el aviso va antes de los controles");
+    assert.match(html, new RegExp(`<a href="${privacidad}">`));
+  }
+});
 
 const textoPlano = (html) =>
   html

@@ -91,6 +91,11 @@ export function documentoHtml({ pagina, cuerpoHtml, desarrollo, origenApi, hojaD
     `  <meta property="og:image:alt" content="${escapar(altImagenSocial)}">`,
     '  <meta name="twitter:card" content="summary_large_image">',
     "",
+    /* Preferencias de visualizacion (public/js/visualizacion.js). Va sin
+       defer y antes de la hoja de estilos: pone los atributos en <html>
+       antes de la primera pintada, asi la pagina no aparece un instante con
+       otros colores y despues cambia. */
+    '  <script src="/js/visualizacion.js"></script>',
     `  <link rel="stylesheet" href="${escapar(hojaDeEstilos)}">`,
     "",
     '  <script type="application/ld+json">',
